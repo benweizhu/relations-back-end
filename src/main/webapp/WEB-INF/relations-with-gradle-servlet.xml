@@ -22,13 +22,18 @@
 
     <bean id="contentNegotiationManager"
           class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
-        <property name="favorPathExtension" value="false" />
-        <property name="favorParameter" value="false" />
-        <property name="defaultContentType" value="text/html" />
+        <property name="favorPathExtension" value="false"/>
+        <property name="favorParameter" value="false"/>
+        <property name="defaultContentType" value="text/html"/>
     </bean>
 
-    <bean id="messageSource" class="me.zeph.relations.messages.KeysResourceBundleMessageSource">
-        <property name="basename" value="AGCU_EX22" />
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>AGCU_EX22</value>
+                <value>AGCU211</value>
+            </list>
+        </property>
     </bean>
 
 </beans>
