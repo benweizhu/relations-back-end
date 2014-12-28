@@ -1,6 +1,6 @@
 package me.zeph.relations.controller;
 
-import me.zeph.relations.model.PI;
+import me.zeph.relations.model.PIValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,13 +14,13 @@ public class PiController {
 
 	@RequestMapping(value = "parents", produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public PI getParentsPi() {
-		return new PI();
+	public PIValue getParentsPi() {
+		return new PIValue();
 	}
 
 	@RequestMapping(value = "oneparent", produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public PI getOneParentPi() {
-		return new PI();
+	public PIValue getOneParentPi() {
+		return new PIValue();
 	}
 }
