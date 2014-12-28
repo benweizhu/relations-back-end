@@ -1,20 +1,18 @@
 package me.zeph.relations.service;
 
-import me.zeph.relations.constants.DataBase;
 import me.zeph.relations.model.LocusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import static java.util.Locale.getDefault;
-import static me.zeph.relations.constants.DataBase.AGCU_EX_22;
 import static org.springframework.util.StringUtils.commaDelimitedListToStringArray;
 
 @Service
 public class LocusService {
 
 	@Autowired
-	private ApplicationContext applicationContext;
+	private ApplicationContext context;
 
 	private LocusCode locusCode;
 
@@ -22,14 +20,14 @@ public class LocusService {
 		locusCode = new LocusCode();
 	}
 
-	public LocusService(ApplicationContext applicationContext) {
-		this.applicationContext = applicationContext;
+	public LocusService(ApplicationContext context) {
+		this.context = context;
 		locusCode = new LocusCode();
 	}
 
 	public LocusCode getLocusCode(String kit) {
 		if (isLocusEmpty()) {
-			locusCode.addCodes(translateLocus(applicationContext.getMessage(kit, null, getDefault())));
+			locusCode.addCodes(translateLocus(context.getMessage(kit, null, getDefault())));
 		}
 		return locusCode;
 	}

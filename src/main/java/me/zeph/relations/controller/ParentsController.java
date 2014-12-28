@@ -12,5 +12,4 @@ public class ParentsController {
 	public String view() {
 		return "parents";
 	}
-
 }

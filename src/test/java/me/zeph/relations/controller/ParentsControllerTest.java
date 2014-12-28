@@ -3,7 +3,7 @@ package me.zeph.relations.controller;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class ParentsControllerTest {
 	@Test
