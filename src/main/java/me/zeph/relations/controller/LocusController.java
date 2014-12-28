@@ -24,11 +24,6 @@ public class LocusController {
 		this.locusService = locusService;
 	}
 
-	@RequestMapping
-	public String view() {
-		return "index";
-	}
-
 	@RequestMapping(produces = {APPLICATION_JSON_VALUE})
 	@ResponseBody
 	public LocusCode getLocusCode() {

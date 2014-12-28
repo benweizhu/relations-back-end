@@ -39,6 +39,7 @@ watch {
     }
     resources {
         files fileTree(dir: 'src/main/resources', include: '**/*.xml')
+        files fileTree(dir: 'src/main/resources', include: '**/*.properties')
         tasks 'processResources'
     }
 }
