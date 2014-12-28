@@ -1,6 +1,8 @@
 package me.zeph.relations.controller;
 
 import me.zeph.relations.model.LocusCode;
+import me.zeph.relations.service.LocusService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,6 +14,16 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RequestMapping(value = "locus", method = GET)
 public class LocusController {
 
+	@Autowired
+	public LocusService locusService;
+
+	public LocusController() {
+	}
+
+	public LocusController(LocusService locusService) {
+		this.locusService = locusService;
+	}
+
 	@RequestMapping
 	public String view() {
 		return "index";
@@ -20,7 +32,6 @@ public class LocusController {
 	@RequestMapping(produces = {APPLICATION_JSON_VALUE})
 	@ResponseBody
 	public LocusCode getLocusCode() {
-		LocusCode locusCode = new LocusCode();
-		return locusCode;
+		return locusService.getLocusCode();
 	}
 }

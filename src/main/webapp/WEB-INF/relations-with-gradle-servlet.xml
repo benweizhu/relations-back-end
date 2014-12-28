@@ -27,4 +27,8 @@
         <property name="defaultContentType" value="text/html" />
     </bean>
 
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="database" />
+    </bean>
+
 </beans>

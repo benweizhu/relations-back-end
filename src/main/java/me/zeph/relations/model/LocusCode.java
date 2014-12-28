@@ -1,14 +1,23 @@
 package me.zeph.relations.model;
 
+import java.util.List;
+
+import static com.google.common.collect.Lists.newArrayList;
+
 public class LocusCode {
 
-	private String[] codes;
+	private List<String> codes = newArrayList();
 
-	public String[] getCodes() {
+	public void setCodes(List<String> codes) {
+		this.codes = codes;
+	}
+
+	public List<String> getCodes() {
 		return codes;
 	}
 
-	public void setCodes(String[] codes) {
-		this.codes = codes;
+	public void addCode(String code) {
+		codes.add(code);
 	}
+
 }
