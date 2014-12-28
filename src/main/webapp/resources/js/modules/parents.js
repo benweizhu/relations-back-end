@@ -10,7 +10,6 @@ angular.module('parentsApp', [])
                 return pi;
             }
         }
-
     })
     .controller('parentsController', function ($scope, parentsService) {
         $scope.locuses = [];
