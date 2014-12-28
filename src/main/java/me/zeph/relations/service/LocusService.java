@@ -29,8 +29,7 @@ public class LocusService {
 
 	public LocusCode getLocusCode(String kit) {
 		if (isLocusEmpty()) {
-			String message = applicationContext.getMessage(kit, null, getDefault());
-			locusCode.addCodes(translateLocus(message));
+			locusCode.addCodes(translateLocus(applicationContext.getMessage(kit, null, getDefault())));
 		}
 		return locusCode;
 	}
