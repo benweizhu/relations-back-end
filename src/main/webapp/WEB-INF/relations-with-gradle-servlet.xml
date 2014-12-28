@@ -28,7 +28,7 @@
     </bean>
 
     <bean id="messageSource" class="me.zeph.relations.messages.KeysResourceBundleMessageSource">
-        <property name="basename" value="database" />
+        <property name="basename" value="AGCU_EX22" />
     </bean>
 
 </beans>
