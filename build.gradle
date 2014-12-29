@@ -15,6 +15,7 @@ dependencies{
     compile 'org.slf4j:slf4j-api:1.7.5'
     compile 'com.google.guava:guava:18.0'
     testCompile 'junit:junit:4.11'
+    testCompile 'org.springframework:spring-test:3.2.5.RELEASE'
 }
 
 jettyRun {

@@ -34,7 +34,7 @@ public class WebContextConfiguration {
 	}
 
 	@Bean
-	public ResourceBundleMessageSource resourceBundleMessageSource() {
+	public ResourceBundleMessageSource messageSource() {
 		ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
 		resourceBundleMessageSource.setBasenames("AGCU_EX22", "AGCU211");
 		return resourceBundleMessageSource;
