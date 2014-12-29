@@ -9,6 +9,11 @@ page at http://checkstyle.sourceforge.net/config.html -->
 
 <module name="Checker">
 
+  <module name="FileLength">
+    <property name="max" value="200"/>
+    <property name="fileExtensions" value="{java}"/>
+  </module>
+
   <module name="RegexpSingleline">
     <!-- Checks that FIXME is not used in comments.  TODO is preferred.
     -->
@@ -127,10 +132,6 @@ page at http://checkstyle.sourceforge.net/config.html -->
     LENGTH and CODING CHECKS
 
     -->
-
-    <module name="FileLength">
-          <property name="max" value="200"/>
-    </module>
 
     <module name="LineLength">
       <!-- Checks if a line is too long. -->
