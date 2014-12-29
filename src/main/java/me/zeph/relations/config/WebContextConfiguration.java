@@ -14,7 +14,7 @@ import static org.springframework.http.MediaType.TEXT_HTML;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "me.zeph.relations")
-public class WebConfig {
+public class WebContextConfiguration {
 	@Bean
 	public InternalResourceViewResolver internalResourceViewResolver() {
 		InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
