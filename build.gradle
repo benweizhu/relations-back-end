@@ -16,6 +16,9 @@ dependencies{
     compile 'com.google.guava:guava:18.0'
     testCompile 'junit:junit:4.11'
     testCompile 'org.springframework:spring-test:3.2.5.RELEASE'
+    testCompile 'javax.servlet:servlet-api:2.5'
+    testCompile 'com.jayway.jsonpath:json-path:0.9.1'
+    testCompile 'com.jayway.jsonpath:json-path-assert:0.9.1'
 }
 
 jettyRun {
