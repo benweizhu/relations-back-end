@@ -38,6 +38,7 @@ page at http://checkstyle.sourceforge.net/config.html -->
       <property name="severity" value="error"/>
     </module>
 
+    <module name="UnusedImports"/>
 
     <!-- Item 38 - Adhere to generally accepted naming conventions -->
 
@@ -126,6 +127,10 @@ page at http://checkstyle.sourceforge.net/config.html -->
     LENGTH and CODING CHECKS
 
     -->
+
+    <module name="FileLength">
+          <property name="max" value="200"/>
+    </module>
 
     <module name="LineLength">
       <!-- Checks if a line is too long. -->
