@@ -20,4 +20,24 @@ public class LocusCode {
 		this.codes = newArrayList(codes);
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+
+		LocusCode locusCode = (LocusCode) o;
+
+		return codes.equals(locusCode.codes);
+
+	}
+
+	@Override
+	public int hashCode() {
+		return codes.hashCode();
+	}
 }
