@@ -1,5 +1,6 @@
 package me.zeph.relations.service;
 
+import me.zeph.relations.dao.AlleleValueDao;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 

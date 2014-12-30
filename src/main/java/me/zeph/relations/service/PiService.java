@@ -1,5 +1,6 @@
 package me.zeph.relations.service;
 
+import me.zeph.relations.dao.AlleleValueDao;
 import me.zeph.relations.model.OneParentReqParam;
 import me.zeph.relations.model.ParentsReqParam;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package me.zeph.relations.service;
+package me.zeph.relations.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
