@@ -3,6 +3,8 @@ package me.zeph.relations.controller;
 import me.zeph.relations.model.OneParentReqParam;
 import me.zeph.relations.model.PIValue;
 import me.zeph.relations.model.ParentsReqParam;
+import me.zeph.relations.service.PiService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,15 +17,27 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequestMapping(value = "/getpi", method = POST)
 public class PiController {
 
+	@Autowired
+	private PiService piService;
+
+	public PiController() {
+	}
+
+	public PiController(PiService piService) {
+		this.piService = piService;
+	}
+
 	@RequestMapping(value = "/parents", produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public PIValue getParentsPi(@RequestBody ParentsReqParam reqParam) {
-		return new PIValue();
+		return new PIValue(piService.calculate(reqParam.getAf1(), reqParam.getAf2(),
+				reqParam.getM1(), reqParam.getM2(), reqParam.getC1(), reqParam.getC2()));
 	}
 
 	@RequestMapping(value = "/oneparent", produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public PIValue getOneParentPi(@RequestBody OneParentReqParam reqParam) {
-		return new PIValue();
+		return new PIValue(piService.calculate(reqParam.getAf1(), reqParam.getAf2(),
+				reqParam.getC1(), reqParam.getC2()));
 	}
 }

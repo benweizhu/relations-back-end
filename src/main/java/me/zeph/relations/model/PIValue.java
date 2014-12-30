@@ -4,6 +4,10 @@ public class PIValue {
 
 	private float value;
 
+	public PIValue(float value) {
+		this.value = value;
+	}
+
 	public float getValue() {
 		return value;
 	}
