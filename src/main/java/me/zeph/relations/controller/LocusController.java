@@ -13,7 +13,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
-@RequestMapping(value = "locus", method = GET)
+@RequestMapping(value = "/locus", method = GET)
 public class LocusController {
 
 	@Autowired
