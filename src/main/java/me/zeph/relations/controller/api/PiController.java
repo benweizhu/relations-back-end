@@ -1,4 +1,4 @@
-package me.zeph.relations.controller;
+package me.zeph.relations.controller.api;
 
 import me.zeph.relations.model.OneParentReqParam;
 import me.zeph.relations.model.PIValue;

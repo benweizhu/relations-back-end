@@ -1,5 +1,6 @@
 package me.zeph.relations.controller;
 
+import me.zeph.relations.controller.web.ParentsController;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
