@@ -1,15 +1,28 @@
 package me.zeph.relations.service;
 
+import me.zeph.relations.model.OneParentReqParam;
+import me.zeph.relations.model.ParentsReqParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PiService {
 
-	public float calculate(float af1, float af2, float m1, float m2) {
+	@Autowired
+	private AlleleValueService alleleValueService;
+
+	public PiService() {
+	}
+
+	public PiService(AlleleValueService alleleValueService) {
+		this.alleleValueService = alleleValueService;
+	}
+
+	public float calculateParentsPi(ParentsReqParam reqParam) {
 		return 0;
 	}
 
-	public float calculate(float af1, float af2, float m1, float m2, float c1, float c2) {
+	public float calculateOneParentPi(OneParentReqParam reqParam) {
 		return 0;
 	}
 }

@@ -1,6 +1,6 @@
 package me.zeph.relations.model;
 
-public class OneParentReqParam {
+public class OneParentReqParam extends ReqParam{
 
 	private float af1;
 	private float af2;

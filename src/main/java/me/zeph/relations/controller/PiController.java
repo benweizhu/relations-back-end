@@ -30,14 +30,12 @@ public class PiController {
 	@RequestMapping(value = "/parents", produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public PIValue getParentsPi(@RequestBody ParentsReqParam reqParam) {
-		return new PIValue(piService.calculate(reqParam.getAf1(), reqParam.getAf2(),
-				reqParam.getM1(), reqParam.getM2(), reqParam.getC1(), reqParam.getC2()));
+		return new PIValue(piService.calculateParentsPi(reqParam));
 	}
 
 	@RequestMapping(value = "/oneparent", produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public PIValue getOneParentPi(@RequestBody OneParentReqParam reqParam) {
-		return new PIValue(piService.calculate(reqParam.getAf1(), reqParam.getAf2(),
-				reqParam.getC1(), reqParam.getC2()));
+		return new PIValue(piService.calculateOneParentPi(reqParam));
 	}
 }
