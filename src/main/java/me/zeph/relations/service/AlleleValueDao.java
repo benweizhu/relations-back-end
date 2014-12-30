@@ -8,15 +8,15 @@ import static java.lang.Float.valueOf;
 import static java.util.Locale.getDefault;
 
 @Service
-public class AlleleValueService {
+public class AlleleValueDao {
 
 	@Autowired
 	private ApplicationContext applicationContext;
 
-	public AlleleValueService() {
+	public AlleleValueDao() {
 	}
 
-	public AlleleValueService(ApplicationContext applicationContext) {
+	public AlleleValueDao(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
 	}
 

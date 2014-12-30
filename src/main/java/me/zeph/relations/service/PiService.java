@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 public class PiService {
 
 	@Autowired
-	private AlleleValueService alleleValueService;
+	private AlleleValueDao alleleValueDao;
 
 	public PiService() {
 	}
 
-	public PiService(AlleleValueService alleleValueService) {
-		this.alleleValueService = alleleValueService;
+	public PiService(AlleleValueDao alleleValueDao) {
+		this.alleleValueDao = alleleValueDao;
 	}
 
 	public float calculateParentsPi(ParentsReqParam reqParam) {
