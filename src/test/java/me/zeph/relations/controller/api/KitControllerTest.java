@@ -1,4 +1,4 @@
-package me.zeph.relations.controller;
+package me.zeph.relations.controller.api;
 
 import me.zeph.relations.config.WebContextConfiguration;
 import org.junit.Before;
@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebContextConfiguration.class)
 @WebAppConfiguration
-public class LocusControllerTest {
+public class KitControllerTest {
 
 	private MockMvc mockMvc;
 
@@ -34,12 +34,12 @@ public class LocusControllerTest {
 	}
 
 	@Test
-	public void shouldReturnLocusCodes() throws Exception {
-		mockMvc.perform(get("/locus?kit=AGCU_EX22")
+	public void shouldReturnKits() throws Exception {
+		mockMvc.perform(get("/kits")
 				.accept(APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(APPLICATION_JSON))
-				.andExpect(jsonPath("$.codes", hasSize(21)))
-				.andExpect(jsonPath("$.codes[0]", is("D3S1358")));
+				.andExpect(jsonPath("$.kits", hasSize(2)))
+				.andExpect(jsonPath("$.kits[0]", is("AGCU211")));
 	}
 }
