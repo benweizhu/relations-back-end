@@ -3,10 +3,12 @@
 <head>
     <title>parents</title>
     <script src="resources/js/angularjs/angular.min.js"></script>
+    <script src="resources/js/modules/kit.js"></script>
     <script src="resources/js/modules/parents.js"></script>
 </head>
 <body ng-app="parentsApp">
 <div ng-controller="parentsController">
+    试剂盒: <select ng-model="code" ng-options="kit for kit in kits"></select>
     <table>
         <thead>
         <th>基因座</th>

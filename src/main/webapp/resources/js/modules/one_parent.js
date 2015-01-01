@@ -9,7 +9,7 @@ angular.module('oneParentApp', [])
                 var pi = null;
                 return pi;
             }
-        }
+        };
     })
     .controller('oneParentController', function ($scope, oneParentService) {
         $scope.locuses = [];
@@ -26,5 +26,5 @@ angular.module('oneParentApp', [])
                     pi: oneParentService.getPi()
                 }
             );
-        }
+        };
     });
