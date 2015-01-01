@@ -3,10 +3,10 @@
 <head>
     <title>parents</title>
     <script src="resources/js/angularjs/angular.min.js"></script>
-    <script src="resources/js/modules/parents.js"></script>
+    <script src="resources/js/modules/one_parent.js"></script>
 </head>
-<body ng-app="parentsApp">
-<div ng-controller="parentsController">
+<body ng-app="oneParentApp">
+<div ng-controller="oneParentController">
     <table>
         <thead>
         <th>基因座</th>

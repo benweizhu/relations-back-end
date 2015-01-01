@@ -1,6 +1,10 @@
 angular.module('oneParentApp', [])
     .factory('oneParentService', function () {
         return {
+            getLocusCodes: function () {
+                var locusCodes = ['just', 'put', 'something', 'here'];
+                return locusCodes;
+            },
             getPi: function () {
                 var pi = null;
                 return pi;
