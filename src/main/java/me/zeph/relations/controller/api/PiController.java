@@ -14,7 +14,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
-@RequestMapping(value = "/getpi", method = POST)
+@RequestMapping(value = "/pi", method = POST)
 public class PiController {
 
 	private PiService piService;
