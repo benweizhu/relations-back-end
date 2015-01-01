@@ -16,12 +16,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RequestMapping(value = "/locus", method = GET)
 public class LocusController {
 
-	@Autowired
 	public LocusService locusService;
 
-	public LocusController() {
-	}
-
+	@Autowired
 	public LocusController(LocusService locusService) {
 		this.locusService = locusService;
 	}

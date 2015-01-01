@@ -17,12 +17,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequestMapping(value = "/getpi", method = POST)
 public class PiController {
 
-	@Autowired
 	private PiService piService;
 
-	public PiController() {
-	}
-
+	@Autowired
 	public PiController(PiService piService) {
 		this.piService = piService;
 	}
