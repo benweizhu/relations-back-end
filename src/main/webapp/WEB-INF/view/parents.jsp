@@ -4,7 +4,7 @@
     <title>parents</title>
     <script src="resources/js/angularjs/angular.min.js"></script>
     <script src="resources/js/angularjs/angular-resource.min.js"></script>
-    <script src="resources/js/modules/kit.js"></script>
+    <script src="resources/js/modules/rest.js"></script>
     <script src="resources/js/modules/parents.js"></script>
 </head>
 <body ng-app="parentsApp">

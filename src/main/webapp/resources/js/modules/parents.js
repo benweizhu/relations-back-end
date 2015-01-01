@@ -1,4 +1,4 @@
-angular.module('parentsApp', ['kitApp'])
+angular.module('parentsApp', ['restApp'])
     .factory('parentsService', function () {
         return {
             getLocusCodes: function () {
@@ -11,9 +11,11 @@ angular.module('parentsApp', ['kitApp'])
             }
         };
     })
-    .controller('parentsController', function ($scope, parentsService, kitService) {
+    .controller('parentsController', function ($scope, parentsService, kitRest) {
         $scope.locuses = [];
-        $scope.kits = kitService.getKits();
+        kitRest.get({}, function (data) {
+            $scope.kits = data.kits;
+        });
         $scope.locusCodes = parentsService.getLocusCodes();
 
         $scope.add = function () {
