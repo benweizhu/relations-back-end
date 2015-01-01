@@ -1,30 +1,29 @@
-angular.module('oneParentApp', [])
-    .factory('oneParentService', function () {
-        return {
-            getLocusCodes: function () {
-                var locusCodes = ['just', 'put', 'something', 'here'];
-                return locusCodes;
-            },
-            getPi: function () {
-                var pi = null;
-                return pi;
-            }
-        };
-    })
-    .controller('oneParentController', function ($scope, oneParentService) {
+angular.module('oneParentApp', ['restApp'])
+    .controller('oneParentController', function ($scope, locusRest, kitRest, piRest) {
+
         $scope.locuses = [];
-        $scope.locusCodes = oneParentService.getLocusCodes();
+
+        kitRest.get({}, function (data) {
+            $scope.kits = data.kits;
+        });
+
+        $scope.selectKit = function () {
+            locusRest.get({kit: $scope.kit}, function (data) {
+                $scope.locusCodes = data.codes;
+            });
+        };
 
         $scope.add = function () {
-            $scope.locuses.push(
-                {
-                    code: $scope.code,
-                    af1: $scope.af1,
-                    af2: $scope.af2,
-                    c1: $scope.c1,
-                    c2: $scope.c2,
-                    pi: oneParentService.getPi()
-                }
-            );
+
+            var req = {kit: $scope.kit, locus: $scope.code, af1: $scope.af1, af2: $scope.af2,
+                c1: $scope.c1, c2: $scope.c2};
+
+            piRest.calculateOneParentPi(req, function (resp) {
+                console.log(resp.value);
+                $scope.locuses.push({code: $scope.code, af1: $scope.af1, af2: $scope.af2,
+                    c1: $scope.c1, c2: $scope.c2, pi: resp.value});
+            });
+
         };
+
     });

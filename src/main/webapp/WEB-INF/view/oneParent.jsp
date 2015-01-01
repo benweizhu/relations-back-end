@@ -3,10 +3,13 @@
 <head>
     <title>parents</title>
     <script src="resources/js/angularjs/angular.min.js"></script>
+    <script src="resources/js/angularjs/angular-resource.min.js"></script>
+    <script src="resources/js/modules/rest.js"></script>
     <script src="resources/js/modules/one_parent.js"></script>
 </head>
 <body ng-app="oneParentApp">
 <div ng-controller="oneParentController">
+    试剂盒: <select ng-model="kit" ng-options="kit for kit in kits" ng-change="selectKit()"></select>
     <table>
         <thead>
         <th>基因座</th>
