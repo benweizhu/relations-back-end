@@ -26,9 +26,7 @@ public class LocusService {
 	}
 
 	public LocusCode getLocusCode(String kit) {
-		if (isLocusEmpty()) {
-			locusCode.addCodes(translateLocus(context.getMessage(kit, null, getDefault())));
-		}
+		locusCode.addCodes(translateLocus(context.getMessage(kit, null, getDefault())));
 		return locusCode;
 	}
 
@@ -36,7 +34,4 @@ public class LocusService {
 		return commaDelimitedListToStringArray(locuses);
 	}
 
-	private boolean isLocusEmpty() {
-		return locusCode.getCodes() == null || locusCode.getCodes().isEmpty();
-	}
 }

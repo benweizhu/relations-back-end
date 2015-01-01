@@ -26,9 +26,7 @@ public class KitService {
 	}
 
 	public Kit getKits() {
-		if (isLocusEmpty()) {
-			kit.addKit(translateLocus(context.getMessage("kits", null, getDefault())));
-		}
+		kit.addKit(translateLocus(context.getMessage("kits", null, getDefault())));
 		return kit;
 	}
 
@@ -36,7 +34,4 @@ public class KitService {
 		return commaDelimitedListToStringArray(locuses);
 	}
 
-	private boolean isLocusEmpty() {
-		return kit.getKits() == null || kit.getKits().isEmpty();
-	}
 }

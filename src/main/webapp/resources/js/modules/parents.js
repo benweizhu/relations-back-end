@@ -11,12 +11,19 @@ angular.module('parentsApp', ['restApp'])
             }
         };
     })
-    .controller('parentsController', function ($scope, parentsService, kitRest) {
+    .controller('parentsController', function ($scope, locusRest, kitRest) {
         $scope.locuses = [];
         kitRest.get({}, function (data) {
             $scope.kits = data.kits;
         });
-        $scope.locusCodes = parentsService.getLocusCodes();
+
+        $scope.selectKit = function () {
+            console.log($scope.kit);
+            locusRest.get({kit: $scope.kit}, function (data) {
+                console.log(data.codes);
+                $scope.locusCodes = data.codes;
+            });
+        };
 
         $scope.add = function () {
             $scope.locuses.push(

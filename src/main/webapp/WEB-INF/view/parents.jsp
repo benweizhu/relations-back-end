@@ -9,7 +9,7 @@
 </head>
 <body ng-app="parentsApp">
 <div ng-controller="parentsController">
-    试剂盒: <select ng-model="kit" ng-options="kit for kit in kits"></select>
+    试剂盒: <select ng-model="kit" ng-options="kit for kit in kits" ng-change="selectKit()"></select>
     <table>
         <thead>
         <th>基因座</th>
