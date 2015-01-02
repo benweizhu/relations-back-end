@@ -1,7 +1,8 @@
-package me.zeph.relations.service.pi;
+package me.zeph.relations.service.pi.formula.oneparent;
 
 
 import me.zeph.relations.model.OneParentReqParam;
+import me.zeph.relations.service.pi.formula.Formula;
 
 public class OneInQFormula extends Formula {
 	@Override

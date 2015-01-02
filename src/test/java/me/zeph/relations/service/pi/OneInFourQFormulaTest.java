@@ -1,6 +1,7 @@
 package me.zeph.relations.service.pi;
 
 import me.zeph.relations.model.OneParentReqParam;
+import me.zeph.relations.service.pi.formula.oneparent.OneInFourQFormula;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
