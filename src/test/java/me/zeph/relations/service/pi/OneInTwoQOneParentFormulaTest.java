@@ -55,7 +55,7 @@ public class OneInTwoQOneParentFormulaTest extends FormulaTest {
 
 	@Test
 	public void shouldCalculateOneInTwoQ() {
-		OneInTwoQOneParentFormula oneInTwoQOneParentFormula = new OneInTwoQOneParentFormula();
+		OneInTwoQOneParentFormula formula = new OneInTwoQOneParentFormula();
 
 		OneParentReqParam reqParam = new OneParentReqParam();
 		reqParam.setC1(c1);
@@ -63,7 +63,7 @@ public class OneInTwoQOneParentFormulaTest extends FormulaTest {
 		reqParam.setAf1(af1);
 		reqParam.setAf2(af2);
 
-		double actualPi = oneInTwoQOneParentFormula.calculate(c1Value, c2Value, af1Value, af2Value, reqParam);
+		double actualPi = formula.calculate(c1Value, c2Value, af1Value, af2Value, reqParam);
 
 		assertEquals(expectedPi, actualPi, DELTA_8);
 	}
