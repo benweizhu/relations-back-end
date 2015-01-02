@@ -5,22 +5,20 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class OneInQFormulaTest {
-
-	public static final double DELTA_8 = 0.0000001;
+public class OneInQFormulaTest extends FormulaTest {
 
 	@Test
-	public void shouldCalculateOneInQ() {
+	public void shouldCalculateOneInQWhenInputIs_qq_qq() {
 		OneInQFormula oneInQFormula = new OneInQFormula();
 
 		OneParentReqParam reqParam = new OneParentReqParam();
-		reqParam.setAf1(1);
-		reqParam.setAf2(1);
-		reqParam.setC1(1);
-		reqParam.setC2(1);
+		reqParam.setAf1(15);
+		reqParam.setAf2(15);
+		reqParam.setC1(15);
+		reqParam.setC2(15);
 
-		float pi = oneInQFormula.calculate(0.0393f, 0.0393f, 0.0393f, 0.0393f, reqParam);
+		double pi = oneInQFormula.calculate(0.0393d, 0.0393d, 0.0393d, 0.0393d, reqParam);
 
-		assertEquals(25.4452934f, pi, DELTA_8);
+		assertEquals(25.4452926208651d, pi, DELTA_8);
 	}
 }

@@ -2,40 +2,40 @@ package me.zeph.relations.model;
 
 public class OneParentReqParam extends ReqParam{
 
-	private float af1;
-	private float af2;
-	private float c1;
-	private float c2;
+	private double af1;
+	private double af2;
+	private double c1;
+	private double c2;
 
-	public float getAf1() {
+	public double getAf1() {
 		return af1;
 	}
 
-	public void setAf1(float af1) {
+	public void setAf1(double af1) {
 		this.af1 = af1;
 	}
 
-	public float getAf2() {
+	public double getAf2() {
 		return af2;
 	}
 
-	public void setAf2(float af2) {
+	public void setAf2(double af2) {
 		this.af2 = af2;
 	}
 
-	public float getC1() {
+	public double getC1() {
 		return c1;
 	}
 
-	public void setC1(float c1) {
+	public void setC1(double c1) {
 		this.c1 = c1;
 	}
 
-	public float getC2() {
+	public double getC2() {
 		return c2;
 	}
 
-	public void setC2(float c2) {
+	public void setC2(double c2) {
 		this.c2 = c2;
 	}
 }

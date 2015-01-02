@@ -4,8 +4,8 @@ import me.zeph.relations.model.OneParentReqParam;
 
 public abstract class Formula {
 
-	public abstract float calculate(float af1Value, float af2Value, float c1Value, float c2Value,
-	                                OneParentReqParam reqParam);
+	public abstract double calculate(double c1Value, double c2Value, double af1Value, double af2Value,
+	                                 OneParentReqParam reqParam);
 
 	protected boolean af1EqualAf2(OneParentReqParam reqParam) {
 		return reqParam.getAf1() == reqParam.getAf2();
@@ -16,7 +16,7 @@ public abstract class Formula {
 	}
 
 	protected boolean c1EqualAf1(OneParentReqParam reqParam) {
-		return reqParam.getAf1() == reqParam.getC1();
+		return reqParam.getC1() == reqParam.getAf1();
 	}
 
 	protected boolean c1EqualAf2(OneParentReqParam reqParam) {
