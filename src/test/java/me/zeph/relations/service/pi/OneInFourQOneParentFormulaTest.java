@@ -1,22 +1,22 @@
 package me.zeph.relations.service.pi;
 
 import me.zeph.relations.model.OneParentReqParam;
-import me.zeph.relations.service.pi.formula.oneparent.OneInFourQFormula;
+import me.zeph.relations.service.pi.formula.oneparent.OneInFourQOneParentFormula;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class OneInFourQFormulaTest extends FormulaTest {
+public class OneInFourQOneParentFormulaTest extends FormulaTest {
 	@Test
 	public void shouldCalculateOneInFourQWhenInputIs_pq_qr() {
-		OneInFourQFormula oneInFourQFormula = new OneInFourQFormula();
+		OneInFourQOneParentFormula oneInFourQOneParentFormula = new OneInFourQOneParentFormula();
 		OneParentReqParam reqParam = new OneParentReqParam();
 		reqParam.setC1(14);
 		reqParam.setC2(15);
 		reqParam.setAf1(15);
 		reqParam.setAf2(16);
 
-		double pi = oneInFourQFormula.calculate(0.0393d, 0.3541d, 0.3541d, 0.341d, reqParam);
+		double pi = oneInFourQOneParentFormula.calculate(0.0393d, 0.3541d, 0.3541d, 0.341d, reqParam);
 
 		assertEquals(0.706015249929398d, pi, DELTA_8);
 	}

@@ -1,10 +1,10 @@
 package me.zeph.relations.config;
 
 import me.zeph.relations.service.pi.formula.OneParentFormula;
-import me.zeph.relations.service.pi.formula.oneparent.OneInFourQFormula;
-import me.zeph.relations.service.pi.formula.oneparent.OneInQFormula;
-import me.zeph.relations.service.pi.formula.oneparent.OneInTwoQFormula;
-import me.zeph.relations.service.pi.formula.oneparent.PPlusQInFourPQFormula;
+import me.zeph.relations.service.pi.formula.oneparent.OneInFourQOneParentFormula;
+import me.zeph.relations.service.pi.formula.oneparent.OneInQOneParentFormula;
+import me.zeph.relations.service.pi.formula.oneparent.OneInTwoQOneParentFormula;
+import me.zeph.relations.service.pi.formula.oneparent.PPlusQInFourPQOneParentFormula;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -56,21 +56,21 @@ public class WebContextConfiguration {
 
 	@Bean
 	public OneParentFormula oneInQFormula() {
-		return new OneInQFormula();
+		return new OneInQOneParentFormula();
 	}
 
 	@Bean
 	public OneParentFormula oneInTwoQFormula() {
-		return new OneInTwoQFormula();
+		return new OneInTwoQOneParentFormula();
 	}
 
 	@Bean
 	public OneParentFormula pPlusQInFourPQFormula() {
-		return new PPlusQInFourPQFormula();
+		return new PPlusQInFourPQOneParentFormula();
 	}
 
 	@Bean
 	public OneParentFormula oneInFourQFormula() {
-		return new OneInFourQFormula();
+		return new OneInFourQOneParentFormula();
 	}
 }
