@@ -18,8 +18,8 @@ public class OneInQFormulaTest extends FormulaTest {
 		reqParam.setC1(15);
 		reqParam.setC2(15);
 
-		double pi = oneInQFormula.calculate(0.0393d, 0.0393d, 0.0393d, 0.0393d, reqParam);
+		double pi = oneInQFormula.calculate(0.3541d, 0.3541d, 0.3541d, 0.3541d, reqParam);
 
-		assertEquals(25.4452926208651d, pi, DELTA_8);
+		assertEquals(2.82406099971759d, pi, DELTA_8);
 	}
 }

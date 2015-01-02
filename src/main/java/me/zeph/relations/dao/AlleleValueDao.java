@@ -3,28 +3,32 @@ package me.zeph.relations.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
-import static java.lang.Float.valueOf;
+import static java.lang.Double.valueOf;
 import static java.util.Locale.getDefault;
 
 @Service
 public class AlleleValueDao {
 
-	@Autowired
+	public static final String DOT_ZERO = ".0";
+
 	private ApplicationContext applicationContext;
 
-	public AlleleValueDao() {
-	}
-
+	@Autowired
 	public AlleleValueDao(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
 	}
 
-	public float getValue(String kit, String locus, float allele) {
+	public double getValue(String kit, String locus, double allele) {
 		return valueOf(applicationContext.getMessage(getAllele(kit, locus, allele), null, getDefault()));
 	}
 
-	private String getAllele(String kit, String locus, float allele) {
-		return kit + "." + locus + "." + allele;
+	private String getAllele(String kit, String locus, double allele) {
+		String kitLocusAllele = kit + "." + locus + ".a" + allele;
+		if (kitLocusAllele.endsWith(DOT_ZERO)) {
+			kitLocusAllele = StringUtils.delete(kitLocusAllele, DOT_ZERO);
+		}
+		return kitLocusAllele;
 	}
 }

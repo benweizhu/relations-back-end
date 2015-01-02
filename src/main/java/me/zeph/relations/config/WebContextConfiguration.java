@@ -1,5 +1,10 @@
 package me.zeph.relations.config;
 
+import me.zeph.relations.service.pi.formula.OneParentFormula;
+import me.zeph.relations.service.pi.formula.oneparent.OneInFourQFormula;
+import me.zeph.relations.service.pi.formula.oneparent.OneInQFormula;
+import me.zeph.relations.service.pi.formula.oneparent.OneInTwoQFormula;
+import me.zeph.relations.service.pi.formula.oneparent.PPlusQInFourPQFormula;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +14,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import java.util.List;
+
+import static com.google.common.collect.Lists.newArrayList;
 import static org.springframework.http.MediaType.TEXT_HTML;
 
 @Configuration
@@ -38,5 +46,31 @@ public class WebContextConfiguration {
 		ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
 		resourceBundleMessageSource.setBasenames("AGCU_EX22", "AGCU211", "Kits");
 		return resourceBundleMessageSource;
+	}
+
+	@Bean
+	public List<OneParentFormula> oneParentFormulas() {
+		return newArrayList(oneInQFormula(), oneInTwoQFormula(),
+				pPlusQInFourPQFormula(), oneInFourQFormula());
+	}
+
+	@Bean
+	public OneParentFormula oneInQFormula() {
+		return new OneInQFormula();
+	}
+
+	@Bean
+	public OneParentFormula oneInTwoQFormula() {
+		return new OneInTwoQFormula();
+	}
+
+	@Bean
+	public OneParentFormula pPlusQInFourPQFormula() {
+		return new PPlusQInFourPQFormula();
+	}
+
+	@Bean
+	public OneParentFormula oneInFourQFormula() {
+		return new OneInFourQFormula();
 	}
 }

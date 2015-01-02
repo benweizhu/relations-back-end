@@ -2,17 +2,17 @@ package me.zeph.relations.model;
 
 public class PIValue {
 
-	private float value;
+	private double value;
 
-	public PIValue(float value) {
+	public PIValue(double value) {
 		this.value = value;
 	}
 
-	public float getValue() {
+	public double getValue() {
 		return value;
 	}
 
-	public void setValue(float value) {
+	public void setValue(double value) {
 		this.value = value;
 	}
 }

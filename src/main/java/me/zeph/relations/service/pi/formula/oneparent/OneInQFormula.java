@@ -8,7 +8,7 @@ public class OneInQFormula extends OneParentFormula {
 	@Override
 	public double calculate(double c1Value, double c2Value, double af1Value, double af2Value,
 	                        OneParentReqParam reqParam) {
-		return isAllEquals(reqParam) ? (1 / c1Value) : 0;
+		return isAllEquals(reqParam) ? (1f / c1Value) : 0;
 	}
 
 	private boolean isAllEquals(OneParentReqParam reqParam) {
