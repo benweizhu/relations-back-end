@@ -4,9 +4,6 @@ import me.zeph.relations.model.OneParentReqParam;
 
 public abstract class Formula {
 
-	public abstract double calculate(double c1Value, double c2Value, double af1Value, double af2Value,
-	                                 OneParentReqParam reqParam);
-
 	protected boolean af1EqualAf2(OneParentReqParam reqParam) {
 		return reqParam.getAf1() == reqParam.getAf2();
 	}

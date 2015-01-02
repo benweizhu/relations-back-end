@@ -1,9 +1,9 @@
 package me.zeph.relations.service.pi.formula.oneparent;
 
 import me.zeph.relations.model.OneParentReqParam;
-import me.zeph.relations.service.pi.formula.Formula;
+import me.zeph.relations.service.pi.formula.OneParentFormula;
 
-public class OneInFourQFormula extends Formula {
+public class OneInFourQFormula extends OneParentFormula {
 	@Override
 	public double calculate(double c1Value, double c2Value, double af1Value, double af2Value,
 	                        OneParentReqParam reqParam) {
