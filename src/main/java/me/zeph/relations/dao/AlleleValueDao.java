@@ -11,7 +11,9 @@ import static java.util.Locale.getDefault;
 @Component
 public class AlleleValueDao {
 
-	public static final String DOT_ZERO = ".0";
+	private static final String DOT_ZERO = ".0";
+	private static final String DOT = ".";
+	private static final String A = "a";
 
 	private ApplicationContext applicationContext;
 
@@ -25,7 +27,7 @@ public class AlleleValueDao {
 	}
 
 	private String getAllele(String kit, String locus, double allele) {
-		String kitLocusAllele = kit + "." + locus + ".a" + allele;
+		String kitLocusAllele = kit + DOT + locus + DOT + A + allele;
 		if (kitLocusAllele.endsWith(DOT_ZERO)) {
 			kitLocusAllele = StringUtils.delete(kitLocusAllele, DOT_ZERO);
 		}
