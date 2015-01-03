@@ -1,7 +1,8 @@
-package me.zeph.relations.service;
+package me.zeph.relations.integration;
 
 import me.zeph.relations.config.WebContextConfiguration;
 import me.zeph.relations.model.OneParentReqParam;
+import me.zeph.relations.service.PiService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebContextConfiguration.class)
 @WebAppConfiguration
-public class PiServiceTest {
+public class PiServiceIntegrationTest {
 
 	private static final double DELTA_8 = 0.00000001;
 
