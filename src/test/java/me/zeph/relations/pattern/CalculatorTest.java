@@ -1,8 +1,6 @@
 package me.zeph.relations.pattern;
 
 import me.zeph.relations.config.WebContextConfiguration;
-import me.zeph.relations.dao.FormulaDao;
-import org.apache.commons.jexl2.JexlEngine;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class CalculatorTest {
 
 	@Autowired
-	private FormulaDao formulaDao;
-
-	@Autowired
-	private JexlEngine calculateEngine;
+	private Calculator calculator;
 
 	@Test
 	public void shouldFindFormulaByPattenAndCalculatePi() {
@@ -30,7 +25,6 @@ public class CalculatorTest {
 		Unit af1 = new Unit(14, 0.0393d);
 		Unit af2 = new Unit(15, 0.3541);
 		OneParentLocusRecord record = new OneParentLocusRecord(c1, c2, af1, af2);
-		Calculator calculator = new Calculator(formulaDao, calculateEngine);
 		double pi = calculator.calculatePi(record.getPattern(), record.getP(), record.getQ());
 		assertEquals(7.06733840514568d, pi, 0.0000001);
 	}
