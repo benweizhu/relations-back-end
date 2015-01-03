@@ -4,15 +4,15 @@ import org.springframework.util.StringUtils;
 
 public class OneParentLocusRecord {
 
-	private static final String DOT = ".";
-	private static final String P = "p";
-	private static final String Q = "q";
-	private static final String R = "r";
+	protected static final String DOT = ".";
+	protected static final String P = "p";
+	protected static final String Q = "q";
+	protected static final String R = "r";
 
-	private Unit c1;
-	private Unit c2;
-	private Unit af1;
-	private Unit af2;
+	protected Unit c1;
+	protected Unit c2;
+	protected Unit af1;
+	protected Unit af2;
 
 	public OneParentLocusRecord(Unit c1, Unit c2, Unit af1, Unit af2) {
 		this.c1 = c1;
@@ -26,15 +26,20 @@ public class OneParentLocusRecord {
 		return getC1C2() + DOT + getAF1AF2();
 	}
 
-	private String getAF1AF2() {
+	protected String getAF1AF2() {
 		return af1.getPattern() + af2.getPattern();
 	}
 
-	private String getC1C2() {
+	protected String getC1C2() {
 		return c1.getPattern() + c2.getPattern();
 	}
 
-	private void generatePattern() {
+	protected void generatePattern() {
+		generateCPattern();
+		generateAfPattern();
+	}
+
+	protected void generateCPattern() {
 		if (c1.getLocus() != c2.getLocus()) {
 			c1.setPattern(P);
 			c2.setPattern(Q);
@@ -43,7 +48,6 @@ public class OneParentLocusRecord {
 			c1.setPattern(Q);
 			c2.setPattern(Q);
 		}
-		generateAfPattern();
 	}
 
 	private void generateAfPattern() {
@@ -51,7 +55,7 @@ public class OneParentLocusRecord {
 		generatePattern(af2);
 	}
 
-	private void generatePattern(Unit af) {
+	protected void generatePattern(Unit af) {
 		if (af.getLocus() == c1.getLocus()) {
 			af.setPattern(c1.getPattern());
 		}
@@ -71,7 +75,7 @@ public class OneParentLocusRecord {
 		return get(Q);
 	}
 
-	private double get(String pattern) {
+	protected double get(String pattern) {
 		if (af1.getPattern().equals(pattern)) {
 			return af1.getValue();
 		}
