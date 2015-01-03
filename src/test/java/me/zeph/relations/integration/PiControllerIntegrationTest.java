@@ -25,6 +25,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 public class PiControllerIntegrationTest {
 
+	private static final String ONE_PARENT_URL = "/pi/oneparent";
+	private static final String KIT = "AGCU_EX22";
+	private static final String LOCUS = "D3S1358";
 	private MockMvc mockMvc;
 
 	@Autowired
@@ -41,13 +44,13 @@ public class PiControllerIntegrationTest {
 	@Test
 	public void shouldReturnPi() throws Exception {
 		OneParentReqParam param = new OneParentReqParam();
-		param.setKit("AGCU_EX22");
-		param.setLocus("D3S1358");
+		param.setKit(KIT);
+		param.setLocus(LOCUS);
 		param.setC1(14);
 		param.setC2(15);
 		param.setAf1(14);
 		param.setAf2(15);
-		mockMvc.perform(post("/pi/oneparent")
+		mockMvc.perform(post(ONE_PARENT_URL)
 				.contentType(APPLICATION_JSON)
 				.content(objectMapper.writeValueAsBytes(param)))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.value", is(7.067338405145683)));
