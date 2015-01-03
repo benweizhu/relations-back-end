@@ -1,4 +1,4 @@
-package me.zeph.relations.service;
+package me.zeph.relations.integration;
 
 import me.zeph.relations.config.WebContextConfiguration;
 import me.zeph.relations.dao.AlleleValueDao;
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebContextConfiguration.class)
 @WebAppConfiguration
-public class AlleleValueDaoTest {
+public class AlleleValueDaoIntegrationTest {
 
 	@Autowired
 	private AlleleValueDao alleleValueDao;
