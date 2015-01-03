@@ -47,11 +47,11 @@ public class OneParentLocusRecord {
 	}
 
 	private void generateAfPattern() {
-		generatePatten(af1);
-		generatePatten(af2);
+		generatePattern(af1);
+		generatePattern(af2);
 	}
 
-	private void generatePatten(Unit af) {
+	private void generatePattern(Unit af) {
 		if (af.getLocus() == c1.getLocus()) {
 			af.setPattern(c1.getPattern());
 		}
@@ -71,17 +71,17 @@ public class OneParentLocusRecord {
 		return get(Q);
 	}
 
-	private double get(String value) {
-		if (af1.getPattern().equals(value)) {
+	private double get(String pattern) {
+		if (af1.getPattern().equals(pattern)) {
 			return af1.getValue();
 		}
-		if (af2.getPattern().equals(value)) {
+		if (af2.getPattern().equals(pattern)) {
 			return af2.getValue();
 		}
-		if (c1.getPattern().equals(value)) {
+		if (c1.getPattern().equals(pattern)) {
 			return c1.getValue();
 		}
-		if (c2.getPattern().equals(value)) {
+		if (c2.getPattern().equals(pattern)) {
 			return c2.getValue();
 		}
 		return 0;

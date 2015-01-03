@@ -16,7 +16,7 @@ public class FormulaDao {
 		this.context = context;
 	}
 
-	public String getFormulaByPatten(String pattern) {
+	public String getFormulaByPattern(String pattern) {
 		return context.getMessage(pattern, null, getDefault());
 	}
 }

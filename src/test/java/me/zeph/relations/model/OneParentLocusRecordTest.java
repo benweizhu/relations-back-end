@@ -47,7 +47,7 @@ public class OneParentLocusRecordTest {
 	}
 
 	@Test
-	public void shouldReturnCorrectPatten() {
+	public void shouldReturnCorrectPattern() {
 		Unit c1Unit = new Unit(c1, 0);
 		Unit c2Unit = new Unit(c2, 0);
 		Unit af1Unit = new Unit(af1, 0);

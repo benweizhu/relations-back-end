@@ -22,8 +22,8 @@ public class Calculator {
 		this.calculateEngine = calculateEngine;
 	}
 
-	public double calculatePi(String patten, double p, double q) {
-		String formula = formulaDao.getFormulaByPatten(patten);
+	public double calculatePi(String pattern, double p, double q) {
+		String formula = formulaDao.getFormulaByPattern(pattern);
 		Expression expression = calculateEngine.createExpression(formula);
 		JexlContext context = setUpContext(p, q);
 		return ((Double) expression.evaluate(context)).doubleValue();

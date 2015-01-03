@@ -85,7 +85,7 @@ public class CalculatorIntegrationTest {
 	}
 
 	@Test
-	public void shouldFindFormulaByPattenAndCalculatePi() {
+	public void shouldFindFormulaByPatternAndCalculatePi() {
 		OneParentLocusRecord record = new OneParentLocusRecord(c1, c2, af1, af2);
 		double pi = calculator.calculatePi(record.getPattern(), record.getP(), record.getQ());
 		assertEquals(expectedPi, pi, DELTA);
