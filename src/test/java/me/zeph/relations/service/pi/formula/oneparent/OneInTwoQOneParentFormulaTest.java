@@ -1,7 +1,7 @@
-package me.zeph.relations.service.pi;
+package me.zeph.relations.service.pi.formula.oneparent;
 
 import me.zeph.relations.model.OneParentReqParam;
-import me.zeph.relations.service.pi.formula.oneparent.OneInTwoQOneParentFormula;
+import me.zeph.relations.service.pi.FormulaTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
