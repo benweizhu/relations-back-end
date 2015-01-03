@@ -1,8 +1,9 @@
-package me.zeph.relations.service;
+package me.zeph.relations.integration;
 
 import me.zeph.relations.config.WebContextConfiguration;
 import me.zeph.relations.model.OneParentLocusRecord;
 import me.zeph.relations.model.Unit;
+import me.zeph.relations.service.Calculator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebContextConfiguration.class)
 @WebAppConfiguration
-public class CalculatorTest {
+public class CalculatorIntegrationTest {
 
 	@Autowired
 	private Calculator calculator;
