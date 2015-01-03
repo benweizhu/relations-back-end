@@ -2,13 +2,13 @@ package me.zeph.relations.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import static java.lang.Double.valueOf;
 import static java.util.Locale.getDefault;
 
-@Service
+@Component
 public class AlleleValueDao {
 
 	public static final String DOT_ZERO = ".0";

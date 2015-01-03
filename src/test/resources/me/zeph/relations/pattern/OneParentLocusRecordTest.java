@@ -47,7 +47,7 @@ public class OneParentLocusRecordTest {
 	}
 
 	@Test
-	public void should() {
+	public void shouldReturnCorrectPatten() {
 		OneParentLocusRecord oneParentLocusRecord = new OneParentLocusRecord(c1, c2, af1, af2);
 		assertThat(oneParentLocusRecord.getPattern(), is(pattern));
 	}

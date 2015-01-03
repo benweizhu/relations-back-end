@@ -8,16 +8,16 @@ public class OneParentLocusRecord {
 	public static final String P = "P";
 	public static final String Q = "Q";
 	public static final String R = "R";
-	private Cell c1;
-	private Cell c2;
-	private Cell af1;
-	private Cell af2;
+	private Unit c1;
+	private Unit c2;
+	private Unit af1;
+	private Unit af2;
 
 	public OneParentLocusRecord(double c1, double c2, double af1, double af2) {
-		this.c1 = new Cell(c1);
-		this.c2 = new Cell(c2);
-		this.af1 = new Cell(af1);
-		this.af2 = new Cell(af2);
+		this.c1 = new Unit(c1);
+		this.c2 = new Unit(c2);
+		this.af1 = new Unit(af1);
+		this.af2 = new Unit(af2);
 	}
 
 	public String getPattern() {

@@ -5,6 +5,7 @@ import me.zeph.relations.service.pi.formula.oneparent.OneInFourQOneParentFormula
 import me.zeph.relations.service.pi.formula.oneparent.OneInQOneParentFormula;
 import me.zeph.relations.service.pi.formula.oneparent.OneInTwoQOneParentFormula;
 import me.zeph.relations.service.pi.formula.oneparent.PPlusQInFourPQOneParentFormula;
+import org.apache.commons.jexl2.JexlEngine;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -72,5 +73,10 @@ public class WebContextConfiguration {
 	@Bean
 	public OneParentFormula oneInFourQFormula() {
 		return new OneInFourQOneParentFormula();
+	}
+
+	@Bean
+	public JexlEngine calculateEngine() {
+		return new JexlEngine();
 	}
 }

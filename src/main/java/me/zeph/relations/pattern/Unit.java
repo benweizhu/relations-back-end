@@ -1,10 +1,10 @@
 package me.zeph.relations.pattern;
 
-public class Cell {
+public class Unit {
 	private double value;
 	private String pattern;
 
-	public Cell(double value) {
+	public Unit(double value) {
 		this.value = value;
 	}
 
