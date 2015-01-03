@@ -31,24 +31,30 @@ public class OneParentLocusRecordTest {
 	@Parameterized.Parameters
 	public static List<Object[]> data() {
 		return Lists.newArrayList(new Object[][]{
-				{14d, 14d, 14d, 14d, "QQ QQ"},
-				{14d, 15d, 15d, 15d, "PQ QQ"},
-				{14d, 15d, 14d, 14d, "PQ PP"},
-				{15d, 15d, 15d, 16d, "QQ QR"},
-				{15d, 15d, 14d, 15d, "QQ RQ"},
-				{14d, 15d, 14d, 15d, "PQ PQ"},
-				{14d, 15d, 15d, 14d, "PQ QP"},
-				{14d, 15d, 15d, 16d, "PQ QR"},
-				{14d, 15d, 16d, 15d, "PQ RQ"},
-				{14d, 15d, 14d, 16d, "PQ PR"},
-				{14d, 15d, 16d, 14d, "PQ RP"}
+				{14d, 14d, 14d, 14d, "qq.qq"},
+				{14d, 15d, 15d, 15d, "pq.qq"},
+				{14d, 15d, 14d, 14d, "pq.pp"},
+				{15d, 15d, 15d, 16d, "qq.qr"},
+				{15d, 15d, 14d, 15d, "qq.rq"},
+				{14d, 15d, 14d, 15d, "pq.pq"},
+				{14d, 15d, 15d, 14d, "pq.qp"},
+				{14d, 15d, 15d, 16d, "pq.qr"},
+				{14d, 15d, 16d, 15d, "pq.rq"},
+				{14d, 15d, 14d, 16d, "pq.pr"},
+				{14d, 15d, 16d, 14d, "pq.rp"}
 		});
 
 	}
 
 	@Test
 	public void shouldReturnCorrectPatten() {
-		OneParentLocusRecord oneParentLocusRecord = new OneParentLocusRecord(c1, c2, af1, af2);
+		Unit c1Unit = new Unit(c1, 0);
+		Unit c2Unit = new Unit(c2, 0);
+		Unit af1Unit = new Unit(af1, 0);
+		Unit afUnit = new Unit(af2, 0);
+
+		OneParentLocusRecord oneParentLocusRecord = new OneParentLocusRecord(c1Unit, c2Unit, af1Unit, afUnit);
+
 		assertThat(oneParentLocusRecord.getPattern(), is(pattern));
 	}
 }

@@ -21,8 +21,19 @@ public class PiService {
 		this.oneParentFormulas = oneParentFormulas;
 	}
 
-	public double calculateParentsPi(ParentsReqParam reqParam) {
+	public double calculateParentsPi(ParentsReqParam param) {
 		return 0;
+	}
+
+	public double calculateOneParentPi(OneParentReqParam param) {
+		double pi = 0;
+		for (OneParentFormula formula : oneParentFormulas) {
+			pi = calculatePiWithFormula(param, formula);
+			if (pi != 0) {
+				return pi;
+			}
+		}
+		return pi;
 	}
 
 	private double calculatePiWithFormula(OneParentReqParam param, OneParentFormula formula) {
@@ -32,16 +43,5 @@ public class PiService {
 		double af2Value = alleleDao.getValue(param.getKit(), param.getLocus(), param.getAf2());
 
 		return formula.calculate(c1Value, c2Value, af1Value, af2Value, param);
-	}
-
-	public double calculateOneParentPi(OneParentReqParam reqParam) {
-		double pi = 0;
-		for (OneParentFormula formula : oneParentFormulas) {
-			pi = calculatePiWithFormula(reqParam, formula);
-			if (pi != 0) {
-				return pi;
-			}
-		}
-		return pi;
 	}
 }

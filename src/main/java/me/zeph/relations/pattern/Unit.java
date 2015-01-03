@@ -1,11 +1,17 @@
 package me.zeph.relations.pattern;
 
 public class Unit {
+	private double locus;
 	private double value;
 	private String pattern;
 
-	public Unit(double value) {
+	public Unit(double locus, double value) {
+		this.locus = locus;
 		this.value = value;
+	}
+
+	public double getLocus() {
+		return locus;
 	}
 
 	public double getValue() {
