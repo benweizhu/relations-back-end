@@ -4,10 +4,11 @@ import org.springframework.util.StringUtils;
 
 public class OneParentLocusRecord {
 
-	public static final String DOT = ".";
-	public static final String P = "p";
-	public static final String Q = "q";
-	public static final String R = "r";
+	private static final String DOT = ".";
+	private static final String P = "p";
+	private static final String Q = "q";
+	private static final String R = "r";
+
 	private Unit c1;
 	private Unit c2;
 	private Unit af1;
@@ -46,53 +47,41 @@ public class OneParentLocusRecord {
 	}
 
 	private void generateAfPattern() {
-		if (af1.getLocus() == c1.getLocus()) {
-			af1.setPattern(c1.getPattern());
+		generatePatten(af1);
+		generatePatten(af2);
+	}
+
+	private void generatePatten(Unit af) {
+		if (af.getLocus() == c1.getLocus()) {
+			af.setPattern(c1.getPattern());
 		}
-		if (af1.getLocus() == c2.getLocus()) {
-			af1.setPattern(c2.getPattern());
+		if (af.getLocus() == c2.getLocus()) {
+			af.setPattern(c2.getPattern());
 		}
-		if (StringUtils.isEmpty(af1.getPattern())) {
-			af1.setPattern(R);
-		}
-		if (af2.getLocus() == c1.getLocus()) {
-			af2.setPattern(c1.getPattern());
-		}
-		if (af2.getLocus() == c2.getLocus()) {
-			af2.setPattern(c2.getPattern());
-		}
-		if (StringUtils.isEmpty(af2.getPattern())) {
-			af2.setPattern(R);
+		if (StringUtils.isEmpty(af.getPattern())) {
+			af.setPattern(R);
 		}
 	}
 
 	public double getP() {
-		if (af1.getPattern().equals(P)) {
-			return af1.getValue();
-		}
-		if (af2.getPattern().equals(P)) {
-			return af2.getValue();
-		}
-		if (c1.getPattern().equals(P)) {
-			return c1.getValue();
-		}
-		if (c2.getPattern().equals(P)) {
-			return c2.getValue();
-		}
-		return 0;
+		return get(P);
 	}
 
 	public double getQ() {
-		if (af1.getPattern().equals(Q)) {
+		return get(Q);
+	}
+
+	private double get(String value) {
+		if (af1.getPattern().equals(value)) {
 			return af1.getValue();
 		}
-		if (af2.getPattern().equals(Q)) {
+		if (af2.getPattern().equals(value)) {
 			return af2.getValue();
 		}
-		if (c1.getPattern().equals(Q)) {
+		if (c1.getPattern().equals(value)) {
 			return c1.getValue();
 		}
-		if (c2.getPattern().equals(Q)) {
+		if (c2.getPattern().equals(value)) {
 			return c2.getValue();
 		}
 		return 0;
