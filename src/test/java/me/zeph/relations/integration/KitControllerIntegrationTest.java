@@ -1,4 +1,4 @@
-package me.zeph.relations.controller.api;
+package me.zeph.relations.integration;
 
 import me.zeph.relations.config.WebContextConfiguration;
 import org.junit.Before;
@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebContextConfiguration.class)
 @WebAppConfiguration
-public class KitControllerTest {
+public class KitControllerIntegrationTest {
 
 	private MockMvc mockMvc;
 
