@@ -26,15 +26,10 @@ public class PiService {
 
 	public double calculateOneParentPi(OneParentReqParam param) {
 
-		double c1Value = alleleDao.getValue(param.getKit(), param.getLocus(), param.getC1());
-		double c2Value = alleleDao.getValue(param.getKit(), param.getLocus(), param.getC2());
-		double af1Value = alleleDao.getValue(param.getKit(), param.getLocus(), param.getAf1());
-		double af2Value = alleleDao.getValue(param.getKit(), param.getLocus(), param.getAf2());
-
-		Unit c1 = new Unit(param.getC1(), c1Value);
-		Unit c2 = new Unit(param.getC2(), c2Value);
-		Unit af1 = new Unit(param.getAf1(), af1Value);
-		Unit af2 = new Unit(param.getAf2(), af2Value);
+		Unit c1 = new Unit(param.getC1(), alleleDao.getValue(param.getKit(), param.getLocus(), param.getC1()));
+		Unit c2 = new Unit(param.getC2(), alleleDao.getValue(param.getKit(), param.getLocus(), param.getC2()));
+		Unit af1 = new Unit(param.getAf1(), alleleDao.getValue(param.getKit(), param.getLocus(), param.getAf1()));
+		Unit af2 = new Unit(param.getAf2(), alleleDao.getValue(param.getKit(), param.getLocus(), param.getAf2()));
 
 		OneParentLocusRecord record = new OneParentLocusRecord(c1, c2, af1, af2);
 
