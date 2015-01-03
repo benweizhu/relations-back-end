@@ -11,15 +11,10 @@ import static org.springframework.util.StringUtils.commaDelimitedListToStringArr
 @Service
 public class KitService {
 
-	@Autowired
 	private ApplicationContext context;
-
 	private Kit kit;
 
-	public KitService() {
-		kit = new Kit();
-	}
-
+	@Autowired
 	public KitService(ApplicationContext context) {
 		this.context = context;
 		kit = new Kit();

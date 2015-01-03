@@ -11,15 +11,10 @@ import static org.springframework.util.StringUtils.commaDelimitedListToStringArr
 @Service
 public class LocusService {
 
-	@Autowired
 	private ApplicationContext context;
-
 	private LocusCode locusCode;
 
-	public LocusService() {
-		locusCode = new LocusCode();
-	}
-
+	@Autowired
 	public LocusService(ApplicationContext context) {
 		this.context = context;
 		locusCode = new LocusCode();
