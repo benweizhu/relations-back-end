@@ -24,16 +24,22 @@ public class PiServiceIntegrationTest {
 
 	@Test
 	public void shouldCalculateOneInQWhenInputIs_qq_qq() {
-		OneParentReqParam reqParam = new OneParentReqParam();
-		reqParam.setKit("AGCU_EX22");
-		reqParam.setLocus("D3S1358");
-		reqParam.setAf1(15);
-		reqParam.setAf2(15);
-		reqParam.setC1(15);
-		reqParam.setC2(15);
+
+		OneParentReqParam reqParam = prepareOneParentReqParam("AGCU_EX22", "D3S1358", 15, 15, 15, 15);
 
 		double pi = piService.calculateOneParentPi(reqParam);
 
 		assertEquals(2.82406099971759d, pi, DELTA_8);
+	}
+
+	private OneParentReqParam prepareOneParentReqParam(String kit, String locus, int af1, int af2, int c1, int c2) {
+		OneParentReqParam reqParam = new OneParentReqParam();
+		reqParam.setKit(kit);
+		reqParam.setLocus(locus);
+		reqParam.setC1(c1);
+		reqParam.setC2(c2);
+		reqParam.setAf1(af1);
+		reqParam.setAf2(af2);
+		return reqParam;
 	}
 }
