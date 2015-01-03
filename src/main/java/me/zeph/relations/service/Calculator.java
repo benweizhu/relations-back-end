@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class Calculator {
 
-	public static final String P = "p";
-	public static final String Q = "q";
+	private static final String P = "p";
+	private static final String Q = "q";
 	private FormulaDao formulaDao;
 	private JexlEngine calculateEngine;
 
