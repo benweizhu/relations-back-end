@@ -1,11 +1,10 @@
 package me.zeph.relations.service;
 
 import me.zeph.relations.dao.AlleleValueDao;
+import me.zeph.relations.model.OneParentLocusRecord;
 import me.zeph.relations.model.OneParentReqParam;
 import me.zeph.relations.model.ParentsReqParam;
-import me.zeph.relations.pattern.Calculator;
-import me.zeph.relations.pattern.OneParentLocusRecord;
-import me.zeph.relations.pattern.Unit;
+import me.zeph.relations.model.Unit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package me.zeph.relations.pattern;
+package me.zeph.relations.model;
 
 import com.google.common.collect.Lists;
 import org.junit.Test;

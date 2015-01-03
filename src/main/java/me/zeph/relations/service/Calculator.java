@@ -1,4 +1,4 @@
-package me.zeph.relations.pattern;
+package me.zeph.relations.service;
 
 import me.zeph.relations.dao.FormulaDao;
 import org.apache.commons.jexl2.Expression;

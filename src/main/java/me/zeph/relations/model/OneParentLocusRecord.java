@@ -1,4 +1,4 @@
-package me.zeph.relations.pattern;
+package me.zeph.relations.model;
 
 import org.springframework.util.StringUtils;
 

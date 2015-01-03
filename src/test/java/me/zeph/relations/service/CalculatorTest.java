@@ -1,6 +1,8 @@
-package me.zeph.relations.pattern;
+package me.zeph.relations.service;
 
 import me.zeph.relations.config.WebContextConfiguration;
+import me.zeph.relations.model.OneParentLocusRecord;
+import me.zeph.relations.model.Unit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
