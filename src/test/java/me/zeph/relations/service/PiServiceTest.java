@@ -1,4 +1,4 @@
-package me.zeph.relations.service.pi;
+package me.zeph.relations.service;
 
 import me.zeph.relations.config.WebContextConfiguration;
 import me.zeph.relations.model.OneParentReqParam;
