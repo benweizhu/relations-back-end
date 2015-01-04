@@ -25,7 +25,7 @@ import static org.junit.runners.Parameterized.Parameters;
 @ContextConfiguration(classes = WebContextConfiguration.class)
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
 @WebAppConfiguration
-public class CalculatorIntegrationTest {
+public class CalculatorOneParentIntegrationTest {
 
 	@Autowired
 	private Calculator calculator;
@@ -42,7 +42,7 @@ public class CalculatorIntegrationTest {
 	private static final Unit A15 = new Unit(15, 0.3541d);
 	private static final Unit A16 = new Unit(16, 0.3410d);
 
-	public CalculatorIntegrationTest(Unit c1, Unit c2, Unit af1, Unit af2, double expectedPi) {
+	public CalculatorOneParentIntegrationTest(Unit c1, Unit c2, Unit af1, Unit af2, double expectedPi) {
 		this.c1 = c1;
 		this.c2 = c2;
 		this.af1 = af1;
