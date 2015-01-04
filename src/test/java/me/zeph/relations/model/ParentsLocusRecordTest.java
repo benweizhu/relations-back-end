@@ -33,6 +33,7 @@ public class ParentsLocusRecordTest {
 	@Parameterized.Parameters
 	public static List<Object[]> data() {
 		return Lists.newArrayList(new Object[][]{
+				{15d, 15d, 15d, 15d, 15d, 15d, "qq.qq.qq"},
 				{14d, 15d, 14d, 14d, 15d, 15d, "pq.pp.qq"},
 		});
 	}
