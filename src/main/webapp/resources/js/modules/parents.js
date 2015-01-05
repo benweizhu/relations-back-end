@@ -14,6 +14,10 @@ angular.module('parentsApp', ['restApp'])
                 });
             };
 
+            $scope.remove = function(index){
+                $scope.locuses.splice(index, 1);
+            }
+
             $scope.add = function () {
 
                 var req = {kit: $scope.kit, locus: $scope.code, af1: $scope.af1, af2: $scope.af2, m1: $scope.m1,

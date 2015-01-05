@@ -28,7 +28,7 @@
             <td>{{locus.c1}}</td>
             <td>{{locus.c2}}</td>
             <td>{{locus.pi}}</td>
-            <td><input type="button" value="删除"></td>
+            <td><input type="button" ng-click="remove($index)" value="删除"></td>
         </tr>
         <tr>
             <td><select ng-model="code" ng-options="locusCode for locusCode in locusCodes"></select></td>
