@@ -13,6 +13,7 @@ dependencies{
     compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.10'
     compile 'com.google.guava:guava:18.0'
     compile 'org.apache.commons:commons-jexl:2.1.1'
+    compile 'javax.servlet:servlet-api:2.5'
 
     testCompile 'org.mockito:mockito-core:1.9.5'
     testCompile 'org.springframework:spring-test:3.2.5.RELEASE'
