@@ -1,4 +1,4 @@
-package me.zeph.relations.config;
+package me.zeph.relations.configuration;
 
 import org.apache.commons.jexl2.JexlEngine;
 import org.springframework.context.annotation.Bean;

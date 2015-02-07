@@ -1,7 +1,7 @@
 package me.zeph.relations.integration;
 
 import com.google.common.collect.Lists;
-import me.zeph.relations.config.WebContextConfiguration;
+import me.zeph.relations.configuration.WebContextConfiguration;
 import me.zeph.relations.model.ParentsLocusRecord;
 import me.zeph.relations.model.Unit;
 import me.zeph.relations.service.Calculator;

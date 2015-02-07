@@ -1,6 +1,6 @@
 package me.zeph.relations.integration;
 
-import me.zeph.relations.config.WebContextConfiguration;
+import me.zeph.relations.configuration.WebContextConfiguration;
 import me.zeph.relations.model.OneParentReqParam;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;

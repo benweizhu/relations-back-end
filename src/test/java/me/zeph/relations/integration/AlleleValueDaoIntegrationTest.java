@@ -1,6 +1,6 @@
 package me.zeph.relations.integration;
 
-import me.zeph.relations.config.WebContextConfiguration;
+import me.zeph.relations.configuration.WebContextConfiguration;
 import me.zeph.relations.dao.AlleleValueDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;

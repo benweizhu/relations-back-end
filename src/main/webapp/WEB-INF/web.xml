@@ -14,7 +14,7 @@
         </init-param>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>me.zeph.relations.config.WebContextConfiguration</param-value>
+            <param-value>me.zeph.relations.configuration.WebContextConfiguration</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
