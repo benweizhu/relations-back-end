@@ -16,6 +16,12 @@ import static org.springframework.http.MediaType.TEXT_HTML;
 @EnableWebMvc
 @ComponentScan(basePackages = "me.zeph.relations")
 public class WebContextConfiguration {
+
+	private static final String AGCU_EX_22 = "AGCU_EX22";
+	private static final String AGCU_211 = "AGCU211";
+	private static final String KITS = "Kits";
+	private static final String EXPRESSION = "EXPRESSION";
+
 	@Bean
 	public InternalResourceViewResolver internalResourceViewResolver() {
 		InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
@@ -37,7 +43,7 @@ public class WebContextConfiguration {
 	@Bean
 	public ResourceBundleMessageSource messageSource() {
 		ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
-		resourceBundleMessageSource.setBasenames("AGCU_EX22", "AGCU211", "Kits", "EXPRESSION");
+		resourceBundleMessageSource.setBasenames(AGCU_EX_22, AGCU_211, KITS, EXPRESSION);
 		return resourceBundleMessageSource;
 	}
 
