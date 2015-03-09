@@ -1,8 +1,6 @@
 package me.zeph.relations.controller.api;
 
-import me.zeph.relations.model.OneParentReqParam;
-import me.zeph.relations.model.PIValue;
-import me.zeph.relations.model.ParentsReqParam;
+import me.zeph.relations.model.*;
 import me.zeph.relations.service.PiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,5 +25,10 @@ public class PiController {
 	@RequestMapping(value = "/oneparent", produces = APPLICATION_JSON_VALUE)
 	public PIValue getOneParentPi(@RequestBody OneParentReqParam reqParam) {
 		return new PIValue(piService.calculateOneParentPi(reqParam));
+	}
+
+	@RequestMapping(value = "/cpi", produces = APPLICATION_JSON_VALUE)
+	public CPIValue getCPI(@RequestBody CpiParam cpiParam) {
+		return piService.calculateCPI(cpiParam);
 	}
 }

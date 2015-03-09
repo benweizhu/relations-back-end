@@ -1,6 +1,7 @@
 package me.zeph.relations.integration;
 
 import me.zeph.relations.configuration.WebContextConfiguration;
+import me.zeph.relations.model.CpiParam;
 import me.zeph.relations.model.OneParentReqParam;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
@@ -43,16 +44,28 @@ public class PiControllerIntegrationTest {
 
 	@Test
 	public void shouldReturnPi() throws Exception {
-		OneParentReqParam param = new OneParentReqParam();
-		param.setKit(KIT);
-		param.setLocus(LOCUS);
-		param.setC1(14);
-		param.setC2(15);
-		param.setAf1(14);
-		param.setAf2(15);
+		OneParentReqParam oneParentReqParam = new OneParentReqParam();
+		oneParentReqParam.setKit(KIT);
+		oneParentReqParam.setLocus(LOCUS);
+		oneParentReqParam.setC1(14);
+		oneParentReqParam.setC2(15);
+		oneParentReqParam.setAf1(14);
+		oneParentReqParam.setAf2(15);
 		mockMvc.perform(post(ONE_PARENT_URL)
 				.contentType(APPLICATION_JSON)
-				.content(objectMapper.writeValueAsBytes(param)))
-				.andExpect(status().isOk()).andExpect(jsonPath("$.value", is(7.067338405145683)));
+				.content(objectMapper.writeValueAsBytes(oneParentReqParam)))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.value", is(7.067338405145683)));
+	}
+
+	@Test
+	public void shouldReturnCpi() throws Exception {
+		CpiParam cpiParam = new CpiParam();
+		cpiParam.setPis(new double[]{0.5d, 0.5d, 0.5d});
+		mockMvc.perform(post("/pi/cpi")
+				.contentType(APPLICATION_JSON)
+				.content(objectMapper.writeValueAsBytes(cpiParam)))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.value", is(0.125)));
 	}
 }

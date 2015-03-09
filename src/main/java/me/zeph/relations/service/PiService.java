@@ -43,4 +43,13 @@ public class PiService {
 		return calculator.calculatePi(record.getPattern(), record.getP(), record.getQ());
 	}
 
+	public CPIValue calculateCPI(CpiParam cpiParam){
+		double cpi = 1;
+		double[] pis = cpiParam.getPis();
+		for (double pi : pis) {
+			cpi = cpi * pi;
+		}
+		return new CPIValue(cpi);
+	}
+
 }
