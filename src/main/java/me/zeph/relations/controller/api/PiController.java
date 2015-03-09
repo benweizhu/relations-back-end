@@ -31,4 +31,10 @@ public class PiController {
 	public CPIValue getCPI(@RequestBody CpiParam cpiParam) {
 		return piService.calculateCPI(cpiParam);
 	}
+
+	@RequestMapping(value = "/rcp", produces = APPLICATION_JSON_VALUE)
+	public RCPValue getRCP(@RequestBody RcpParam rcpParam) {
+		return piService.calculateRCP(rcpParam);
+	}
+
 }

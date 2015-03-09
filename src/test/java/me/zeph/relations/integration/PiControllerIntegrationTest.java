@@ -3,6 +3,7 @@ package me.zeph.relations.integration;
 import me.zeph.relations.configuration.WebContextConfiguration;
 import me.zeph.relations.model.CpiParam;
 import me.zeph.relations.model.OneParentReqParam;
+import me.zeph.relations.model.RcpParam;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -67,5 +68,16 @@ public class PiControllerIntegrationTest {
 				.content(objectMapper.writeValueAsBytes(cpiParam)))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.value", is(0.125)));
+	}
+
+	@Test
+	public void shouldReturnRcp() throws Exception {
+		RcpParam rcpParam = new RcpParam();
+		rcpParam.setCpi(1);
+		mockMvc.perform(post("/pi/rcp")
+				.contentType(APPLICATION_JSON)
+				.content(objectMapper.writeValueAsBytes(rcpParam)))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.value", is(0.5)));
 	}
 }
