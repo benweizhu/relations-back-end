@@ -2,6 +2,7 @@ package me.zeph.relations.controller;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
+import me.zeph.relations.exception.KitNotExistException;
 import me.zeph.relations.model.LocusCode;
 import me.zeph.relations.service.LocusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class LocusController {
 	@ApiOperation(value = "Get Loci by Kit")
 	@RequestMapping(value = "/{kit}", produces = {APPLICATION_JSON_VALUE})
 	@ResponseStatus(value = OK)
-	public LocusCode getLocusCode(@PathVariable String kit) {
+	public LocusCode getLocusCode(@PathVariable String kit) throws KitNotExistException {
 		return locusService.getLocusCode(kit);
 	}
 }
