@@ -13,11 +13,7 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'checkstyle'
-
-jar {
-    baseName = 'gs-spring-boot'
-    version = '0.1.0'
-}
+apply plugin: 'com.bluepapa32.watch'
 
 repositories {
     mavenCentral()
@@ -43,7 +39,18 @@ dependencies {
     testCompile 'com.jayway.jsonpath:json-path-assert:0.9.1'
 }
 
-apply plugin: 'com.bluepapa32.watch'
+jar {
+    baseName = 'relations-back-end'
+    version = '0.1.0'
+}
+
+idea.project.ipr {
+    withXml { provider ->
+        provider.node.component
+                .find { it.@name == 'VcsDirectoryMappings' }
+                .mapping.@vcs = 'Git'
+    }
+}
 
 watch {
     java {
@@ -59,12 +66,4 @@ watch {
 
 task wrapper(type: Wrapper) {
     gradleVersion = '1.11'
-}
-
-idea.project.ipr {
-    withXml { provider ->
-        provider.node.component
-                .find { it.@name == 'VcsDirectoryMappings' }
-                .mapping.@vcs = 'Git'
-    }
 }
