@@ -1,6 +1,6 @@
 package me.zeph.relations.service;
 
-import me.zeph.relations.model.Kit;
+import me.zeph.relations.model.api.Kit;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 

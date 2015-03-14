@@ -1,16 +1,16 @@
-package me.zeph.relations.model;
+package me.zeph.relations.model.api;
 
 import com.wordnik.swagger.annotations.ApiModel;
 
 @ApiModel
-public class RCPValue {
-
+public class CPIValue {
 	private double value;
 
-	public RCPValue() {
+
+	public CPIValue() {
 	}
 
-	public RCPValue(double value) {
+	public CPIValue(double value) {
 		this.value = value;
 	}
 

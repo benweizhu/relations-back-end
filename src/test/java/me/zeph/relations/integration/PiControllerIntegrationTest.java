@@ -1,9 +1,9 @@
 package me.zeph.relations.integration;
 
 import me.zeph.relations.configuration.WebContextConfiguration;
-import me.zeph.relations.model.CpiParam;
-import me.zeph.relations.model.OneParentReqParam;
-import me.zeph.relations.model.RcpParam;
+import me.zeph.relations.model.api.CpiParam;
+import me.zeph.relations.model.api.OneParentReqParam;
+import me.zeph.relations.model.api.RcpParam;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;

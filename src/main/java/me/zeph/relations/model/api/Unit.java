@@ -1,4 +1,4 @@
-package me.zeph.relations.model;
+package me.zeph.relations.model.api;
 
 public class Unit {
 	private double locus;

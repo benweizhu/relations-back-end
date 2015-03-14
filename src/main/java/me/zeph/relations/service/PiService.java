@@ -1,7 +1,7 @@
 package me.zeph.relations.service;
 
 import me.zeph.relations.dao.AlleleValueDao;
-import me.zeph.relations.model.*;
+import me.zeph.relations.model.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

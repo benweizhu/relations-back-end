@@ -1,8 +1,8 @@
 package me.zeph.relations.integration;
 
 import me.zeph.relations.configuration.WebContextConfiguration;
-import me.zeph.relations.model.OneParentReqParam;
-import me.zeph.relations.model.ParentsReqParam;
+import me.zeph.relations.model.api.OneParentReqParam;
+import me.zeph.relations.model.api.ParentsReqParam;
 import me.zeph.relations.service.PiService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,6 +1,8 @@
 package me.zeph.relations.model;
 
 import com.google.common.collect.Lists;
+import me.zeph.relations.model.api.ParentsLocusRecord;
+import me.zeph.relations.model.api.Unit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;

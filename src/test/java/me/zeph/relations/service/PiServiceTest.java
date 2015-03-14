@@ -1,10 +1,10 @@
 package me.zeph.relations.service;
 
 import me.zeph.relations.dao.AlleleValueDao;
-import me.zeph.relations.model.CPIValue;
-import me.zeph.relations.model.CpiParam;
-import me.zeph.relations.model.RCPValue;
-import me.zeph.relations.model.RcpParam;
+import me.zeph.relations.model.api.CPIValue;
+import me.zeph.relations.model.api.CpiParam;
+import me.zeph.relations.model.api.RCPValue;
+import me.zeph.relations.model.api.RcpParam;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

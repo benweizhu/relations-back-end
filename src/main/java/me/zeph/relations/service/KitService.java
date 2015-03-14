@@ -1,6 +1,6 @@
 package me.zeph.relations.service;
 
-import me.zeph.relations.model.Kit;
+import me.zeph.relations.model.api.Kit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;

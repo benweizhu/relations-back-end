@@ -4,10 +4,12 @@ import org.apache.commons.jexl2.JexlEngine;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
 @Configuration
 @ComponentScan(basePackages = "me.zeph.relations")
+@PropertySource(value = "classpath:application.properties")
 public class WebContextConfiguration {
 
 	private static final String AGCU_EX_22 = "AGCU_EX22";

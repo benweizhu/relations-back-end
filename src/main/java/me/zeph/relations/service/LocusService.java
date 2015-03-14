@@ -1,7 +1,7 @@
 package me.zeph.relations.service;
 
 import me.zeph.relations.exception.KitNotExistException;
-import me.zeph.relations.model.LocusCode;
+import me.zeph.relations.model.api.LocusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.NoSuchMessageException;

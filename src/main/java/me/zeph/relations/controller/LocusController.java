@@ -3,7 +3,7 @@ package me.zeph.relations.controller;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import me.zeph.relations.exception.KitNotExistException;
-import me.zeph.relations.model.LocusCode;
+import me.zeph.relations.model.api.LocusCode;
 import me.zeph.relations.service.LocusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
