@@ -21,6 +21,7 @@ jar {
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -28,8 +29,12 @@ dependencies {
     compile 'com.google.guava:guava:18.0'
     compile 'org.apache.commons:commons-jexl:2.1.1'
 
+    compile "com.mangofactory:swagger-springmvc:1.0.0"
+    compile "org.ajar:swagger-spring-mvc-ui:0.4"
+
     compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-jetty'
+
+    compile 'org.apache.tomcat.embed:tomcat-embed-jasper'
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'org.mockito:mockito-core:1.9.5'
