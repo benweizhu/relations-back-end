@@ -35,7 +35,7 @@ public class LocusControllerIntegrationTest {
 
 	@Test
 	public void shouldReturnLocusCodes() throws Exception {
-		mockMvc.perform(get("/locus?kit=AGCU_EX22")
+		mockMvc.perform(get("/loci/AGCU_EX22")
 				.accept(APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(APPLICATION_JSON))

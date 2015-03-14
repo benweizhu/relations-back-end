@@ -1,7 +1,11 @@
 package me.zeph.relations.model;
 
+import com.wordnik.swagger.annotations.ApiModel;
+
+@ApiModel
 public class CPIValue {
 	private double value;
+
 
 	public CPIValue() {
 	}

@@ -1,5 +1,8 @@
 package me.zeph.relations.model;
 
+import com.wordnik.swagger.annotations.ApiModel;
+
+@ApiModel
 public class RCPValue {
 
 	private double value;

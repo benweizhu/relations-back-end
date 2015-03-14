@@ -1,9 +1,12 @@
 package me.zeph.relations.model;
 
+import com.wordnik.swagger.annotations.ApiModel;
+
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 
+@ApiModel
 public class LocusCode {
 
 	private List<String> codes;
