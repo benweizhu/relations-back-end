@@ -1,4 +1,4 @@
-package me.zeph.relations.controller.api;
+package me.zeph.relations.controller;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
