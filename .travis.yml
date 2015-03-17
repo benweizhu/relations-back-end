@@ -2,5 +2,6 @@ language: java
 jdk:
   - oraclejdk7
 before_script:
+   - mysql -e 'create database relations;'
    - chmod +x run-tests.sh
 script: "./run-tests.sh"
