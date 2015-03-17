@@ -79,11 +79,8 @@ database {
     password = ''
     driver = 'com.mysql.jdbc.Driver'
     configurationName = 'mysqlDriver'
-    sqlFiles = files('config/database/drop_table.sql',
-            'config/database/relt_kit.sql',
-            'config/database/relt_locus.sql',
-            'config/database/relt_allele.sql',
-            'config/database/relr_kit_locus.sql',
+    sqlFiles = files('config/database/relations_drop.sql',
+            'config/database/relations_create.sql',
             'config/database/insert_data.sql')
 }
 
