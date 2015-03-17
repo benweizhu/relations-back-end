@@ -90,4 +90,4 @@ task wrapper(type: Wrapper) {
     gradleVersion = '1.11'
 }
 
-//test.dependsOn createDB
+test.dependsOn createDB
