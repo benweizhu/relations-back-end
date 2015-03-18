@@ -1,18 +1,18 @@
 package me.zeph.relations.integration;
 
-import me.zeph.relations.configuration.WebContextConfiguration;
+import me.zeph.relations.Application;
 import me.zeph.relations.dao.AlleleValueDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = WebContextConfiguration.class)
+@SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 public class AlleleValueDaoIntegrationTest {
 

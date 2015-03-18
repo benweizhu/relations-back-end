@@ -1,7 +1,7 @@
 package me.zeph.relations.integration;
 
 import com.google.common.collect.Lists;
-import me.zeph.relations.configuration.WebContextConfiguration;
+import me.zeph.relations.Application;
 import me.zeph.relations.model.api.OneParentLocusRecord;
 import me.zeph.relations.model.api.Unit;
 import me.zeph.relations.service.Calculator;
@@ -10,10 +10,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.TestContextManager;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
@@ -22,8 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-@ContextConfiguration(classes = WebContextConfiguration.class)
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
+@SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 public class CalculatorOneParentIntegrationTest {
 
