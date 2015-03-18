@@ -8,8 +8,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
 @Configuration
-@ComponentScan(basePackages = "me.zeph.relations")
-@PropertySource(value = "classpath:application.properties")
 public class WebContextConfiguration {
 
 	private static final String AGCU_EX_22 = "AGCU_EX22";
