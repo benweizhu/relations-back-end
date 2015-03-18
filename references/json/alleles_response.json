@@ -1,0 +1,22 @@
+[
+    {
+        "id": "1",
+        "name": "abc",
+        "links": [
+            {
+                "rel": "self",
+                "href": "http://localhost:8080/kits/1/alleles/1"
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "name": "def",
+        "links": [
+            {
+                "rel": "self",
+                "href": "http://localhost:8080/kits/1/alleles/2"
+            }
+        ]
+    }
+]
