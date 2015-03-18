@@ -1,2 +1,2 @@
-INSERT INTO RELT_KIT VALUES (1, 'AGCU211');
-INSERT INTO RELT_KIT VALUES (2, 'AGCU_EX22')
+insert into relt_kit values (1, 'AGCU211');
+insert into relt_kit values (2, 'AGCU_EX22')

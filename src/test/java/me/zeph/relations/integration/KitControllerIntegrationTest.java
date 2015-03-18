@@ -13,6 +13,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
@@ -33,10 +38,9 @@ public class KitControllerIntegrationTest {
 
 	@Test
 	public void shouldReturnKits() throws Exception {
-//		mockMvc.perform(get("/kits")
-//				.accept(APPLICATION_JSON))
-//				.andExpect(status().isOk())
-//				.andExpect(content().contentType(APPLICATION_JSON));
-		jdbcTemplate.execute("SELECT * FROM relt_kit");
+		mockMvc.perform(get("/kits")
+				.accept(APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(APPLICATION_JSON));
 	}
 }

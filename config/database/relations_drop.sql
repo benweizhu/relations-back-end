@@ -1,13 +1,13 @@
-ALTER TABLE RELR_KIT_ALLELE DROP FOREIGN KEY KA_FK_ALLELE;
-ALTER TABLE RELR_KIT_ALLELE DROP FOREIGN KEY KA_FK_KIT;
-ALTER TABLE RELR_LOCA_ALLE_LOCUS DROP FOREIGN KEY LAL_FK_ALLELE;
-ALTER TABLE RELR_LOCA_ALLE_LOCUS DROP FOREIGN KEY LAL_FK_LOCATION;
-ALTER TABLE RELR_LOCA_ALLE_LOCUS DROP FOREIGN KEY LAL_FK_LOCUS;
+alter table relr_kit_allele drop foreign key ka_fk_allele;
+alter table relr_kit_allele drop foreign key ka_fk_kit;
+alter table relr_loca_alle_locus drop foreign key lal_fk_allele;
+alter table relr_loca_alle_locus drop foreign key lal_fk_location;
+alter table relr_loca_alle_locus drop foreign key lal_fk_locus;
 
-DROP TABLE RELR_KIT_ALLELE;
-DROP TABLE RELR_LOCA_ALLE_LOCUS;
-DROP TABLE RELT_ALLELE;
-DROP TABLE RELT_KIT;
-DROP TABLE RELT_LOCATION;
-DROP TABLE RELT_LOCUS;
+drop table relr_kit_allele;
+drop table relr_loca_alle_locus;
+drop table relt_allele;
+drop table relt_kit;
+drop table relt_location;
+drop table relt_locus;
 
