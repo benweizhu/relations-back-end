@@ -58,7 +58,16 @@ public class KitControllerIntegrationTest {
 	public void shouldReturnKitNotFoundErrorMessage() throws Exception {
 		mockMvc.perform(get("/kits/99")
 				.accept(APPLICATION_JSON))
-				.andExpect(status().isNotFound());
-//				.andExpect(jsonPath("$.message", is("Kit 99 not found")));
+				.andExpect(status().isNotFound())
+				.andExpect(jsonPath("$.message", is("Kit 99 not found")));
+	}
+
+	@Test
+	public void shouldReturnTypeMissMatchMessage() throws Exception {
+		mockMvc.perform(get("/kits/abc")
+				.accept(APPLICATION_JSON))
+				.andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.message", is("Failed to convert value of type 'java.lang.String' to required type 'long'; " +
+						"nested exception is java.lang.NumberFormatException: For input string: \"abc\"")));
 	}
 }
