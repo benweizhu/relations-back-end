@@ -2,7 +2,6 @@ language: java
 jdk:
   - oraclejdk7
 before_script:
-   - mysqld --lower_case_table_names=1
    - mysql -e 'create database relations;'
    - chmod +x run-tests.sh
 script: "./run-tests.sh"
