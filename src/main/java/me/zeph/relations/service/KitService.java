@@ -1,5 +1,6 @@
 package me.zeph.relations.service;
 
+import me.zeph.relations.exception.KitNotFoundException;
 import me.zeph.relations.model.Kit;
 import me.zeph.relations.model.entity.KitEntity;
 import me.zeph.relations.repository.KitRepository;
@@ -16,8 +17,17 @@ public class KitService {
 	@Autowired
 	private KitRepository kitRepository;
 
-	public List<Kit> getAllKits() {
+	public List<Kit> getKits() {
 		return translateKitList(kitRepository.findAll());
+	}
+
+	public Kit getKit(long kitId) {
+		KitEntity kitEntity = kitRepository.findOne(kitId);
+		if (kitEntity != null) {
+			return translateKit(kitEntity);
+		} else {
+			throw new KitNotFoundException("Kit " + kitId + " not exist");
+		}
 	}
 
 	private List<Kit> translateKitList(List<KitEntity> kitEntities) {
@@ -30,9 +40,8 @@ public class KitService {
 
 	private Kit translateKit(KitEntity kitEntity) {
 		Kit kit = new Kit();
-		kit.setId(kitEntity.getId());
+		kit.setKitId(kitEntity.getId());
 		kit.setName(kitEntity.getName());
 		return kit;
 	}
-
 }

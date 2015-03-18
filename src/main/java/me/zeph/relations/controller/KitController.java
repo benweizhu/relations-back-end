@@ -27,6 +27,6 @@ public class KitController {
 	@RequestMapping(produces = APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = OK)
 	public List<Kit> getKits() {
-		return kitService.getAllKits();
+		return kitService.getKits();
 	}
 }
