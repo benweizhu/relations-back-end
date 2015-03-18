@@ -13,4 +13,12 @@ public class Kit extends ResourceSupport {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public long getKitId() {
+		return kitId;
+	}
+
+	public String getName() {
+		return name;
+	}
 }
