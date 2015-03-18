@@ -1,6 +1,6 @@
 package me.zeph.relations.service;
 
-import me.zeph.relations.model.KitApi;
+import me.zeph.relations.model.Kit;
 import me.zeph.relations.model.entity.KitEntity;
 import me.zeph.relations.repository.KitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,23 +16,23 @@ public class KitService {
 	@Autowired
 	private KitRepository kitRepository;
 
-	public List<KitApi> getAllKits() {
+	public List<Kit> getAllKits() {
 		return translateKitList(kitRepository.findAll());
 	}
 
-	private List<KitApi> translateKitList(List<KitEntity> kitEntities) {
-		List<KitApi> kitApis = newArrayList();
+	private List<Kit> translateKitList(List<KitEntity> kitEntities) {
+		List<Kit> kits = newArrayList();
 		for (KitEntity kitEntity : kitEntities) {
-			kitApis.add(translateKit(kitEntity));
+			kits.add(translateKit(kitEntity));
 		}
-		return kitApis;
+		return kits;
 	}
 
-	private KitApi translateKit(KitEntity kitEntity) {
-		KitApi kitApi = new KitApi();
-		kitApi.setId(kitEntity.getId());
-		kitApi.setName(kitEntity.getName());
-		return kitApi;
+	private Kit translateKit(KitEntity kitEntity) {
+		Kit kit = new Kit();
+		kit.setId(kitEntity.getId());
+		kit.setName(kitEntity.getName());
+		return kit;
 	}
 
 }

@@ -1,6 +1,6 @@
 package me.zeph.relations.service;
 
-import me.zeph.relations.model.KitApi;
+import me.zeph.relations.model.Kit;
 import me.zeph.relations.model.entity.KitEntity;
 import me.zeph.relations.repository.KitRepository;
 import org.junit.Before;
@@ -32,9 +32,9 @@ public class KitServiceTest {
 		when(kitRepository.findAll()).thenReturn(newArrayList(kitEntity));
 		setField(kitService, "kitRepository", kitRepository);
 
-		List<KitApi> kitApis = kitService.getAllKits();
+		List<Kit> kits = kitService.getAllKits();
 
-		assertThat(kitApis.size(), is(1));
+		assertThat(kits.size(), is(1));
 	}
 
 	private KitEntity getKitEntity(int id, String name) {

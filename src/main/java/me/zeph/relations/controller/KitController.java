@@ -2,7 +2,7 @@ package me.zeph.relations.controller;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
-import me.zeph.relations.model.KitApi;
+import me.zeph.relations.model.Kit;
 import me.zeph.relations.service.KitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +26,7 @@ public class KitController {
 	@ApiOperation(value = "Get Kits")
 	@RequestMapping(produces = APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = OK)
-	public List<KitApi> getKits() {
+	public List<Kit> getKits() {
 		return kitService.getAllKits();
 	}
 }
