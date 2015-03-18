@@ -53,4 +53,12 @@ public class KitControllerIntegrationTest {
 				.andExpect(jsonPath("$.kitId", is(1)))
 				.andExpect(jsonPath("$.name", is("AGCU211")));
 	}
+
+	@Test
+	public void shouldReturnKitNotFoundErrorMessage() throws Exception {
+		mockMvc.perform(get("/kits/99")
+				.accept(APPLICATION_JSON))
+				.andExpect(status().isNotFound());
+//				.andExpect(jsonPath("$.message", is("Kit 99 not found")));
+	}
 }

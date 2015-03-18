@@ -24,7 +24,7 @@ public class KitService {
 	public Kit getKit(long kitId) {
 		KitEntity kitEntity = kitRepository.findOne(kitId);
 		if (kitEntity == null) {
-			throw new KitNotFoundException("Kit " + kitId + " not exist");
+			throw new KitNotFoundException("Kit " + kitId + " not found");
 		} else {
 			return translateKit(kitEntity);
 		}
