@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -28,13 +30,19 @@ public class KitController {
 	@RequestMapping(produces = APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = OK)
 	public List<Kit> getKits() {
-		return kitService.getKits();
+		List<Kit> kits = kitService.getKits();
+		for (Kit kit : kits) {
+			kit.add(linkTo(methodOn(KitController.class).getKit(kit.getKitId())).withSelfRel());
+		}
+		return kits;
 	}
 
 	@ApiOperation(value = "Get Kit by Id")
 	@RequestMapping(value = "/{kitId}", produces = APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = OK)
 	public Kit getKit(@PathVariable long kitId) {
-		return kitService.getKit(kitId);
+		Kit kit = kitService.getKit(kitId);
+		kit.add(linkTo(methodOn(KitController.class).getKit(kitId)).withSelfRel());
+		return kit;
 	}
 }
