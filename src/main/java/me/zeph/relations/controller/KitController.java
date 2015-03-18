@@ -5,6 +5,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import me.zeph.relations.model.Kit;
 import me.zeph.relations.service.KitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,5 +29,12 @@ public class KitController {
 	@ResponseStatus(value = OK)
 	public List<Kit> getKits() {
 		return kitService.getKits();
+	}
+
+	@ApiOperation(value = "Get Kit by Id")
+	@RequestMapping(value = "/{kitId}", produces = APPLICATION_JSON_VALUE)
+	@ResponseStatus(value = OK)
+	public Kit getKit(@PathVariable long kitId) {
+		return kitService.getKit(kitId);
 	}
 }

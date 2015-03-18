@@ -23,10 +23,10 @@ public class KitService {
 
 	public Kit getKit(long kitId) {
 		KitEntity kitEntity = kitRepository.findOne(kitId);
-		if (kitEntity != null) {
-			return translateKit(kitEntity);
-		} else {
+		if (kitEntity == null) {
 			throw new KitNotFoundException("Kit " + kitId + " not exist");
+		} else {
+			return translateKit(kitEntity);
 		}
 	}
 
