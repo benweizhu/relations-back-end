@@ -5,7 +5,9 @@ import org.springframework.hateoas.ResourceSupport;
 
 @ApiModel
 public class Allele extends ResourceSupport {
+
 	private long alleleId;
+
 	private String name;
 
 	public long getAlleleId() {

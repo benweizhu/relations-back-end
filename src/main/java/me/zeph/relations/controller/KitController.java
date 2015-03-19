@@ -20,14 +20,14 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @Api(value = "Kit", position = 0)
-@RequestMapping(value = "/kits", method = GET)
+@RequestMapping(value = "/kits")
 public class KitController {
 
 	@Autowired
 	private KitService kitService;
 
 	@ApiOperation(value = "Get Kits")
-	@RequestMapping(produces = APPLICATION_JSON_VALUE)
+	@RequestMapping(method = GET, produces = APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = OK)
 	public List<Kit> getKits() {
 		List<Kit> kits = kitService.getKits();
@@ -38,7 +38,7 @@ public class KitController {
 	}
 
 	@ApiOperation(value = "Get Kit by Id")
-	@RequestMapping(value = "/{kitId}", produces = APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{kitId}", method = GET, produces = APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = OK)
 	public Kit getKit(@PathVariable long kitId) {
 		Kit kit = kitService.getKit(kitId);
