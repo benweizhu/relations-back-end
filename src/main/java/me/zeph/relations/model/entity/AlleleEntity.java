@@ -14,4 +14,12 @@ public class AlleleEntity {
 
 	@Column(name = "NAME")
 	private String name;
+
+	public long getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
 }
