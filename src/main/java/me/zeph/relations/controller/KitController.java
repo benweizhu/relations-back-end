@@ -2,7 +2,7 @@ package me.zeph.relations.controller;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
-import me.zeph.relations.model.Kit;
+import me.zeph.relations.model.api.Kit;
 import me.zeph.relations.service.KitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

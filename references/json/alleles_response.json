@@ -5,7 +5,7 @@
         "links": [
             {
                 "rel": "self",
-                "href": "http://localhost:8080/kits/1/alleles/1"
+                "href": "http://localhost:8080/kits/1/alleles/1" //http://localhost:8080/kits/{kidId}/alleles/{alleleId}
             }
         ]
     },

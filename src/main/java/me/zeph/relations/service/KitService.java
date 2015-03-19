@@ -1,7 +1,7 @@
 package me.zeph.relations.service;
 
 import me.zeph.relations.exception.KitNotFoundException;
-import me.zeph.relations.model.Kit;
+import me.zeph.relations.model.api.Kit;
 import me.zeph.relations.model.entity.KitEntity;
 import me.zeph.relations.repository.KitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
