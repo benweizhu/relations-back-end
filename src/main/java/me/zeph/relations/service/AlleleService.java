@@ -1,8 +1,10 @@
 package me.zeph.relations.service;
 
+import me.zeph.relations.exception.KitNotFoundException;
 import me.zeph.relations.model.api.Allele;
 import me.zeph.relations.model.entity.AlleleEntity;
-import me.zeph.relations.repository.AlleleRepository;
+import me.zeph.relations.model.entity.KitEntity;
+import me.zeph.relations.repository.KitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +17,15 @@ import static com.google.common.collect.Lists.newArrayList;
 public class AlleleService {
 
 	@Autowired
-	private AlleleRepository alleleRepository;
+	private KitRepository kitRepository;
 
 	public List<Allele> getAlleles(long kitId) {
-		List<AlleleEntity> alleleEntities = alleleRepository.findAll();
-		List<Allele> alleles = translateAlleles(alleleEntities);
-		return alleles;
+		KitEntity kitEntity = kitRepository.findOne(kitId);
+		if (kitEntity == null) {
+			throw new KitNotFoundException("Kit " + kitId + " not found");
+		} else {
+			return translateAlleles(kitEntity.getAlleles());
+		}
 	}
 
 	private List<Allele> translateAlleles(List<AlleleEntity> alleleEntities) {

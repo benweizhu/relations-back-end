@@ -1,6 +1,7 @@
 package me.zeph.relations.model.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "RELT_ALLELE")
@@ -14,6 +15,9 @@ public class AlleleEntity {
 
 	@Column(name = "NAME")
 	private String name;
+
+	@ManyToMany(mappedBy = "alleles")
+	private List<KitEntity> kits;
 
 	public long getId() {
 		return id;

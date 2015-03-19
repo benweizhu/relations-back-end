@@ -2,7 +2,9 @@ package me.zeph.relations.service;
 
 import me.zeph.relations.model.api.Allele;
 import me.zeph.relations.model.entity.AlleleEntity;
-import me.zeph.relations.repository.AlleleRepository;
+import me.zeph.relations.model.entity.KitEntity;
+import me.zeph.relations.repository.KitRepository;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -16,16 +18,33 @@ import static org.springframework.test.util.ReflectionTestUtils.setField;
 
 public class AlleleServiceTest {
 
+	private AlleleService alleleService;
+	private KitRepository kitRepository;
+
+	@Before
+	public void setUp() throws Exception {
+		alleleService = new AlleleService();
+		kitRepository = mock(KitRepository.class);
+	}
+
 	@Test
 	public void shouldTranslateAllele() {
-		AlleleService alleleService = new AlleleService();
-		AlleleRepository alleleRepository = mock(AlleleRepository.class);
-		AlleleEntity alleleEntity = getAlleleEntity(1L, "name");
-		when(alleleRepository.findAll()).thenReturn(newArrayList(alleleEntity));
-		setField(alleleService, "alleleRepository", alleleRepository);
+		KitEntity kitEntity = getKitEntity(getAlleleEntity(1L, "name"), 1L, "name");
+		when(kitRepository.findOne(1L)).thenReturn(kitEntity);
+		setField(alleleService, "kitRepository", kitRepository);
+
 		List<Allele> alleles = alleleService.getAlleles(1L);
+
 		assertThat(alleles.size(), is(1));
 		assertThat(alleles.get(0).getAlleleId(), is(1L));
+	}
+
+	private KitEntity getKitEntity(AlleleEntity alleleEntity, long id, String name) {
+		KitEntity kitEntity = new KitEntity();
+		setField(kitEntity, "id", id);
+		setField(kitEntity, "name", name);
+		setField(kitEntity, "alleles", newArrayList(alleleEntity));
+		return kitEntity;
 	}
 
 	private AlleleEntity getAlleleEntity(long id, String name) {

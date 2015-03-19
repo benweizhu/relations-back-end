@@ -1,6 +1,7 @@
 package me.zeph.relations.model.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "RELT_KIT")
@@ -15,11 +16,20 @@ public class KitEntity {
 	@Column(name = "NAME")
 	private String name;
 
+	@ManyToMany
+	@JoinTable(name = "RELR_KIT_ALLELE", joinColumns = {@JoinColumn(name = "kit_id", referencedColumnName = "id")},
+			inverseJoinColumns = {@JoinColumn(name = "allele_id", referencedColumnName = "id")})
+	private List<AlleleEntity> alleles;
+
 	public long getId() {
 		return id;
 	}
 
 	public String getName() {
 		return name;
+	}
+
+	public List<AlleleEntity> getAlleles() {
+		return alleles;
 	}
 }
