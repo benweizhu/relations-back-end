@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -25,13 +27,19 @@ public class AlleleController {
 
 	@ApiOperation(value = "Get Alleles by Kit Id")
 	@ResponseStatus(OK)
-	@RequestMapping(value = "kits/{kitId}/alleles", method = GET, produces = APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/kits/{kitId}/alleles", method = GET, produces = APPLICATION_JSON_VALUE)
 	public List<Allele> getAlleles(@PathVariable long kitId) {
-		return alleleService.getAlleles(kitId);
+		List<Allele> alleles = alleleService.getAlleles(kitId);
+		for (Allele allele : alleles) {
+			allele.add(linkTo(methodOn(AlleleController.class).getAllele(kitId, allele.getAlleleId())).withSelfRel());
+		}
+		return alleles;
 	}
 
-	@RequestMapping(value = "kits/{kitId}/alleles/{alleleId}", method = GET, produces = APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/kits/{kitId}/alleles/{alleleId}", method = GET, produces = APPLICATION_JSON_VALUE)
 	public Allele getAllele(@PathVariable long kitId, @PathVariable long alleleId) {
-		return alleleService.getAllele(kitId, alleleId);
+		Allele allele = alleleService.getAllele(kitId, alleleId);
+		allele.add(linkTo(methodOn(AlleleController.class).getAllele(kitId, alleleId)).withSelfRel());
+		return allele;
 	}
 }

@@ -33,7 +33,7 @@ public class AlleleControllerIntegrationTest {
 	}
 
 	@Test
-	public void shouldReturnKits() throws Exception {
+	public void shouldReturnAllelesByKitId() throws Exception {
 		mockMvc.perform(get("/kits/1/alleles")
 				.accept(APPLICATION_JSON))
 				.andExpect(status().isOk())
@@ -41,5 +41,16 @@ public class AlleleControllerIntegrationTest {
 				.andExpect(jsonPath("$", hasSize(2)))
 				.andExpect(jsonPath("$[0].alleleId", is(1)))
 				.andExpect(jsonPath("$[0].name", is("D1GATA113")));
+	}
+
+
+	@Test
+	public void shouldReturnAlleleByKitIdAndAlleleId() throws Exception {
+		mockMvc.perform(get("/kits/1/alleles/1")
+				.accept(APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(APPLICATION_JSON))
+				.andExpect(jsonPath("$.alleleId", is(1)))
+				.andExpect(jsonPath("$.name", is("D1GATA113")));
 	}
 }
