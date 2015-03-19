@@ -9,13 +9,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController(value = "kits/{kitId}/alleles")
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
+@RestController
 public class AlleleController {
 
 	@Autowired
 	private AlleleService alleleService;
 
-	@RequestMapping
+	@RequestMapping(value = "kits/{kitId}/alleles", produces = APPLICATION_JSON_VALUE)
 	public List<Allele> getAlleles(@PathVariable long kitId) {
 		return alleleService.getAlleles(kitId);
 	}
