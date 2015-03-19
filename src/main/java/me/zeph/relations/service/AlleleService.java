@@ -1,5 +1,6 @@
 package me.zeph.relations.service;
 
+import me.zeph.relations.exception.AlleleNotFoundException;
 import me.zeph.relations.exception.KitNotFoundException;
 import me.zeph.relations.model.api.Allele;
 import me.zeph.relations.model.entity.AlleleEntity;
@@ -28,6 +29,25 @@ public class AlleleService {
 		}
 	}
 
+	public Allele getAllele(long kitId, long alleleId) {
+		KitEntity kitEntity = kitRepository.findOne(kitId);
+		if (kitEntity == null) {
+			throw new KitNotFoundException("Kit " + kitId + " not found");
+		} else {
+			return findAlleleById(kitId, alleleId, kitEntity);
+		}
+	}
+
+	private Allele findAlleleById(long kitId, long alleleId, KitEntity kitEntity) {
+		List<AlleleEntity> alleleEntities = kitEntity.getAlleles();
+		for (AlleleEntity alleleEntity : alleleEntities) {
+			if (alleleEntity.getId() == alleleId) {
+				return translateAllele(alleleEntity);
+			}
+		}
+		throw new AlleleNotFoundException("Allele " + alleleId + " not found in Kit " + kitId);
+	}
+
 	private List<Allele> translateAlleles(List<AlleleEntity> alleleEntities) {
 		ArrayList<Allele> alleles = newArrayList();
 		for (AlleleEntity alleleEntity : alleleEntities) {
@@ -42,5 +62,4 @@ public class AlleleService {
 		allele.setName(alleleEntity.getName());
 		return allele;
 	}
-
 }

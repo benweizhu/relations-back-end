@@ -51,7 +51,7 @@ public class KitServiceTest {
 
 	@Test(expected = KitNotFoundException.class)
 	public void shouldThrowKitNotFoundException(){
-		when(kitRepository.findOne(1L)).thenThrow(new KitNotFoundException("error"));
+		when(kitRepository.findOne(1L)).thenReturn(null);
 
 		kitService.getKit(1L);
 	}

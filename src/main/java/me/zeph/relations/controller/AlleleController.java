@@ -29,4 +29,9 @@ public class AlleleController {
 	public List<Allele> getAlleles(@PathVariable long kitId) {
 		return alleleService.getAlleles(kitId);
 	}
+
+	@RequestMapping(value = "kits/{kitId}/alleles/{alleleId}", method = GET, produces = APPLICATION_JSON_VALUE)
+	public Allele getAllele(@PathVariable long kitId, @PathVariable long alleleId) {
+		return alleleService.getAllele(kitId, alleleId);
+	}
 }
