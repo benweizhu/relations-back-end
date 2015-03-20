@@ -1,5 +1,6 @@
 package me.zeph.relations.service;
 
+import me.zeph.relations.exception.LocationNotFoundException;
 import me.zeph.relations.model.api.Location;
 import me.zeph.relations.model.entity.LocationEntity;
 import me.zeph.relations.repository.LocationRepository;
@@ -9,9 +10,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.String.format;
 
 @Service
 public class LocationService {
+
 	@Autowired
 	private LocationRepository locationRepository;
 
@@ -25,6 +28,15 @@ public class LocationService {
 			locations.add(translateLocation(locationEntity.getId(), locationEntity.getName()));
 		}
 		return locations;
+	}
+
+	public Location getLocation(long locationId) {
+		LocationEntity locationEntity = locationRepository.findOne(locationId);
+		if (locationEntity == null) {
+			throw new LocationNotFoundException(format("Location %d not found", locationId));
+		} else {
+			return translateLocation(locationEntity.getId(), locationEntity.getName());
+		}
 	}
 
 	private Location translateLocation(long id, String name) {
