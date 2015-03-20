@@ -1,0 +1,22 @@
+[
+    {
+        "id": "1",
+        "name": "abc",
+        "links": [
+            {
+                "rel": "self",
+                "href": "http://localhost:8080/locations/1"
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "name": "def",
+        "links": [
+            {
+                "rel": "self",
+                "href": "http://localhost:8080/locations/2"
+            }
+        ]
+    }
+]
