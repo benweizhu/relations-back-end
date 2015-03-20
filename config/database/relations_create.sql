@@ -13,7 +13,7 @@ CREATE TABLE relr_kit_allele (
 );
 
 CREATE TABLE relr_loca_alle_locus (
-  id          INT            NOT NULL,
+  id          INT            NOT NULL AUTO_INCREMENT,
   location_id INT            NOT NULL,
   allele_id   INT            NOT NULL,
   locus_id    INT            NOT NULL,
