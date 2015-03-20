@@ -1,55 +1,67 @@
-create table relt_kit (
-  id   int         not null auto_increment,
-  name varchar(20) not null,
-  constraint relt_kit_pk primary key (id)
+CREATE TABLE relr_allele_locus (
+  id        INT NOT NULL AUTO_INCREMENT,
+  allele_id INT NOT NULL,
+  locus_id  INT NOT NULL,
+  CONSTRAINT relr_allele_locus_pk PRIMARY KEY (id)
 );
 
-create table relt_location (
-  id   int         not null auto_increment,
-  name varchar(20) not null,
-  constraint relt_location_pk primary key (id)
+CREATE TABLE relr_kit_allele (
+  id        INT NOT NULL AUTO_INCREMENT,
+  kit_id    INT NOT NULL,
+  allele_id INT NOT NULL,
+  CONSTRAINT relr_kit_allele_pk PRIMARY KEY (id)
 );
 
-create table relt_allele (
-  id   int         not null auto_increment,
-  name varchar(20) not null,
-  constraint relt_allele_pk primary key (id)
+CREATE TABLE relr_loca_alle_locus (
+  id          INT            NOT NULL,
+  location_id INT            NOT NULL,
+  allele_id   INT            NOT NULL,
+  locus_id    INT            NOT NULL,
+  value       DECIMAL(10, 7) NOT NULL,
+  CONSTRAINT relr_loca_alle_locus_pk PRIMARY KEY (id)
 );
 
-create table relt_locus (
-  id    int            not null auto_increment,
-  value decimal(10, 5) not null,
-  constraint relt_locus_pk primary key (id)
+CREATE TABLE relt_allele (
+  id   INT         NOT NULL AUTO_INCREMENT,
+  name VARCHAR(20) NOT NULL,
+  CONSTRAINT relt_allele_pk PRIMARY KEY (id)
 );
 
-create table relr_kit_allele (
-  id        int not null auto_increment,
-  kit_id    int not null,
-  allele_id int not null,
-  constraint relr_kit_allele_pk primary key (id)
+CREATE TABLE relt_kit (
+  id   INT         NOT NULL AUTO_INCREMENT,
+  name VARCHAR(20) NOT NULL,
+  CONSTRAINT relt_kit_pk PRIMARY KEY (id)
 );
 
-create table relr_loca_alle_locus (
-  id          int            not null auto_increment,
-  location_id int            not null,
-  allele_id   int            not null,
-  locus_id    int            not null,
-  value       decimal(10, 7) not null,
-  constraint relr_loca_alle_locus_pk primary key (id)
+CREATE TABLE relt_location (
+  id   INT         NOT NULL AUTO_INCREMENT,
+  name VARCHAR(20) NOT NULL,
+  CONSTRAINT relt_location_pk PRIMARY KEY (id)
 );
 
-alter table relr_kit_allele add constraint ka_fk_allele foreign key ka_fk_allele (allele_id)
-references relt_allele (id);
+CREATE TABLE relt_locus (
+  id    INT            NOT NULL AUTO_INCREMENT,
+  value DECIMAL(10, 5) NOT NULL,
+  CONSTRAINT relt_locus_pk PRIMARY KEY (id)
+);
 
-alter table relr_kit_allele add constraint ka_fk_kit foreign key ka_fk_kit (kit_id)
-references relt_kit (id);
+ALTER TABLE relr_allele_locus ADD CONSTRAINT al_fk_alele FOREIGN KEY al_fk_alele (allele_id)
+REFERENCES relt_allele (id);
 
-alter table relr_loca_alle_locus add constraint lal_fk_allele foreign key lal_fk_allele (allele_id)
-references relt_allele (id);
+ALTER TABLE relr_allele_locus ADD CONSTRAINT al_fk_locus FOREIGN KEY al_fk_locus (locus_id)
+REFERENCES relt_locus (id);
 
-alter table relr_loca_alle_locus add constraint lal_fk_location foreign key lal_fk_location (location_id)
-references relt_location (id);
+ALTER TABLE relr_kit_allele ADD CONSTRAINT ka_fk_allele FOREIGN KEY ka_fk_allele (allele_id)
+REFERENCES relt_allele (id);
 
-alter table relr_loca_alle_locus add constraint lal_fk_locus foreign key lal_fk_locus (locus_id)
-references relt_locus (id);
+ALTER TABLE relr_kit_allele ADD CONSTRAINT ka_fk_kit FOREIGN KEY ka_fk_kit (kit_id)
+REFERENCES relt_kit (id);
 
+ALTER TABLE relr_loca_alle_locus ADD CONSTRAINT lal_fk_allele FOREIGN KEY lal_fk_allele (allele_id)
+REFERENCES relt_allele (id);
+
+ALTER TABLE relr_loca_alle_locus ADD CONSTRAINT lal_fk_location FOREIGN KEY lal_fk_location (location_id)
+REFERENCES relt_location (id);
+
+ALTER TABLE relr_loca_alle_locus ADD CONSTRAINT lal_fk_locus FOREIGN KEY lal_fk_locus (locus_id)
+REFERENCES relt_locus (id);
