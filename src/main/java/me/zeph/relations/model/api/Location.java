@@ -1,7 +1,9 @@
 package me.zeph.relations.model.api;
 
+import com.wordnik.swagger.annotations.ApiModel;
 import org.springframework.hateoas.ResourceSupport;
 
+@ApiModel
 public class Location extends ResourceSupport {
 
 	private long locationId;
