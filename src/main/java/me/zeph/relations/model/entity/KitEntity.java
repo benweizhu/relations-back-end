@@ -21,6 +21,13 @@ public class KitEntity {
 			inverseJoinColumns = {@JoinColumn(name = "allele_id", referencedColumnName = "id")})
 	private List<AlleleEntity> alleles;
 
+	public KitEntity() {
+	}
+
+	public KitEntity(String name) {
+		this.name = name;
+	}
+
 	public long getId() {
 		return id;
 	}

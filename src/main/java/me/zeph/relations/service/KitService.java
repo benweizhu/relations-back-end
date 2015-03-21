@@ -1,5 +1,6 @@
 package me.zeph.relations.service;
 
+import me.zeph.relations.exception.KitAlreadyExistException;
 import me.zeph.relations.exception.KitNotFoundException;
 import me.zeph.relations.model.api.Kit;
 import me.zeph.relations.model.entity.KitEntity;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.String.format;
 
 @Service
 public class KitService {
@@ -27,6 +29,15 @@ public class KitService {
 			throw new KitNotFoundException("Kit " + kitId + " not found");
 		} else {
 			return translateKit(kitEntity);
+		}
+	}
+
+	public void addKit(String name) {
+		List<KitEntity> kitEntities = kitRepository.findByName(name);
+		if (!kitEntities.isEmpty()) {
+			throw new KitAlreadyExistException(format("Kit %s already exist", name));
+		} else {
+			kitRepository.saveAndFlush(new KitEntity(name));
 		}
 	}
 
