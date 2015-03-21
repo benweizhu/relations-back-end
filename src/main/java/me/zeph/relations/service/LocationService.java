@@ -11,6 +11,7 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
+import static me.zeph.relations.exception.ExceptionMessage.LOCATION_NOT_FOUND;
 
 @Service
 public class LocationService {
@@ -33,7 +34,7 @@ public class LocationService {
 	public Location getLocation(long locationId) {
 		LocationEntity locationEntity = locationRepository.findOne(locationId);
 		if (locationEntity == null) {
-			throw new LocationNotFoundException(format("Location %d not found", locationId));
+			throw new LocationNotFoundException(format(LOCATION_NOT_FOUND, locationId));
 		} else {
 			return translateLocation(locationEntity.getId(), locationEntity.getName());
 		}

@@ -12,6 +12,8 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
+import static me.zeph.relations.exception.ExceptionMessage.KIT_ALREADY_EXIST;
+import static me.zeph.relations.exception.ExceptionMessage.KIT_NOT_FOUND;
 
 @Service
 public class KitService {
@@ -26,7 +28,7 @@ public class KitService {
 	public Kit getKit(long kitId) {
 		KitEntity kitEntity = kitRepository.findOne(kitId);
 		if (kitEntity == null) {
-			throw new KitNotFoundException("Kit " + kitId + " not found");
+			throw new KitNotFoundException(format(KIT_NOT_FOUND, kitId));
 		} else {
 			return translateKit(kitEntity);
 		}
@@ -35,7 +37,7 @@ public class KitService {
 	public Kit addKit(String name) {
 		List<KitEntity> kitEntities = kitRepository.findByName(name);
 		if (!kitEntities.isEmpty()) {
-			throw new KitAlreadyExistException(format("Kit %s already exist", name));
+			throw new KitAlreadyExistException(format(KIT_ALREADY_EXIST, name));
 		} else {
 			return translateKit(kitRepository.saveAndFlush(new KitEntity(name)));
 		}

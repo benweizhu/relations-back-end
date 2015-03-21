@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.String.format;
+import static me.zeph.relations.exception.ExceptionMessage.ALLELE_NOT_FOUND_IN_KIT;
+import static me.zeph.relations.exception.ExceptionMessage.KIT_NOT_FOUND;
 
 @Service
 public class AlleleService {
@@ -23,7 +26,7 @@ public class AlleleService {
 	public List<Allele> getAlleles(long kitId) {
 		KitEntity kitEntity = kitRepository.findOne(kitId);
 		if (kitEntity == null) {
-			throw new KitNotFoundException("Kit " + kitId + " not found");
+			throw new KitNotFoundException(format(KIT_NOT_FOUND, kitId));
 		} else {
 			return translateAlleles(kitEntity.getAlleles());
 		}
@@ -32,7 +35,7 @@ public class AlleleService {
 	public Allele getAllele(long kitId, long alleleId) {
 		KitEntity kitEntity = kitRepository.findOne(kitId);
 		if (kitEntity == null) {
-			throw new KitNotFoundException("Kit " + kitId + " not found");
+			throw new KitNotFoundException(format(KIT_NOT_FOUND, kitId));
 		} else {
 			return findAlleleById(kitId, alleleId, kitEntity);
 		}
@@ -45,7 +48,7 @@ public class AlleleService {
 				return translateAllele(alleleEntity);
 			}
 		}
-		throw new AlleleNotFoundException("Allele " + alleleId + " not found in Kit " + kitId);
+		throw new AlleleNotFoundException(format(ALLELE_NOT_FOUND_IN_KIT, alleleId, kitId));
 	}
 
 	private List<Allele> translateAlleles(List<AlleleEntity> alleleEntities) {
