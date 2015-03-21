@@ -41,6 +41,16 @@ public class AlleleService {
 		}
 	}
 
+	public void addAllele(long kitId, String alleleName) {
+		KitEntity kitEntity = kitRepository.findOne(kitId);
+		if (kitEntity == null) {
+			throw new KitNotFoundException(format(KIT_NOT_FOUND, kitId));
+		} else {
+			kitEntity.addAllele(new AlleleEntity(alleleName));
+			kitRepository.saveAndFlush(kitEntity);
+		}
+	}
+
 	private Allele findAlleleById(long kitId, long alleleId, KitEntity kitEntity) {
 		List<AlleleEntity> alleleEntities = kitEntity.getAlleles();
 		for (AlleleEntity alleleEntity : alleleEntities) {

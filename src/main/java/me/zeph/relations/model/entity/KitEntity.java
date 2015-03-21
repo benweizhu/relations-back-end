@@ -3,6 +3,8 @@ package me.zeph.relations.model.entity;
 import javax.persistence.*;
 import java.util.List;
 
+import static com.google.common.collect.Lists.newArrayList;
+
 @Entity
 @Table(name = "RELT_KIT")
 public class KitEntity {
@@ -16,10 +18,10 @@ public class KitEntity {
 	@Column(name = "NAME")
 	private String name;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "RELR_KIT_ALLELE", joinColumns = {@JoinColumn(name = "kit_id", referencedColumnName = "id")},
 			inverseJoinColumns = {@JoinColumn(name = "allele_id", referencedColumnName = "id")})
-	private List<AlleleEntity> alleles;
+	private List<AlleleEntity> alleles = newArrayList();
 
 	public KitEntity() {
 	}
