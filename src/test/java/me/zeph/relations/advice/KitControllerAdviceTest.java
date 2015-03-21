@@ -1,5 +1,6 @@
 package me.zeph.relations.advice;
 
+import me.zeph.relations.exception.KitAlreadyExistException;
 import me.zeph.relations.exception.KitNotFoundException;
 import me.zeph.relations.model.api.ApiError;
 import org.junit.Test;
@@ -19,5 +20,14 @@ public class KitControllerAdviceTest {
 
 		assertThat(apiError.getMessage(), is(ERROR_MESSAGE));
 
+	}
+
+	@Test
+	public void shouldHandelKitAlreadyExistException() {
+		KitControllerAdvice kitControllerAdvice = new KitControllerAdvice();
+
+		ApiError apiError = kitControllerAdvice.handleKitAlreadyExistException(new KitAlreadyExistException(ERROR_MESSAGE));
+
+		assertThat(apiError.getMessage(), is(ERROR_MESSAGE));
 	}
 }

@@ -1,6 +1,8 @@
 package me.zeph.relations.integration;
 
 import me.zeph.relations.Application;
+import me.zeph.relations.model.api.Kit;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,15 +14,19 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.transaction.Transactional;
+
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
+@Transactional
 public class KitControllerIntegrationTest {
 
 	private MockMvc mockMvc;
@@ -69,5 +75,25 @@ public class KitControllerIntegrationTest {
 				.andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.message", is("Failed to convert value of type 'java.lang.String' to required type 'long'; " +
 						"nested exception is java.lang.NumberFormatException: For input string: \"abc\"")));
+	}
+
+	@Test
+	public void shouldReturnKitCreate() throws Exception {
+		Kit kit = new Kit();
+		kit.setName("kitName");
+		mockMvc.perform(post("/kits")
+				.contentType(APPLICATION_JSON)
+				.content(new ObjectMapper().writeValueAsString(kit)))
+				.andExpect(status().isCreated());
+	}
+
+	@Test
+	public void shouldReturnKitConflict() throws Exception {
+		Kit kit = new Kit();
+		kit.setName("AGCU211");
+		mockMvc.perform(post("/kits")
+				.contentType(APPLICATION_JSON)
+				.content(new ObjectMapper().writeValueAsString(kit)))
+				.andExpect(status().isConflict());
 	}
 }
