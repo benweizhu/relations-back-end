@@ -5,6 +5,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import me.zeph.relations.model.api.Allele;
 import me.zeph.relations.service.AlleleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -31,7 +32,7 @@ public class AlleleController {
 	public List<Allele> getAlleles(@PathVariable long kitId) {
 		List<Allele> alleles = alleleService.getAlleles(kitId);
 		for (Allele allele : alleles) {
-			allele.add(linkTo(methodOn(AlleleController.class).getAllele(kitId, allele.getAlleleId())).withSelfRel());
+			allele.add(selfLink(kitId, allele.getAlleleId()));
 		}
 		return alleles;
 	}
@@ -39,7 +40,11 @@ public class AlleleController {
 	@RequestMapping(value = "/kits/{kitId}/alleles/{alleleId}", method = GET, produces = APPLICATION_JSON_VALUE)
 	public Allele getAllele(@PathVariable long kitId, @PathVariable long alleleId) {
 		Allele allele = alleleService.getAllele(kitId, alleleId);
-		allele.add(linkTo(methodOn(AlleleController.class).getAllele(kitId, alleleId)).withSelfRel());
+		allele.add(selfLink(kitId, alleleId));
 		return allele;
+	}
+
+	private Link selfLink(long kitId, long alleleId) {
+		return linkTo(methodOn(AlleleController.class).getAllele(kitId, alleleId)).withSelfRel();
 	}
 }
