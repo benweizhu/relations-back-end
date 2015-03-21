@@ -32,12 +32,12 @@ public class KitService {
 		}
 	}
 
-	public void addKit(String name) {
+	public Kit addKit(String name) {
 		List<KitEntity> kitEntities = kitRepository.findByName(name);
 		if (!kitEntities.isEmpty()) {
 			throw new KitAlreadyExistException(format("Kit %s already exist", name));
 		} else {
-			kitRepository.saveAndFlush(new KitEntity(name));
+			return translateKit(kitRepository.saveAndFlush(new KitEntity(name)));
 		}
 	}
 

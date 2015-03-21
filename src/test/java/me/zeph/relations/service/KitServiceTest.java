@@ -63,10 +63,11 @@ public class KitServiceTest {
 	@Test
 	public void shouldSaveKit() {
 		when(kitRepository.findByName(anyString())).thenReturn(Lists.<KitEntity>newArrayList());
+		when(kitRepository.saveAndFlush((KitEntity) anyObject())).thenReturn(getKitEntity(1L, KIT_NAME));
 
-		kitService.addKit(KIT_NAME);
+		Kit kit = kitService.addKit(KIT_NAME);
 
-		verify(kitRepository).saveAndFlush((KitEntity) anyObject());
+		assertThat(kit.getName(), is(KIT_NAME));
 	}
 
 	@Test(expected = KitAlreadyExistException.class)
