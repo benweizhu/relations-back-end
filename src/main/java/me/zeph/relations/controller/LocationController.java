@@ -5,6 +5,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import me.zeph.relations.model.api.Location;
 import me.zeph.relations.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,7 @@ public class LocationController {
 	public List<Location> getLocations() {
 		List<Location> locations = locationService.getLocations();
 		for (Location location : locations) {
-			location.add(linkTo(methodOn(LocationController.class).getLocation(location.getLocationId())).withSelfRel());
+			location.add(selfLink(location.getLocationId()));
 		}
 		return locations;
 	}
@@ -42,7 +43,11 @@ public class LocationController {
 	@ResponseStatus(HttpStatus.OK)
 	public Location getLocation(@PathVariable long locationId) {
 		Location location = locationService.getLocation(locationId);
-		location.add(linkTo(methodOn(LocationController.class).getLocation(locationId)).withSelfRel());
+		location.add(selfLink(locationId));
 		return location;
+	}
+
+	private Link selfLink(long locationId) {
+		return linkTo(methodOn(LocationController.class).getLocation(locationId)).withSelfRel();
 	}
 }

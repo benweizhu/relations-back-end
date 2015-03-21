@@ -5,6 +5,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import me.zeph.relations.model.api.Kit;
 import me.zeph.relations.service.KitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class KitController {
 	public List<Kit> getKits() {
 		List<Kit> kits = kitService.getKits();
 		for (Kit kit : kits) {
-			kit.add(linkTo(methodOn(KitController.class).getKit(kit.getKitId())).withSelfRel());
+			kit.add(selfLink(kit.getKitId()));
 		}
 		return kits;
 	}
@@ -44,7 +45,7 @@ public class KitController {
 	@ResponseStatus(value = OK)
 	public Kit getKit(@PathVariable long kitId) {
 		Kit kit = kitService.getKit(kitId);
-		kit.add(linkTo(methodOn(KitController.class).getKit(kitId)).withSelfRel());
+		kit.add(selfLink(kitId));
 		return kit;
 	}
 
@@ -56,6 +57,10 @@ public class KitController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(uriComponentsBuilder.path("/kits/{kitId}").buildAndExpand(kit.getKitId()).toUri());
 		return new ResponseEntity<Void>(headers, CREATED);
+	}
+
+	private Link selfLink(long kitId) {
+		return linkTo(methodOn(KitController.class).getKit(kitId)).withSelfRel();
 	}
 
 }
