@@ -32,4 +32,13 @@ public class KitEntity {
 	public List<AlleleEntity> getAlleles() {
 		return alleles;
 	}
+
+	public void addAllele(AlleleEntity allele) {
+		if (!alleles.contains(allele)) {
+			alleles.add(allele);
+		}
+		if (!allele.getKits().contains(this)) {
+			allele.getKits().add(this);
+		}
+	}
 }

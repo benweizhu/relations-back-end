@@ -26,4 +26,8 @@ public class AlleleEntity {
 	public String getName() {
 		return name;
 	}
+
+	public List<KitEntity> getKits() {
+		return kits;
+	}
 }
