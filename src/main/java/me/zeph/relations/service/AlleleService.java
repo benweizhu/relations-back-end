@@ -1,5 +1,6 @@
 package me.zeph.relations.service;
 
+import me.zeph.relations.exception.AlleleAlreadyExistException;
 import me.zeph.relations.exception.AlleleNotFoundException;
 import me.zeph.relations.exception.KitNotFoundException;
 import me.zeph.relations.model.api.Allele;
@@ -14,8 +15,7 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
-import static me.zeph.relations.exception.ExceptionMessage.ALLELE_NOT_FOUND_IN_KIT;
-import static me.zeph.relations.exception.ExceptionMessage.KIT_NOT_FOUND;
+import static me.zeph.relations.exception.ExceptionMessage.*;
 
 @Service
 public class AlleleService {
@@ -46,8 +46,13 @@ public class AlleleService {
 		if (kitEntity == null) {
 			throw new KitNotFoundException(format(KIT_NOT_FOUND, kitId));
 		} else {
-			kitEntity.addAllele(new AlleleEntity(alleleName));
-			kitRepository.saveAndFlush(kitEntity);
+			AlleleEntity allele = new AlleleEntity(alleleName);
+			if (kitEntity.getAlleles().contains(allele)) {
+				throw new AlleleAlreadyExistException(format(ALLELE_ALREADY_EXIST, alleleName));
+			} else {
+				kitEntity.addAllele(allele);
+				kitRepository.saveAndFlush(kitEntity);
+			}
 		}
 	}
 

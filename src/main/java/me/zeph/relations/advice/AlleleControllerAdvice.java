@@ -1,6 +1,7 @@
 package me.zeph.relations.advice;
 
 import me.zeph.relations.controller.AlleleController;
+import me.zeph.relations.exception.AlleleAlreadyExistException;
 import me.zeph.relations.exception.AlleleNotFoundException;
 import me.zeph.relations.exception.KitNotFoundException;
 import me.zeph.relations.model.api.ApiError;
@@ -30,4 +31,12 @@ public class AlleleControllerAdvice {
 	public ApiError handleKitNotFoundException(KitNotFoundException e) {
 		return new ApiError(e.getMessage());
 	}
+
+	@ResponseStatus(HttpStatus.CONFLICT)
+	@ExceptionHandler(value = AlleleAlreadyExistException.class)
+	@ResponseBody
+	public ApiError handleAlleleAlreadyExistException(AlleleAlreadyExistException e) {
+		return new ApiError(e.getMessage());
+	}
+
 }
