@@ -80,7 +80,9 @@ public class AlleleServiceTest {
 		KitEntity kitEntity = getKitEntity(getAlleleEntity(KIT_ID, ALLELE_NAME), KIT_ID, KIT_NAME, false);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(alleleRepository.findByName(anyString())).thenReturn(null);
+
 		alleleService.addAllele(KIT_ID, "newAllele");
+
 		assertThat(kitEntity.getAlleles().size(), is(1));
 		assertThat(kitEntity.getAlleles().get(0).getName(), is("newAllele"));
 	}
@@ -91,7 +93,9 @@ public class AlleleServiceTest {
 		KitEntity kitEntity = getKitEntity(alleleEntity, KIT_ID, KIT_NAME, false);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(alleleRepository.findByName(anyString())).thenReturn(alleleEntity);
+
 		alleleService.addAllele(KIT_ID, KIT_NAME);
+
 		assertThat(kitEntity.getAlleles().size(), is(1));
 		assertThat(kitEntity.getAlleles().get(0).getName(), is(ALLELE_NAME));
 	}
@@ -99,6 +103,7 @@ public class AlleleServiceTest {
 	@Test(expected = KitNotFoundException.class)
 	public void shouldThrowKitNotFoundExceptionWhenAddAllele(){
 		when(kitRepository.findOne(KIT_ID)).thenReturn(null);
+
 		alleleService.addAllele(KIT_ID, KIT_NAME);
 	}
 
@@ -108,6 +113,7 @@ public class AlleleServiceTest {
 		KitEntity kitEntity = getKitEntity(alleleEntity, KIT_ID, KIT_NAME, true);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(alleleRepository.findByName(anyString())).thenReturn(alleleEntity);
+
 		alleleService.addAllele(KIT_ID, KIT_NAME);
 	}
 
