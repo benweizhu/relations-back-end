@@ -7,6 +7,7 @@ import me.zeph.relations.service.AlleleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -15,11 +16,9 @@ import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @Api(value = "Alleles", position = 1)
@@ -54,9 +53,23 @@ public class AlleleController {
 	public ResponseEntity<?> addAllele(UriComponentsBuilder uriComponentsBuilder,
 	                                   @PathVariable long kitId, @RequestBody Allele requestAllele) {
 		alleleService.addAllele(kitId, requestAllele.getName());
+		return getResponseEntity(uriComponentsBuilder, "/kits/{kitId}/alleles", kitId, CREATED);
+	}
+
+	@ApiOperation(value = "Delete Allele by Allele Id")
+	@ResponseStatus(value = NO_CONTENT)
+	@RequestMapping(value = "/kits/{kitId}/alleles/{alleleId}", method = DELETE)
+	public ResponseEntity<?> removeAllele(UriComponentsBuilder uriComponentsBuilder,
+	                                      @PathVariable long kitId, @PathVariable long alleleId) {
+		alleleService.removeAllele(kitId, alleleId);
+		return getResponseEntity(uriComponentsBuilder, "/kits/{kitId}/alleles", kitId, NO_CONTENT);
+	}
+
+	private ResponseEntity<?> getResponseEntity(UriComponentsBuilder uriComponentsBuilder, String path,
+	                                            long urlVariable, HttpStatus httpStatus) {
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(uriComponentsBuilder.path("/kits/{kitId}/alleles").buildAndExpand(kitId).toUri());
-		return new ResponseEntity<Void>(headers, CREATED);
+		headers.setLocation(uriComponentsBuilder.path(path).buildAndExpand(urlVariable).toUri());
+		return new ResponseEntity<Void>(headers, httpStatus);
 	}
 
 

@@ -6,6 +6,7 @@ import me.zeph.relations.exception.KitNotFoundException;
 import me.zeph.relations.model.api.Allele;
 import me.zeph.relations.model.entity.AlleleEntity;
 import me.zeph.relations.model.entity.KitEntity;
+import me.zeph.relations.repository.AlleleRepository;
 import me.zeph.relations.repository.KitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ public class AlleleService {
 
 	@Autowired
 	private KitRepository kitRepository;
+
+	@Autowired
+	private AlleleRepository alleleRepository;
 
 	public List<Allele> getAlleles(long kitId) {
 		KitEntity kitEntity = kitRepository.findOne(kitId);
@@ -51,6 +55,21 @@ public class AlleleService {
 				throw new AlleleAlreadyExistException(format(ALLELE_ALREADY_EXIST, alleleName));
 			} else {
 				kitEntity.addAllele(allele);
+				kitRepository.saveAndFlush(kitEntity);
+			}
+		}
+	}
+
+	public void removeAllele(long kitId, long alleleId) {
+		KitEntity kitEntity = kitRepository.findOne(kitId);
+		if (kitEntity == null) {
+			throw new KitNotFoundException(format(KIT_NOT_FOUND, kitId));
+		} else {
+			AlleleEntity allele = alleleRepository.findOne(alleleId);
+			if (allele == null) {
+				throw new AlleleNotFoundException(format(ALLELE_NOT_FOUND_IN_KIT, alleleId, kitId));
+			} else {
+				kitEntity.removeAllele(allele);
 				kitRepository.saveAndFlush(kitEntity);
 			}
 		}

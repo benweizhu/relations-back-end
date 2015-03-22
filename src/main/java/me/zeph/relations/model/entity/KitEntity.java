@@ -51,6 +51,15 @@ public class KitEntity {
 		}
 	}
 
+	public void removeAllele(AlleleEntity allele) {
+		if (alleles.contains(allele)) {
+			alleles.remove(allele);
+		}
+		if (allele.getKits().contains(this)) {
+			allele.getKits().remove(this);
+		}
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
