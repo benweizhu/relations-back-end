@@ -51,8 +51,8 @@ public class AlleleController {
 	@ApiOperation(value = "Save Allele by Name")
 	@ResponseStatus(value = CREATED)
 	@RequestMapping(value = "/kits/{kitId}/alleles", method = POST)
-	public ResponseEntity<?> createCustomer(UriComponentsBuilder uriComponentsBuilder,
-	                                        @PathVariable long kitId, @RequestBody Allele requestAllele) {
+	public ResponseEntity<?> addAllele(UriComponentsBuilder uriComponentsBuilder,
+	                                   @PathVariable long kitId, @RequestBody Allele requestAllele) {
 		alleleService.addAllele(kitId, requestAllele.getName());
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(uriComponentsBuilder.path("/kits/{kitId}/alleles").buildAndExpand(kitId).toUri());

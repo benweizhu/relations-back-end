@@ -52,7 +52,7 @@ public class KitController {
 	@ApiOperation(value = "Save Kit by Name")
 	@RequestMapping(method = POST)
 	@ResponseStatus(value = CREATED)
-	public ResponseEntity<?> createCustomer(UriComponentsBuilder uriComponentsBuilder, @RequestBody Kit requestKit) {
+	public ResponseEntity<?> allKit(UriComponentsBuilder uriComponentsBuilder, @RequestBody Kit requestKit) {
 		Kit kit = kitService.addKit(requestKit.getName());
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(uriComponentsBuilder.path("/kits/{kitId}").buildAndExpand(kit.getKitId()).toUri());
