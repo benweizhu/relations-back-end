@@ -29,7 +29,7 @@ public class AlleleController {
 	private AlleleService alleleService;
 
 	@ApiOperation(value = "Get Alleles by Kit Id")
-	@ResponseStatus(OK)
+	@ResponseStatus(value = OK)
 	@RequestMapping(value = "/kits/{kitId}/alleles", method = GET, produces = APPLICATION_JSON_VALUE)
 	public List<Allele> getAlleles(@PathVariable long kitId) {
 		List<Allele> alleles = alleleService.getAlleles(kitId);
@@ -40,7 +40,7 @@ public class AlleleController {
 	}
 
 	@ApiOperation(value = "Get Allele by Kit Id and Allele Id")
-	@ResponseStatus(OK)
+	@ResponseStatus(value = OK)
 	@RequestMapping(value = "/kits/{kitId}/alleles/{alleleId}", method = GET, produces = APPLICATION_JSON_VALUE)
 	public Allele getAllele(@PathVariable long kitId, @PathVariable long alleleId) {
 		Allele allele = alleleService.getAllele(kitId, alleleId);
