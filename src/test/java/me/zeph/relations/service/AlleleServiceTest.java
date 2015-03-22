@@ -36,7 +36,7 @@ public class AlleleServiceTest {
 
 	@Test
 	public void shouldTranslateAlleles() {
-		KitEntity kitEntity = getKitEntity(getAlleleEntity(1L, "name"), 1L, "name");
+		KitEntity kitEntity = getKitEntity(getAlleleEntity(1L, "name"), 1L, "name", true);
 		when(kitRepository.findOne(1L)).thenReturn(kitEntity);
 
 		List<Allele> alleles = alleleService.getAlleles(1L);
@@ -54,7 +54,7 @@ public class AlleleServiceTest {
 
 	@Test
 	public void shouldTranslateAllele() {
-		KitEntity kitEntity = getKitEntity(getAlleleEntity(1L, "name"), 1L, "name");
+		KitEntity kitEntity = getKitEntity(getAlleleEntity(1L, "name"), 1L, "name", true);
 		when(kitRepository.findOne(1L)).thenReturn(kitEntity);
 
 		Allele allele = alleleService.getAllele(1L, 1L);
@@ -64,7 +64,7 @@ public class AlleleServiceTest {
 
 	@Test(expected = AlleleNotFoundException.class)
 	public void shouldThrowAlleleNotFoundException() {
-		KitEntity kitEntity = getKitEntity(getAlleleEntity(1L, "name"), 1L, "name");
+		KitEntity kitEntity = getKitEntity(getAlleleEntity(1L, "name"), 1L, "name", true);
 		when(kitRepository.findOne(1L)).thenReturn(kitEntity);
 
 		alleleService.getAllele(1L, 2L);
@@ -73,7 +73,7 @@ public class AlleleServiceTest {
 	@Test
 	public void shouldRemoveAllele() {
 		AlleleEntity alleleEntity = getAlleleEntity(1L, "name");
-		KitEntity kitEntity = getKitEntity(alleleEntity, 1L, "name");
+		KitEntity kitEntity = getKitEntity(alleleEntity, 1L, "name", true);
 		when(kitRepository.findOne(1L)).thenReturn(kitEntity);
 		when(alleleRepository.findOne(1L)).thenReturn(alleleEntity);
 
@@ -94,9 +94,9 @@ public class AlleleServiceTest {
 	}
 
 	@Test(expected = AlleleNotFoundException.class)
-	public void shouldThrowAlleleNotFoundExceptionWhenRemoveAllele() {
+	public void shouldThrowAlleleNotFoundExceptionWhenAlleleNotExistInDB() {
 		AlleleEntity alleleEntity = getAlleleEntity(1L, "name");
-		KitEntity kitEntity = getKitEntity(alleleEntity, 1L, "name");
+		KitEntity kitEntity = getKitEntity(alleleEntity, 1L, "name", true);
 		when(kitRepository.findOne(1L)).thenReturn(kitEntity);
 		when(alleleRepository.findOne(99L)).thenReturn(null);
 
@@ -105,12 +105,26 @@ public class AlleleServiceTest {
 		verify(alleleRepository).findOne(99L);
 	}
 
-	private KitEntity getKitEntity(AlleleEntity alleleEntity, long id, String name) {
+	@Test(expected = AlleleNotFoundException.class)
+	public void shouldThrowAlleleNotFoundExceptionWhenKitAlleleRelationshipNotExistInDB() {
+		AlleleEntity alleleEntity = getAlleleEntity(1L, "name");
+		KitEntity kitEntity = getKitEntity(alleleEntity, 1L, "name", false);
+		when(kitRepository.findOne(1L)).thenReturn(kitEntity);
+		when(alleleRepository.findOne(1L)).thenReturn(alleleEntity);
+
+		alleleService.removeAllele(1L, 1L);
+
+		verify(alleleRepository).findOne(1L);
+	}
+
+	private KitEntity getKitEntity(AlleleEntity alleleEntity, long id, String name, boolean addLink) {
 		KitEntity kitEntity = new KitEntity();
 		setField(kitEntity, "id", id);
 		setField(kitEntity, "name", name);
-		setField(kitEntity, "alleles", newArrayList(alleleEntity));
-		alleleEntity.getKits().add(kitEntity);
+		if (addLink) {
+			setField(kitEntity, "alleles", newArrayList(alleleEntity));
+			alleleEntity.getKits().add(kitEntity);
+		}
 		return kitEntity;
 	}
 

@@ -66,7 +66,7 @@ public class AlleleService {
 			throw new KitNotFoundException(format(KIT_NOT_FOUND, kitId));
 		} else {
 			AlleleEntity allele = alleleRepository.findOne(alleleId);
-			if (allele == null) {
+			if (!kitEntity.getAlleles().contains(allele)) {
 				throw new AlleleNotFoundException(format(ALLELE_NOT_FOUND_IN_KIT, alleleId, kitId));
 			} else {
 				kitEntity.removeAllele(allele);

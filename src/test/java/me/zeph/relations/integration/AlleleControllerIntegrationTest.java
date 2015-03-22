@@ -43,7 +43,7 @@ public class AlleleControllerIntegrationTest {
 				.accept(APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(APPLICATION_JSON))
-				.andExpect(jsonPath("$", hasSize(2)))
+				.andExpect(jsonPath("$", hasSize(3)))
 				.andExpect(jsonPath("$[0].alleleId", is(1)))
 				.andExpect(jsonPath("$[0].name", is("D1GATA113")));
 	}
@@ -123,8 +123,8 @@ public class AlleleControllerIntegrationTest {
 
 	@Test
 	public void shouldReturnAlleleNotFoundWhenDeleteAllele() throws Exception {
-		mockMvc.perform(delete("/kits/1/alleles/99"))
+		mockMvc.perform(delete("/kits/2/alleles/3"))
 				.andExpect(status().isNotFound())
-				.andExpect(jsonPath("$.message", is("Allele 99 not found in Kit 1")));
+				.andExpect(jsonPath("$.message", is("Allele 3 not found in Kit 2")));
 	}
 }
