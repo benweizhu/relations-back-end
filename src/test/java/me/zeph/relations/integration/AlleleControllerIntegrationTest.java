@@ -19,8 +19,7 @@ import javax.transaction.Transactional;
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -107,5 +106,25 @@ public class AlleleControllerIntegrationTest {
 				.content(new ObjectMapper().writeValueAsString(value)))
 				.andExpect(status().isNotFound())
 				.andExpect(jsonPath("$.message", is("Kit 99 not found")));
+	}
+
+	@Test
+	public void shouldReturnNotContentWhenDeleteAlleleSuccessfully() throws Exception {
+		mockMvc.perform(delete("/kits/1/alleles/1"))
+				.andExpect(status().isNoContent());
+	}
+
+	@Test
+	public void shouldReturnKitNotFoundWhenDeleteAllele() throws Exception {
+		mockMvc.perform(delete("/kits/99/alleles/1"))
+				.andExpect(status().isNotFound())
+				.andExpect(jsonPath("$.message", is("Kit 99 not found")));
+	}
+
+	@Test
+	public void shouldReturnAlleleNotFoundWhenDeleteAllele() throws Exception {
+		mockMvc.perform(delete("/kits/1/alleles/99"))
+				.andExpect(status().isNotFound())
+				.andExpect(jsonPath("$.message", is("Allele 99 not found in Kit 1")));
 	}
 }

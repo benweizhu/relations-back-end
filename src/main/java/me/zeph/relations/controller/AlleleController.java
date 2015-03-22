@@ -72,7 +72,6 @@ public class AlleleController {
 		return new ResponseEntity<Void>(headers, httpStatus);
 	}
 
-
 	private Link selfLink(long kitId, long alleleId) {
 		return linkTo(methodOn(AlleleController.class).getAllele(kitId, alleleId)).withSelfRel();
 	}
