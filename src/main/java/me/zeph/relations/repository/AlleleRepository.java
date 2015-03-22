@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AlleleRepository extends JpaRepository<AlleleEntity, Long> {
+	AlleleEntity findByName(String name);
 }

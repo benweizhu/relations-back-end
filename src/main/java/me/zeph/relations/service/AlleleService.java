@@ -50,11 +50,11 @@ public class AlleleService {
 		if (kitEntity == null) {
 			throw new KitNotFoundException(format(KIT_NOT_FOUND, kitId));
 		} else {
-			AlleleEntity allele = new AlleleEntity(alleleName);
-			if (kitEntity.getAlleles().contains(allele)) {
+			AlleleEntity alleleEntity = getAlleleEntity(alleleName);
+			if (kitEntity.getAlleles().contains(alleleEntity)) {
 				throw new AlleleAlreadyExistException(format(ALLELE_ALREADY_EXIST, alleleName));
 			} else {
-				kitEntity.addAllele(allele);
+				kitEntity.addAllele(alleleEntity);
 				kitRepository.saveAndFlush(kitEntity);
 			}
 		}
@@ -73,6 +73,14 @@ public class AlleleService {
 				kitRepository.saveAndFlush(kitEntity);
 			}
 		}
+	}
+
+	private AlleleEntity getAlleleEntity(String alleleName) {
+		AlleleEntity alleleEntity = alleleRepository.findByName(alleleName);
+		if (alleleEntity == null) {
+			alleleEntity = new AlleleEntity(alleleName);
+		}
+		return alleleEntity;
 	}
 
 	private Allele findAlleleById(long kitId, long alleleId, KitEntity kitEntity) {
