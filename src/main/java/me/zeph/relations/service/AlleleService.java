@@ -29,49 +29,59 @@ public class AlleleService {
 
 	public List<Allele> getAlleles(long kitId) {
 		KitEntity kitEntity = kitRepository.findOne(kitId);
-		if (kitEntity == null) {
-			throw new KitNotFoundException(format(KIT_NOT_FOUND, kitId));
-		} else {
-			return translateAlleles(kitEntity.getAlleles());
-		}
+		assertKitExist(kitId, kitEntity);
+		return translateAlleles(kitEntity.getAlleles());
 	}
 
 	public Allele getAllele(long kitId, long alleleId) {
 		KitEntity kitEntity = kitRepository.findOne(kitId);
-		if (kitEntity == null) {
-			throw new KitNotFoundException(format(KIT_NOT_FOUND, kitId));
-		} else {
-			return findAlleleById(kitId, alleleId, kitEntity);
-		}
+		assertKitExist(kitId, kitEntity);
+		return findAlleleById(kitId, alleleId, kitEntity);
 	}
 
 	public void addAllele(long kitId, String alleleName) {
 		KitEntity kitEntity = kitRepository.findOne(kitId);
-		if (kitEntity == null) {
-			throw new KitNotFoundException(format(KIT_NOT_FOUND, kitId));
-		} else {
-			AlleleEntity alleleEntity = getAlleleEntity(alleleName);
-			if (kitEntity.getAlleles().contains(alleleEntity)) {
-				throw new AlleleAlreadyExistException(format(ALLELE_ALREADY_EXIST, alleleName));
-			} else {
-				kitEntity.addAllele(alleleEntity);
-				kitRepository.saveAndFlush(kitEntity);
-			}
-		}
+		assertKitExist(kitId, kitEntity);
+		addAlleleToKit(alleleName, kitEntity);
+
+		kitRepository.saveAndFlush(kitEntity);
 	}
 
 	public void removeAllele(long kitId, long alleleId) {
 		KitEntity kitEntity = kitRepository.findOne(kitId);
+		assertKitExist(kitId, kitEntity);
+		removeAlleleFromKit(kitId, alleleId, kitEntity);
+
+		kitRepository.saveAndFlush(kitEntity);
+	}
+
+	private void removeAlleleFromKit(long kitId, long alleleId, KitEntity kitEntity) {
+		AlleleEntity allele = alleleRepository.findOne(alleleId);
+		assertAlleleNotExist(kitId, alleleId, kitEntity, allele);
+		kitEntity.removeAllele(allele);
+	}
+
+	private void addAlleleToKit(String alleleName, KitEntity kitEntity) {
+		AlleleEntity alleleEntity = getAlleleEntity(alleleName);
+		assertAlleleAlreadyExist(alleleName, kitEntity, alleleEntity);
+		kitEntity.addAllele(alleleEntity);
+	}
+
+	private void assertAlleleNotExist(long kitId, long alleleId, KitEntity kitEntity, AlleleEntity allele) {
+		if (!kitEntity.getAlleles().contains(allele)) {
+			throw new AlleleNotFoundException(format(ALLELE_NOT_FOUND_IN_KIT, alleleId, kitId));
+		}
+	}
+
+	private void assertAlleleAlreadyExist(String alleleName, KitEntity kitEntity, AlleleEntity alleleEntity) {
+		if (kitEntity.getAlleles().contains(alleleEntity)) {
+			throw new AlleleAlreadyExistException(format(ALLELE_ALREADY_EXIST, alleleName));
+		}
+	}
+
+	private void assertKitExist(long kitId, KitEntity kitEntity) {
 		if (kitEntity == null) {
 			throw new KitNotFoundException(format(KIT_NOT_FOUND, kitId));
-		} else {
-			AlleleEntity allele = alleleRepository.findOne(alleleId);
-			if (!kitEntity.getAlleles().contains(allele)) {
-				throw new AlleleNotFoundException(format(ALLELE_NOT_FOUND_IN_KIT, alleleId, kitId));
-			} else {
-				kitEntity.removeAllele(allele);
-				kitRepository.saveAndFlush(kitEntity);
-			}
 		}
 	}
 
