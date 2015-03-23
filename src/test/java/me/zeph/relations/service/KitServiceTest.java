@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import me.zeph.relations.exception.KitAlreadyExistException;
 import me.zeph.relations.exception.KitNotFoundException;
 import me.zeph.relations.model.api.Kit;
+import me.zeph.relations.model.entity.AlleleEntity;
 import me.zeph.relations.model.entity.KitEntity;
 import me.zeph.relations.repository.KitRepository;
 import org.junit.Before;
@@ -23,6 +24,10 @@ public class KitServiceTest {
 
 	private static final long ID = 1L;
 	private static final String KIT_NAME = "kitName";
+	private static final String ALLELE_NAME = "alleleName";
+	private static final long ALLELE_ID = 1L;
+	private static final long ANOTHER_KIT_ID = 2L;
+	private static final String ANOTHER_KIT_NAME = "anotherKitName";
 	private KitService kitService;
 	private KitRepository kitRepository;
 
@@ -63,7 +68,7 @@ public class KitServiceTest {
 	@Test
 	public void shouldSaveKit() {
 		when(kitRepository.findByName(anyString())).thenReturn(Lists.<KitEntity>newArrayList());
-		when(kitRepository.saveAndFlush((KitEntity) anyObject())).thenReturn(getKitEntity(1L, KIT_NAME));
+		when(kitRepository.saveAndFlush((KitEntity) anyObject())).thenReturn(getKitEntity(ID, KIT_NAME));
 
 		Kit kit = kitService.addKit(KIT_NAME);
 
@@ -75,6 +80,34 @@ public class KitServiceTest {
 		when(kitRepository.findByName(anyString())).thenReturn(newArrayList(new KitEntity()));
 
 		kitService.addKit(KIT_NAME);
+	}
+
+	@Test
+	public void shouldRemoveKitSuccessfully() {
+		KitEntity kitEntity = getKitEntity(ID, KIT_NAME);
+		AlleleEntity allele = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
+		KitEntity anotherKitEntity = getKitEntity(ANOTHER_KIT_ID, ANOTHER_KIT_NAME);
+		kitEntity.addAllele(allele);
+		anotherKitEntity.addAllele(allele);
+		when(kitRepository.findOne(ID)).thenReturn(kitEntity);
+
+		kitService.removeKit(ID);
+
+		assertThat(allele.getKits().size(), is(1));
+		assertThat(kitEntity.getAlleles().isEmpty(), is(true));
+	}
+
+	@Test(expected = KitNotFoundException.class)
+	public void shouldThrowKitNotFoundExceptionWhenRemoveKitWhichIsNotExist() {
+		when(kitRepository.findOne(ID)).thenReturn(null);
+		kitService.removeKit(ID);
+	}
+
+	private AlleleEntity getAlleleEntity(long alleleId, String alleleName) {
+		AlleleEntity allele = new AlleleEntity();
+		setField(allele, "id", alleleId);
+		setField(allele, "name", alleleName);
+		return allele;
 	}
 
 	private KitEntity getKitEntity(long id, String name) {

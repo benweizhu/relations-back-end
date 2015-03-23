@@ -15,11 +15,9 @@ import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @Api(value = "Kit", position = 0)
@@ -57,6 +55,17 @@ public class KitController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(uriComponentsBuilder.path("/kits/{kitId}").buildAndExpand(kit.getKitId()).toUri());
 		return new ResponseEntity<Void>(headers, CREATED);
+	}
+
+
+	@ApiOperation(value = "Remove Kit by Kit Id")
+	@RequestMapping(value = "/{kitId}", method = DELETE)
+	@ResponseStatus(value = NO_CONTENT)
+	public ResponseEntity<?> removeKit(UriComponentsBuilder uriComponentsBuilder, @PathVariable long kitId) {
+		kitService.removeKit(kitId);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setLocation(uriComponentsBuilder.path("/kits").build().toUri());
+		return new ResponseEntity<Void>(headers, NO_CONTENT);
 	}
 
 	private Link selfLink(long kitId) {

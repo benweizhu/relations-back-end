@@ -11,6 +11,7 @@ import me.zeph.relations.repository.KitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 import static me.zeph.relations.exception.ExceptionMessage.*;
 
+@Transactional
 @Service
 public class AlleleService {
 

@@ -3,11 +3,13 @@ package me.zeph.relations.service;
 import me.zeph.relations.exception.KitAlreadyExistException;
 import me.zeph.relations.exception.KitNotFoundException;
 import me.zeph.relations.model.api.Kit;
+import me.zeph.relations.model.entity.AlleleEntity;
 import me.zeph.relations.model.entity.KitEntity;
 import me.zeph.relations.repository.KitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -15,6 +17,7 @@ import static java.lang.String.format;
 import static me.zeph.relations.exception.ExceptionMessage.KIT_ALREADY_EXIST;
 import static me.zeph.relations.exception.ExceptionMessage.KIT_NOT_FOUND;
 
+@Transactional
 @Service
 public class KitService {
 
@@ -35,6 +38,21 @@ public class KitService {
 		List<KitEntity> kitEntities = kitRepository.findByName(name);
 		assertKitNotExist(name, kitEntities);
 		return translateKit(kitRepository.saveAndFlush(new KitEntity(name)));
+	}
+
+	public void removeKit(long kitId) {
+		KitEntity kitEntity = kitRepository.findOne(kitId);
+		assertKitExist(kitId, kitEntity);
+		clearKitAlleleLinks(kitEntity);
+		kitRepository.delete(kitId);
+	}
+
+	private void clearKitAlleleLinks(KitEntity kitEntity) {
+		List<AlleleEntity> alleleEntities = kitEntity.getAlleles();
+		for (AlleleEntity alleleEntity : alleleEntities) {
+			alleleEntity.getKits().remove(kitEntity);
+		}
+		alleleEntities.clear();
 	}
 
 	private void assertKitNotExist(String name, List<KitEntity> kitEntities) {
