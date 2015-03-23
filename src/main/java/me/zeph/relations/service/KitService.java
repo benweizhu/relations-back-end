@@ -27,19 +27,25 @@ public class KitService {
 
 	public Kit getKit(long kitId) {
 		KitEntity kitEntity = kitRepository.findOne(kitId);
-		if (kitEntity == null) {
-			throw new KitNotFoundException(format(KIT_NOT_FOUND, kitId));
-		} else {
-			return translateKit(kitEntity);
-		}
+		assertKitExist(kitId, kitEntity);
+		return translateKit(kitEntity);
 	}
 
 	public Kit addKit(String name) {
 		List<KitEntity> kitEntities = kitRepository.findByName(name);
+		assertKitNotExist(name, kitEntities);
+		return translateKit(kitRepository.saveAndFlush(new KitEntity(name)));
+	}
+
+	private void assertKitNotExist(String name, List<KitEntity> kitEntities) {
 		if (!kitEntities.isEmpty()) {
 			throw new KitAlreadyExistException(format(KIT_ALREADY_EXIST, name));
-		} else {
-			return translateKit(kitRepository.saveAndFlush(new KitEntity(name)));
+		}
+	}
+
+	private void assertKitExist(long kitId, KitEntity kitEntity) {
+		if (kitEntity == null) {
+			throw new KitNotFoundException(format(KIT_NOT_FOUND, kitId));
 		}
 	}
 

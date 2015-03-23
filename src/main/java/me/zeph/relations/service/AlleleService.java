@@ -36,7 +36,7 @@ public class AlleleService {
 	public Allele getAllele(long kitId, long alleleId) {
 		KitEntity kitEntity = kitRepository.findOne(kitId);
 		assertKitExist(kitId, kitEntity);
-		return findAlleleById(kitId, alleleId, kitEntity);
+		return findAlleleById(kitId, alleleId, kitEntity.getAlleles());
 	}
 
 	public void addAllele(long kitId, String alleleName) {
@@ -57,23 +57,23 @@ public class AlleleService {
 
 	private void removeAlleleFromKit(long kitId, long alleleId, KitEntity kitEntity) {
 		AlleleEntity allele = alleleRepository.findOne(alleleId);
-		assertAlleleNotExist(kitId, alleleId, kitEntity, allele);
+		assertAlleleExistKit(kitId, alleleId, kitEntity, allele);
 		kitEntity.removeAllele(allele);
 	}
 
 	private void addAlleleToKit(String alleleName, KitEntity kitEntity) {
 		AlleleEntity alleleEntity = getAlleleEntity(alleleName);
-		assertAlleleAlreadyExist(alleleName, kitEntity, alleleEntity);
+		assertNotAlleleExistKit(alleleName, kitEntity, alleleEntity);
 		kitEntity.addAllele(alleleEntity);
 	}
 
-	private void assertAlleleNotExist(long kitId, long alleleId, KitEntity kitEntity, AlleleEntity allele) {
+	private void assertAlleleExistKit(long kitId, long alleleId, KitEntity kitEntity, AlleleEntity allele) {
 		if (!kitEntity.getAlleles().contains(allele)) {
 			throw new AlleleNotFoundException(format(ALLELE_NOT_FOUND_IN_KIT, alleleId, kitId));
 		}
 	}
 
-	private void assertAlleleAlreadyExist(String alleleName, KitEntity kitEntity, AlleleEntity alleleEntity) {
+	private void assertNotAlleleExistKit(String alleleName, KitEntity kitEntity, AlleleEntity alleleEntity) {
 		if (kitEntity.getAlleles().contains(alleleEntity)) {
 			throw new AlleleAlreadyExistException(format(ALLELE_ALREADY_EXIST, alleleName));
 		}
@@ -93,8 +93,7 @@ public class AlleleService {
 		return alleleEntity;
 	}
 
-	private Allele findAlleleById(long kitId, long alleleId, KitEntity kitEntity) {
-		List<AlleleEntity> alleleEntities = kitEntity.getAlleles();
+	private Allele findAlleleById(long kitId, long alleleId, List<AlleleEntity> alleleEntities) {
 		for (AlleleEntity alleleEntity : alleleEntities) {
 			if (alleleEntity.getId() == alleleId) {
 				return translateAllele(alleleEntity);
