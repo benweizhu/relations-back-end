@@ -5,13 +5,12 @@ CREATE TABLE relr_kit_allele (
   CONSTRAINT relr_kit_allele_pk PRIMARY KEY (id)
 );
 
-CREATE TABLE relr_loca_alle_locus (
-  id          INT            NOT NULL,
-  location_id INT            NOT NULL,
+CREATE TABLE relt_locus_probability (
+  id          INT            NOT NULL AUTO_INCREMENT,
   allele_id   INT            NOT NULL,
   locus       DECIMAL(10, 5) NOT NULL,
-  value       DECIMAL(10, 7) NOT NULL,
-  CONSTRAINT relr_loca_alle_locus_pk PRIMARY KEY (id)
+  probability DECIMAL(10, 7) NOT NULL,
+  CONSTRAINT relt_locus_probability_pk PRIMARY KEY (id)
 );
 
 CREATE TABLE relt_allele (
@@ -66,11 +65,8 @@ REFERENCES relt_allele (id);
 ALTER TABLE relr_kit_allele ADD CONSTRAINT ka_fk_kit FOREIGN KEY ka_fk_kit (kit_id)
 REFERENCES relt_kit (id);
 
-ALTER TABLE relr_loca_alle_locus ADD CONSTRAINT lal_fk_allele FOREIGN KEY lal_fk_allele (allele_id)
+ALTER TABLE relt_locus_probability ADD CONSTRAINT rlp_fk_allele FOREIGN KEY rlp_fk_allele (allele_id)
 REFERENCES relt_allele (id);
-
-ALTER TABLE relr_loca_alle_locus ADD CONSTRAINT lal_fk_location FOREIGN KEY lal_fk_location (location_id)
-REFERENCES relt_location (id);
 
 ALTER TABLE relt_parents ADD CONSTRAINT rp_fk_case_id FOREIGN KEY rp_fk_case_id (case_id)
 REFERENCES relr_user_case (case_id);
