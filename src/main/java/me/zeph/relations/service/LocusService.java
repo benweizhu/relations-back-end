@@ -71,13 +71,13 @@ public class LocusService {
 
 	private void assertLocusExistInKit(long kitId, long alleleId, KitEntity kitEntity, LocusEntity allele) {
 		if (!kitEntity.getLoci().contains(allele)) {
-			throw new LocusNotFoundException(format(ALLELE_NOT_FOUND_IN_KIT, alleleId, kitId));
+			throw new LocusNotFoundException(format(LOCUS_NOT_FOUND_IN_KIT, alleleId, kitId));
 		}
 	}
 
 	private void assertNotLocusExistInKit(String alleleName, KitEntity kitEntity, LocusEntity locusEntity) {
 		if (kitEntity.getLoci().contains(locusEntity)) {
-			throw new LocusAlreadyExistException(format(ALLELE_ALREADY_EXIST, alleleName));
+			throw new LocusAlreadyExistException(format(LOCUS_ALREADY_EXIST, alleleName));
 		}
 	}
 
@@ -101,7 +101,7 @@ public class LocusService {
 				return translateLocus(locusEntity);
 			}
 		}
-		throw new LocusNotFoundException(format(ALLELE_NOT_FOUND_IN_KIT, alleleId, kitId));
+		throw new LocusNotFoundException(format(LOCUS_NOT_FOUND_IN_KIT, alleleId, kitId));
 	}
 
 	private List<Locus> translateLoci(List<LocusEntity> alleleEntities) {
