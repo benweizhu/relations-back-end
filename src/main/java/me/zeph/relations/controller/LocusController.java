@@ -29,7 +29,7 @@ public class LocusController {
 
 	@ApiOperation(value = "Get Loci by Kit Id")
 	@ResponseStatus(value = OK)
-	@RequestMapping(value = "/kits/{kitId}/alleles", method = GET, produces = APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/kits/{kitId}/loci", method = GET, produces = APPLICATION_JSON_VALUE)
 	public List<Locus> getLoci(@PathVariable long kitId) {
 		List<Locus> loci = locusService.getLoci(kitId);
 		for (Locus locus : loci) {
@@ -40,29 +40,29 @@ public class LocusController {
 
 	@ApiOperation(value = "Get Locus by Kit Id and Locus Id")
 	@ResponseStatus(value = OK)
-	@RequestMapping(value = "/kits/{kitId}/alleles/{alleleId}", method = GET, produces = APPLICATION_JSON_VALUE)
-	public Locus getAllele(@PathVariable long kitId, @PathVariable long alleleId) {
-		Locus locus = locusService.getLocus(kitId, alleleId);
-		locus.add(selfLink(kitId, alleleId));
+	@RequestMapping(value = "/kits/{kitId}/loci/{locusId}", method = GET, produces = APPLICATION_JSON_VALUE)
+	public Locus getLocus(@PathVariable long kitId, @PathVariable long locusId) {
+		Locus locus = locusService.getLocus(kitId, locusId);
+		locus.add(selfLink(kitId, locusId));
 		return locus;
 	}
 
 	@ApiOperation(value = "Save Locus by Name")
 	@ResponseStatus(value = CREATED)
-	@RequestMapping(value = "/kits/{kitId}/alleles", method = POST)
+	@RequestMapping(value = "/kits/{kitId}/loci", method = POST)
 	public ResponseEntity<?> addAllele(UriComponentsBuilder uriComponentsBuilder,
 	                                   @PathVariable long kitId, @RequestBody Locus requestLocus) {
 		locusService.addLocus(kitId, requestLocus.getName());
-		return getResponseEntity(uriComponentsBuilder, "/kits/{kitId}/alleles", kitId, CREATED);
+		return getResponseEntity(uriComponentsBuilder, "/kits/{kitId}/loci", kitId, CREATED);
 	}
 
 	@ApiOperation(value = "Delete Locus by Locus Id")
 	@ResponseStatus(value = NO_CONTENT)
-	@RequestMapping(value = "/kits/{kitId}/alleles/{alleleId}", method = DELETE)
+	@RequestMapping(value = "/kits/{kitId}/loci/{locusId}", method = DELETE)
 	public ResponseEntity<?> removeAllele(UriComponentsBuilder uriComponentsBuilder,
-	                                      @PathVariable long kitId, @PathVariable long alleleId) {
-		locusService.removeLocus(kitId, alleleId);
-		return getResponseEntity(uriComponentsBuilder, "/kits/{kitId}/alleles", kitId, NO_CONTENT);
+	                                      @PathVariable long kitId, @PathVariable long locusId) {
+		locusService.removeLocus(kitId, locusId);
+		return getResponseEntity(uriComponentsBuilder, "/kits/{kitId}/loci", kitId, NO_CONTENT);
 	}
 
 	private ResponseEntity<?> getResponseEntity(UriComponentsBuilder uriComponentsBuilder, String path,
@@ -72,7 +72,7 @@ public class LocusController {
 		return new ResponseEntity<Void>(headers, httpStatus);
 	}
 
-	private Link selfLink(long kitId, long alleleId) {
-		return linkTo(methodOn(LocusController.class).getAllele(kitId, alleleId)).withSelfRel();
+	private Link selfLink(long kitId, long locusId) {
+		return linkTo(methodOn(LocusController.class).getLocus(kitId, locusId)).withSelfRel();
 	}
 }

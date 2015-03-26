@@ -39,7 +39,7 @@ public class LocusControllerIntegrationTest {
 
 	@Test
 	public void shouldReturnAllelesByKitId() throws Exception {
-		mockMvc.perform(get("/kits/1/alleles")
+		mockMvc.perform(get("/kits/1/loci")
 				.accept(APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(APPLICATION_JSON))
@@ -51,7 +51,7 @@ public class LocusControllerIntegrationTest {
 
 	@Test
 	public void shouldReturnAlleleByKitIdAndAlleleId() throws Exception {
-		mockMvc.perform(get("/kits/1/alleles/1")
+		mockMvc.perform(get("/kits/1/loci/1")
 				.accept(APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(APPLICATION_JSON))
@@ -61,7 +61,7 @@ public class LocusControllerIntegrationTest {
 
 	@Test
 	public void shouldReturnAlleleNotFoundWhenGetAlleleById() throws Exception {
-		mockMvc.perform(get("/kits/1/alleles/99")
+		mockMvc.perform(get("/kits/1/loci/99")
 				.accept(APPLICATION_JSON))
 				.andExpect(status().isNotFound())
 				.andExpect(content().contentType(APPLICATION_JSON))
@@ -70,7 +70,7 @@ public class LocusControllerIntegrationTest {
 
 	@Test
 	public void shouldReturnKitNotFoundWhenGetAlleleById() throws Exception {
-		mockMvc.perform(get("/kits/99/alleles/1")
+		mockMvc.perform(get("/kits/99/loci/1")
 				.accept(APPLICATION_JSON))
 				.andExpect(status().isNotFound())
 				.andExpect(content().contentType(APPLICATION_JSON))
@@ -81,7 +81,7 @@ public class LocusControllerIntegrationTest {
 	public void shouldReturnAlleleCreated() throws Exception {
 		Locus value = new Locus();
 		value.setName("alleleName");
-		mockMvc.perform(post("/kits/1/alleles/")
+		mockMvc.perform(post("/kits/1/loci/")
 				.contentType(APPLICATION_JSON)
 				.content(new ObjectMapper().writeValueAsString(value)))
 				.andExpect(status().isCreated());
@@ -91,7 +91,7 @@ public class LocusControllerIntegrationTest {
 	public void shouldReturnAlleleConflict() throws Exception {
 		Locus value = new Locus();
 		value.setName("D1GATA113");
-		mockMvc.perform(post("/kits/1/alleles/")
+		mockMvc.perform(post("/kits/1/loci/")
 				.contentType(APPLICATION_JSON)
 				.content(new ObjectMapper().writeValueAsString(value)))
 				.andExpect(status().isConflict());
@@ -101,7 +101,7 @@ public class LocusControllerIntegrationTest {
 	public void shouldReturnKitNotFoundWhenAddAllele() throws Exception {
 		Locus value = new Locus();
 		value.setName("D1GATA113");
-		mockMvc.perform(post("/kits/99/alleles/")
+		mockMvc.perform(post("/kits/99/loci/")
 				.contentType(APPLICATION_JSON)
 				.content(new ObjectMapper().writeValueAsString(value)))
 				.andExpect(status().isNotFound())
@@ -110,20 +110,20 @@ public class LocusControllerIntegrationTest {
 
 	@Test
 	public void shouldReturnNotContentWhenDeleteAlleleSuccessfully() throws Exception {
-		mockMvc.perform(delete("/kits/1/alleles/1"))
+		mockMvc.perform(delete("/kits/1/loci/1"))
 				.andExpect(status().isNoContent());
 	}
 
 	@Test
 	public void shouldReturnKitNotFoundWhenDeleteAllele() throws Exception {
-		mockMvc.perform(delete("/kits/99/alleles/1"))
+		mockMvc.perform(delete("/kits/99/loci/1"))
 				.andExpect(status().isNotFound())
 				.andExpect(jsonPath("$.message", is("Kit 99 not found")));
 	}
 
 	@Test
 	public void shouldReturnAlleleNotFoundWhenDeleteAllele() throws Exception {
-		mockMvc.perform(delete("/kits/2/alleles/3"))
+		mockMvc.perform(delete("/kits/2/loci/3"))
 				.andExpect(status().isNotFound())
 				.andExpect(jsonPath("$.message", is("Allele 3 not found in Kit 2")));
 	}
