@@ -1,16 +1,39 @@
-ALTER TABLE relt_case DROP FOREIGN KEY case_fk_user;
-ALTER TABLE relr_kit_allele DROP FOREIGN KEY ka_fk_allele;
-ALTER TABLE relr_kit_allele DROP FOREIGN KEY ka_fk_kit;
-ALTER TABLE relt_locus_probability DROP FOREIGN KEY rlp_fk_allele;
-ALTER TABLE relr_parents DROP FOREIGN KEY rp_fk_case;
-ALTER TABLE relr_single_parent DROP FOREIGN KEY rsp_fk_case;
+-- Created by Vertabelo (http://vertabelo.com)
+-- Script type: drop
+-- Scope: [tables, references, sequences, views, procedures]
+-- Generated at Thu Mar 26 03:57:55 UTC 2015
 
-DROP TABLE relr_kit_allele;
-DROP TABLE relr_parents;
-DROP TABLE relr_single_parent;
-DROP TABLE relt_allele;
-DROP TABLE relt_case;
-DROP TABLE relt_kit;
-DROP TABLE relt_location;
-DROP TABLE relt_locus_probability;
-DROP TABLE relt_user;
+
+
+-- foreign keys
+ALTER TABLE RELT_CASE DROP FOREIGN KEY CASE_FK_USER;
+ALTER TABLE RELR_KIT_LOCUS DROP FOREIGN KEY KA_FK_KIT;
+ALTER TABLE RELR_KIT_LOCUS DROP FOREIGN KEY KA_FK_LOCUS;
+ALTER TABLE RELT_ALLELE_PROBABILITY DROP FOREIGN KEY RLP_FK_LOCUS;
+ALTER TABLE RELR_PARENTS DROP FOREIGN KEY RP_FK_CASE;
+ALTER TABLE RELR_SINGLE_PARENT DROP FOREIGN KEY RSP_FK_CASE;
+
+-- tables
+-- Table RELR_KIT_LOCUS
+DROP TABLE RELR_KIT_LOCUS;
+-- Table RELR_PARENTS
+DROP TABLE RELR_PARENTS;
+-- Table RELR_SINGLE_PARENT
+DROP TABLE RELR_SINGLE_PARENT;
+-- Table RELT_ALLELE_PROBABILITY
+DROP TABLE RELT_ALLELE_PROBABILITY;
+-- Table RELT_CASE
+DROP TABLE RELT_CASE;
+-- Table RELT_KIT
+DROP TABLE RELT_KIT;
+-- Table RELT_LOCATION
+DROP TABLE RELT_LOCATION;
+-- Table RELT_LOCUS
+DROP TABLE RELT_LOCUS;
+-- Table RELT_USER
+DROP TABLE RELT_USER;
+
+
+
+-- End of file.
+

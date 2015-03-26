@@ -1,87 +1,127 @@
-CREATE TABLE relr_kit_allele (
-  id        INT NOT NULL AUTO_INCREMENT,
-  kit_id    INT NOT NULL,
-  allele_id INT NOT NULL,
-  CONSTRAINT relr_kit_allele_pk PRIMARY KEY (id)
+-- Created by Vertabelo (http://vertabelo.com)
+-- Script type: create
+-- Scope: [tables, references, sequences, views, procedures]
+-- Generated at Thu Mar 26 03:56:42 UTC 2015
+
+
+
+
+-- tables
+-- Table RELR_KIT_LOCUS
+CREATE TABLE RELR_KIT_LOCUS (
+  id int    NOT NULL  AUTO_INCREMENT,
+  kit_id int    NOT NULL ,
+  locus_id int    NOT NULL ,
+  CONSTRAINT RELR_KIT_LOCUS_pk PRIMARY KEY (id)
 );
 
-CREATE TABLE relr_parents (
-  id        INT            NOT NULL AUTO_INCREMENT,
-  case_id   INT            NOT NULL,
-  allele_id INT            NOT NULL,
-  af_1      DECIMAL(10, 5) NOT NULL,
-  af_2      DECIMAL(10, 5) NOT NULL,
-  m_1       DECIMAL(10, 5) NOT NULL,
-  m_2       DECIMAL(10, 5) NOT NULL,
-  c_1       DECIMAL(10, 5) NOT NULL,
-  c_2       DECIMAL(10, 5) NOT NULL,
-  CONSTRAINT relr_parents_pk PRIMARY KEY (id)
+-- Table RELR_PARENTS
+CREATE TABLE RELR_PARENTS (
+  id int    NOT NULL  AUTO_INCREMENT,
+  case_id int    NOT NULL ,
+  allele_id int    NOT NULL ,
+  af_1 decimal(10,5)    NOT NULL ,
+  af_2 decimal(10,5)    NOT NULL ,
+  m_1 decimal(10,5)    NOT NULL ,
+  m_2 decimal(10,5)    NOT NULL ,
+  c_1 decimal(10,5)    NOT NULL ,
+  c_2 decimal(10,5)    NOT NULL ,
+  CONSTRAINT RELR_PARENTS_pk PRIMARY KEY (id)
 );
 
-CREATE TABLE relr_single_parent (
-  id        INT            NOT NULL AUTO_INCREMENT,
-  case_id   INT            NOT NULL,
-  allele_id INT            NOT NULL,
-  af_1      DECIMAL(10, 5) NOT NULL,
-  af_2      DECIMAL(10, 5) NOT NULL,
-  c_1       DECIMAL(10, 5) NOT NULL,
-  c_2       DECIMAL(10, 5) NOT NULL,
-  CONSTRAINT relr_single_parent_pk PRIMARY KEY (id)
+-- Table RELR_SINGLE_PARENT
+CREATE TABLE RELR_SINGLE_PARENT (
+  id int    NOT NULL  AUTO_INCREMENT,
+  case_id int    NOT NULL ,
+  allele_id int    NOT NULL ,
+  af_1 decimal(10,5)    NOT NULL ,
+  af_2 decimal(10,5)    NOT NULL ,
+  c_1 decimal(10,5)    NOT NULL ,
+  c_2 decimal(10,5)    NOT NULL ,
+  CONSTRAINT RELR_SINGLE_PARENT_pk PRIMARY KEY (id)
 );
 
-CREATE TABLE relt_allele (
-  id   INT         NOT NULL AUTO_INCREMENT,
-  name VARCHAR(20) NOT NULL,
-  CONSTRAINT relt_allele_pk PRIMARY KEY (id)
+-- Table RELT_ALLELE_PROBABILITY
+CREATE TABLE RELT_ALLELE_PROBABILITY (
+  id int    NOT NULL  AUTO_INCREMENT,
+  locus_id int    NOT NULL ,
+  allele decimal(10,5)    NOT NULL ,
+  probability decimal(10,7)    NOT NULL ,
+  CONSTRAINT RELT_ALLELE_PROBABILITY_pk PRIMARY KEY (id)
 );
 
-CREATE TABLE relt_case (
-  id      INT NOT NULL AUTO_INCREMENT,
-  user_id INT NOT NULL,
-  CONSTRAINT relt_case_pk PRIMARY KEY (id)
+-- Table RELT_CASE
+CREATE TABLE RELT_CASE (
+  id int    NOT NULL  AUTO_INCREMENT,
+  user_id int    NOT NULL ,
+  CONSTRAINT RELT_CASE_pk PRIMARY KEY (id)
 );
 
-CREATE TABLE relt_kit (
-  id   INT         NOT NULL AUTO_INCREMENT,
-  name VARCHAR(20) NOT NULL,
-  CONSTRAINT relt_kit_pk PRIMARY KEY (id)
+-- Table RELT_KIT
+CREATE TABLE RELT_KIT (
+  id int    NOT NULL  AUTO_INCREMENT,
+  name varchar(20)    NOT NULL ,
+  CONSTRAINT RELT_KIT_pk PRIMARY KEY (id)
 );
 
-CREATE TABLE relt_location (
-  id   INT         NOT NULL AUTO_INCREMENT,
-  name VARCHAR(20) NOT NULL,
-  CONSTRAINT relt_location_pk PRIMARY KEY (id)
+-- Table RELT_LOCATION
+CREATE TABLE RELT_LOCATION (
+  id int    NOT NULL  AUTO_INCREMENT,
+  name varchar(20)    NOT NULL ,
+  CONSTRAINT RELT_LOCATION_pk PRIMARY KEY (id)
 );
 
-CREATE TABLE relt_locus_probability (
-  id          INT            NOT NULL AUTO_INCREMENT,
-  allele_id   INT            NOT NULL,
-  locus       DECIMAL(10, 5) NOT NULL,
-  probability DECIMAL(10, 7) NOT NULL,
-  CONSTRAINT relt_locus_probability_pk PRIMARY KEY (id)
+-- Table RELT_LOCUS
+CREATE TABLE RELT_LOCUS (
+  id int    NOT NULL  AUTO_INCREMENT,
+  name varchar(20)    NOT NULL ,
+  CONSTRAINT RELT_LOCUS_pk PRIMARY KEY (id)
 );
 
-CREATE TABLE relt_user (
-  id   INT         NOT NULL AUTO_INCREMENT,
-  name VARCHAR(10) NOT NULL,
-  CONSTRAINT relt_user_pk PRIMARY KEY (id)
+-- Table RELT_USER
+CREATE TABLE RELT_USER (
+  id int    NOT NULL  AUTO_INCREMENT,
+  name varchar(10)    NOT NULL ,
+  CONSTRAINT RELT_USER_pk PRIMARY KEY (id)
 );
 
-ALTER TABLE relt_case ADD CONSTRAINT case_fk_user FOREIGN KEY case_fk_user (user_id)
-REFERENCES relt_user (id);
 
-ALTER TABLE relr_kit_allele ADD CONSTRAINT ka_fk_allele FOREIGN KEY ka_fk_allele (allele_id)
-REFERENCES relt_allele (id);
 
-ALTER TABLE relr_kit_allele ADD CONSTRAINT ka_fk_kit FOREIGN KEY ka_fk_kit (kit_id)
-REFERENCES relt_kit (id);
 
-ALTER TABLE relt_locus_probability ADD CONSTRAINT rlp_fk_allele FOREIGN KEY rlp_fk_allele (allele_id)
-REFERENCES relt_allele (id);
 
-ALTER TABLE relr_parents ADD CONSTRAINT rp_fk_case FOREIGN KEY rp_fk_case (case_id)
-REFERENCES relt_case (id);
+-- foreign keys
+-- Reference:  CASE_FK_USER (table: RELT_CASE)
 
-ALTER TABLE relr_single_parent ADD CONSTRAINT rsp_fk_case FOREIGN KEY rsp_fk_case (case_id)
-REFERENCES relt_case (id);
+
+ALTER TABLE RELT_CASE ADD CONSTRAINT CASE_FK_USER FOREIGN KEY CASE_FK_USER (user_id)
+REFERENCES RELT_USER (id);
+-- Reference:  KA_FK_KIT (table: RELR_KIT_LOCUS)
+
+
+ALTER TABLE RELR_KIT_LOCUS ADD CONSTRAINT KA_FK_KIT FOREIGN KEY KA_FK_KIT (kit_id)
+REFERENCES RELT_KIT (id);
+-- Reference:  KA_FK_LOCUS (table: RELR_KIT_LOCUS)
+
+
+ALTER TABLE RELR_KIT_LOCUS ADD CONSTRAINT KA_FK_LOCUS FOREIGN KEY KA_FK_LOCUS (locus_id)
+REFERENCES RELT_LOCUS (id);
+-- Reference:  RLP_FK_LOCUS (table: RELT_ALLELE_PROBABILITY)
+
+
+ALTER TABLE RELT_ALLELE_PROBABILITY ADD CONSTRAINT RLP_FK_LOCUS FOREIGN KEY RLP_FK_LOCUS (locus_id)
+REFERENCES RELT_LOCUS (id);
+-- Reference:  RP_FK_CASE (table: RELR_PARENTS)
+
+
+ALTER TABLE RELR_PARENTS ADD CONSTRAINT RP_FK_CASE FOREIGN KEY RP_FK_CASE (case_id)
+REFERENCES RELT_CASE (id);
+-- Reference:  RSP_FK_CASE (table: RELR_SINGLE_PARENT)
+
+
+ALTER TABLE RELR_SINGLE_PARENT ADD CONSTRAINT RSP_FK_CASE FOREIGN KEY RSP_FK_CASE (case_id)
+REFERENCES RELT_CASE (id);
+
+
+
+-- End of file.
 

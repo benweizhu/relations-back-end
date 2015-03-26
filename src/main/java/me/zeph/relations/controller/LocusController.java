@@ -50,8 +50,8 @@ public class LocusController {
 	@ApiOperation(value = "Save Locus by Name")
 	@ResponseStatus(value = CREATED)
 	@RequestMapping(value = "/kits/{kitId}/loci", method = POST)
-	public ResponseEntity<?> addAllele(UriComponentsBuilder uriComponentsBuilder,
-	                                   @PathVariable long kitId, @RequestBody Locus requestLocus) {
+	public ResponseEntity<?> addLocus(UriComponentsBuilder uriComponentsBuilder,
+	                                  @PathVariable long kitId, @RequestBody Locus requestLocus) {
 		locusService.addLocus(kitId, requestLocus.getName());
 		return getResponseEntity(uriComponentsBuilder, "/kits/{kitId}/loci", kitId, CREATED);
 	}
@@ -59,8 +59,8 @@ public class LocusController {
 	@ApiOperation(value = "Delete Locus by Locus Id")
 	@ResponseStatus(value = NO_CONTENT)
 	@RequestMapping(value = "/kits/{kitId}/loci/{locusId}", method = DELETE)
-	public ResponseEntity<?> removeAllele(UriComponentsBuilder uriComponentsBuilder,
-	                                      @PathVariable long kitId, @PathVariable long locusId) {
+	public ResponseEntity<?> removeLocus(UriComponentsBuilder uriComponentsBuilder,
+	                                     @PathVariable long kitId, @PathVariable long locusId) {
 		locusService.removeLocus(kitId, locusId);
 		return getResponseEntity(uriComponentsBuilder, "/kits/{kitId}/loci", kitId, NO_CONTENT);
 	}

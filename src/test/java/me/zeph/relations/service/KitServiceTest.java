@@ -87,14 +87,14 @@ public class KitServiceTest {
 		KitEntity kitEntity = getKitEntity(ID, KIT_NAME);
 		LocusEntity allele = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
 		KitEntity anotherKitEntity = getKitEntity(ANOTHER_KIT_ID, ANOTHER_KIT_NAME);
-		kitEntity.addAllele(allele);
-		anotherKitEntity.addAllele(allele);
+		kitEntity.addLocus(allele);
+		anotherKitEntity.addLocus(allele);
 		when(kitRepository.findOne(ID)).thenReturn(kitEntity);
 
 		kitService.removeKit(ID);
 
 		assertThat(allele.getKits().size(), is(1));
-		assertThat(kitEntity.getAlleles().isEmpty(), is(true));
+		assertThat(kitEntity.getLoci().isEmpty(), is(true));
 	}
 
 	@Test(expected = KitNotFoundException.class)

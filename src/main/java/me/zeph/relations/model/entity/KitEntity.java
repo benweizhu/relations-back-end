@@ -19,9 +19,9 @@ public class KitEntity {
 	private String name;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "RELR_KIT_ALLELE", joinColumns = {@JoinColumn(name = "kit_id", referencedColumnName = "id")},
-			inverseJoinColumns = {@JoinColumn(name = "allele_id", referencedColumnName = "id")})
-	private List<LocusEntity> alleles = newArrayList();
+	@JoinTable(name = "RELR_KIT_LOCUS", joinColumns = {@JoinColumn(name = "kit_id", referencedColumnName = "id")},
+			inverseJoinColumns = {@JoinColumn(name = "locus_id", referencedColumnName = "id")})
+	private List<LocusEntity> loci = newArrayList();
 
 	public KitEntity() {
 	}
@@ -38,25 +38,25 @@ public class KitEntity {
 		return name;
 	}
 
-	public List<LocusEntity> getAlleles() {
-		return alleles;
+	public List<LocusEntity> getLoci() {
+		return loci;
 	}
 
-	public void addAllele(LocusEntity allele) {
-		if (!alleles.contains(allele)) {
-			alleles.add(allele);
+	public void addLocus(LocusEntity locus) {
+		if (!loci.contains(locus)) {
+			loci.add(locus);
 		}
-		if (!allele.getKits().contains(this)) {
-			allele.getKits().add(this);
+		if (!locus.getKits().contains(this)) {
+			locus.getKits().add(this);
 		}
 	}
 
-	public void removeAllele(LocusEntity allele) {
-		if (alleles.contains(allele)) {
-			alleles.remove(allele);
+	public void removeLocus(LocusEntity locus) {
+		if (loci.contains(locus)) {
+			loci.remove(locus);
 		}
-		if (allele.getKits().contains(this)) {
-			allele.getKits().remove(this);
+		if (locus.getKits().contains(this)) {
+			locus.getKits().remove(this);
 		}
 	}
 

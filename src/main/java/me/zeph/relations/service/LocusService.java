@@ -32,13 +32,13 @@ public class LocusService {
 	public List<Locus> getLoci(long kitId) {
 		KitEntity kitEntity = kitRepository.findOne(kitId);
 		assertKitExist(kitId, kitEntity);
-		return translateLoci(kitEntity.getAlleles());
+		return translateLoci(kitEntity.getLoci());
 	}
 
 	public Locus getLocus(long kitId, long alleleId) {
 		KitEntity kitEntity = kitRepository.findOne(kitId);
 		assertKitExist(kitId, kitEntity);
-		return findLocusById(kitId, alleleId, kitEntity.getAlleles());
+		return findLocusById(kitId, alleleId, kitEntity.getLoci());
 	}
 
 	public void addLocus(long kitId, String alleleName) {
@@ -60,23 +60,23 @@ public class LocusService {
 	private void removeLocusFromKit(long kitId, long alleleId, KitEntity kitEntity) {
 		LocusEntity allele = locusRepository.findOne(alleleId);
 		assertLocusExistInKit(kitId, alleleId, kitEntity, allele);
-		kitEntity.removeAllele(allele);
+		kitEntity.removeLocus(allele);
 	}
 
 	private void addLocusToKit(String alleleName, KitEntity kitEntity) {
 		LocusEntity locusEntity = getAlleleEntity(alleleName);
 		assertNotLocusExistInKit(alleleName, kitEntity, locusEntity);
-		kitEntity.addAllele(locusEntity);
+		kitEntity.addLocus(locusEntity);
 	}
 
 	private void assertLocusExistInKit(long kitId, long alleleId, KitEntity kitEntity, LocusEntity allele) {
-		if (!kitEntity.getAlleles().contains(allele)) {
+		if (!kitEntity.getLoci().contains(allele)) {
 			throw new LocusNotFoundException(format(ALLELE_NOT_FOUND_IN_KIT, alleleId, kitId));
 		}
 	}
 
 	private void assertNotLocusExistInKit(String alleleName, KitEntity kitEntity, LocusEntity locusEntity) {
-		if (kitEntity.getAlleles().contains(locusEntity)) {
+		if (kitEntity.getLoci().contains(locusEntity)) {
 			throw new LocusAlreadyExistException(format(ALLELE_ALREADY_EXIST, alleleName));
 		}
 	}

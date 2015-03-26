@@ -84,8 +84,8 @@ public class LocusServiceTest {
 
 		locusService.addLocus(KIT_ID, NEW_LOCUS_NAME);
 
-		assertThat(kitEntity.getAlleles().size(), is(1));
-		assertThat(kitEntity.getAlleles().get(0).getName(), is(NEW_LOCUS_NAME));
+		assertThat(kitEntity.getLoci().size(), is(1));
+		assertThat(kitEntity.getLoci().get(0).getName(), is(NEW_LOCUS_NAME));
 	}
 
 	@Test
@@ -97,8 +97,8 @@ public class LocusServiceTest {
 
 		locusService.addLocus(KIT_ID, KIT_NAME);
 
-		assertThat(kitEntity.getAlleles().size(), is(1));
-		assertThat(kitEntity.getAlleles().get(0).getName(), is(LOCUS_NAME));
+		assertThat(kitEntity.getLoci().size(), is(1));
+		assertThat(kitEntity.getLoci().get(0).getName(), is(LOCUS_NAME));
 	}
 
 	@Test(expected = KitNotFoundException.class)
@@ -127,7 +127,7 @@ public class LocusServiceTest {
 
 		locusService.removeLocus(KIT_ID, ALLELE_ID);
 
-		assertThat(kitEntity.getAlleles().isEmpty(), is(true));
+		assertThat(kitEntity.getLoci().isEmpty(), is(true));
 		assertThat(locusEntity.getKits().isEmpty(), is(true));
 		verify(kitRepository).saveAndFlush((KitEntity) anyObject());
 	}
@@ -170,7 +170,7 @@ public class LocusServiceTest {
 		setField(kitEntity, "id", id);
 		setField(kitEntity, "name", name);
 		if (addLink) {
-			setField(kitEntity, "alleles", newArrayList(locusEntity));
+			setField(kitEntity, "loci", newArrayList(locusEntity));
 			locusEntity.getKits().add(kitEntity);
 		}
 		return kitEntity;

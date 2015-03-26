@@ -48,7 +48,7 @@ public class KitService {
 	}
 
 	private void clearKitAlleleLinks(KitEntity kitEntity) {
-		List<LocusEntity> alleleEntities = kitEntity.getAlleles();
+		List<LocusEntity> alleleEntities = kitEntity.getLoci();
 		for (LocusEntity locusEntity : alleleEntities) {
 			locusEntity.getKits().remove(kitEntity);
 		}
