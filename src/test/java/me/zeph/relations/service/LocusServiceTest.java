@@ -22,8 +22,8 @@ import static org.springframework.test.util.ReflectionTestUtils.setField;
 
 public class LocusServiceTest {
 
-	private static final String ALLELE_NAME = "alleleName";
-	private static final String KIT_NAME = "name";
+	private static final String LOCUS_NAME = "locusName";
+	private static final String KIT_NAME = "kitName";
 	private static final long ALLELE_ID = 2L;
 	private static final long KIT_ID = 1L;
 	private LocusService locusService;
@@ -41,7 +41,7 @@ public class LocusServiceTest {
 
 	@Test
 	public void shouldTranslateAlleles() {
-		KitEntity kitEntity = getKitEntity(getAlleleEntity(KIT_ID, ALLELE_NAME), KIT_ID, KIT_NAME, true);
+		KitEntity kitEntity = getKitEntity(getLocusEntity(KIT_ID, LOCUS_NAME), KIT_ID, KIT_NAME, true);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 
 		List<Locus> loci = locusService.getLoci(KIT_ID);
@@ -59,7 +59,7 @@ public class LocusServiceTest {
 
 	@Test
 	public void shouldTranslateAllele() {
-		KitEntity kitEntity = getKitEntity(getAlleleEntity(KIT_ID, ALLELE_NAME), KIT_ID, KIT_NAME, true);
+		KitEntity kitEntity = getKitEntity(getLocusEntity(KIT_ID, LOCUS_NAME), KIT_ID, KIT_NAME, true);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 
 		Locus locus = locusService.getLocus(KIT_ID, KIT_ID);
@@ -69,7 +69,7 @@ public class LocusServiceTest {
 
 	@Test(expected = LocusNotFoundException.class)
 	public void shouldThrowAlleleNotFoundException() {
-		KitEntity kitEntity = getKitEntity(getAlleleEntity(KIT_ID, ALLELE_NAME), KIT_ID, KIT_NAME, true);
+		KitEntity kitEntity = getKitEntity(getLocusEntity(KIT_ID, LOCUS_NAME), KIT_ID, KIT_NAME, true);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 
 		locusService.getLocus(KIT_ID, ALLELE_ID);
@@ -77,7 +77,7 @@ public class LocusServiceTest {
 
 	@Test
 	public void shouldAddAlleleToKitSuccessfullyWhenAlleleNotExistInDB() {
-		KitEntity kitEntity = getKitEntity(getAlleleEntity(KIT_ID, ALLELE_NAME), KIT_ID, KIT_NAME, false);
+		KitEntity kitEntity = getKitEntity(getLocusEntity(KIT_ID, LOCUS_NAME), KIT_ID, KIT_NAME, false);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(locusRepository.findByName(anyString())).thenReturn(null);
 
@@ -89,7 +89,7 @@ public class LocusServiceTest {
 
 	@Test
 	public void shouldAddAlleleToKitSuccessfullyWhenAlleleAlreadyExistInDdButNotLinked() {
-		LocusEntity locusEntity = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
+		LocusEntity locusEntity = getLocusEntity(ALLELE_ID, LOCUS_NAME);
 		KitEntity kitEntity = getKitEntity(locusEntity, KIT_ID, KIT_NAME, false);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(locusRepository.findByName(anyString())).thenReturn(locusEntity);
@@ -97,7 +97,7 @@ public class LocusServiceTest {
 		locusService.addLocus(KIT_ID, KIT_NAME);
 
 		assertThat(kitEntity.getAlleles().size(), is(1));
-		assertThat(kitEntity.getAlleles().get(0).getName(), is(ALLELE_NAME));
+		assertThat(kitEntity.getAlleles().get(0).getName(), is(LOCUS_NAME));
 	}
 
 	@Test(expected = KitNotFoundException.class)
@@ -109,7 +109,7 @@ public class LocusServiceTest {
 
 	@Test(expected = LocusAlreadyExistException.class)
 	public void shouldAlleleAlreadyExistExceptionWhenAddAllele() {
-		LocusEntity locusEntity = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
+		LocusEntity locusEntity = getLocusEntity(ALLELE_ID, LOCUS_NAME);
 		KitEntity kitEntity = getKitEntity(locusEntity, KIT_ID, KIT_NAME, true);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(locusRepository.findByName(anyString())).thenReturn(locusEntity);
@@ -119,7 +119,7 @@ public class LocusServiceTest {
 
 	@Test
 	public void shouldRemoveAllele() {
-		LocusEntity locusEntity = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
+		LocusEntity locusEntity = getLocusEntity(ALLELE_ID, LOCUS_NAME);
 		KitEntity kitEntity = getKitEntity(locusEntity, KIT_ID, KIT_NAME, true);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(locusRepository.findOne(ALLELE_ID)).thenReturn(locusEntity);
@@ -142,7 +142,7 @@ public class LocusServiceTest {
 
 	@Test(expected = LocusNotFoundException.class)
 	public void shouldThrowAlleleNotFoundExceptionWhenAlleleNotExistInDB() {
-		LocusEntity locusEntity = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
+		LocusEntity locusEntity = getLocusEntity(ALLELE_ID, LOCUS_NAME);
 		KitEntity kitEntity = getKitEntity(locusEntity, KIT_ID, KIT_NAME, true);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(locusRepository.findOne(99L)).thenReturn(null);
@@ -154,7 +154,7 @@ public class LocusServiceTest {
 
 	@Test(expected = LocusNotFoundException.class)
 	public void shouldThrowAlleleNotFoundExceptionWhenKitAlleleRelationshipNotExistInDB() {
-		LocusEntity locusEntity = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
+		LocusEntity locusEntity = getLocusEntity(ALLELE_ID, LOCUS_NAME);
 		KitEntity kitEntity = getKitEntity(locusEntity, KIT_ID, KIT_NAME, false);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(locusRepository.findOne(ALLELE_ID)).thenReturn(locusEntity);
@@ -167,7 +167,7 @@ public class LocusServiceTest {
 	private KitEntity getKitEntity(LocusEntity locusEntity, long id, String name, boolean addLink) {
 		KitEntity kitEntity = new KitEntity();
 		setField(kitEntity, "id", id);
-		setField(kitEntity, KIT_NAME, name);
+		setField(kitEntity, "name", name);
 		if (addLink) {
 			setField(kitEntity, "alleles", newArrayList(locusEntity));
 			locusEntity.getKits().add(kitEntity);
@@ -175,10 +175,10 @@ public class LocusServiceTest {
 		return kitEntity;
 	}
 
-	private LocusEntity getAlleleEntity(long id, String name) {
+	private LocusEntity getLocusEntity(long id, String name) {
 		LocusEntity locusEntity = new LocusEntity();
 		setField(locusEntity, "id", id);
-		setField(locusEntity, KIT_NAME, name);
+		setField(locusEntity, "name", name);
 		return locusEntity;
 	}
 }
