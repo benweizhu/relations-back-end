@@ -30,7 +30,7 @@ public class LocusController {
 	@ApiOperation(value = "Get Loci by Kit Id")
 	@ResponseStatus(value = OK)
 	@RequestMapping(value = "/kits/{kitId}/alleles", method = GET, produces = APPLICATION_JSON_VALUE)
-	public List<Locus> getAlleles(@PathVariable long kitId) {
+	public List<Locus> getLoci(@PathVariable long kitId) {
 		List<Locus> loci = locusService.getLoci(kitId);
 		for (Locus locus : loci) {
 			locus.add(selfLink(kitId, locus.getAlleleId()));

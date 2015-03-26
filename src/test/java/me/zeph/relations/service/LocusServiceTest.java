@@ -4,9 +4,9 @@ import me.zeph.relations.exception.KitNotFoundException;
 import me.zeph.relations.exception.LocusAlreadyExistException;
 import me.zeph.relations.exception.LocusNotFoundException;
 import me.zeph.relations.model.api.Locus;
-import me.zeph.relations.model.entity.AlleleEntity;
+import me.zeph.relations.model.entity.LocusEntity;
 import me.zeph.relations.model.entity.KitEntity;
-import me.zeph.relations.repository.AlleleRepository;
+import me.zeph.relations.repository.LocusRepository;
 import me.zeph.relations.repository.KitRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,15 +28,15 @@ public class LocusServiceTest {
 	private static final long KIT_ID = 1L;
 	private LocusService locusService;
 	private KitRepository kitRepository;
-	private AlleleRepository alleleRepository;
+	private LocusRepository locusRepository;
 
 	@Before
 	public void setUp() throws Exception {
 		locusService = new LocusService();
 		kitRepository = mock(KitRepository.class);
-		alleleRepository = mock(AlleleRepository.class);
+		locusRepository = mock(LocusRepository.class);
 		setField(locusService, "kitRepository", kitRepository);
-		setField(locusService, "alleleRepository", alleleRepository);
+		setField(locusService, "locusRepository", locusRepository);
 	}
 
 	@Test
@@ -79,7 +79,7 @@ public class LocusServiceTest {
 	public void shouldAddAlleleToKitSuccessfullyWhenAlleleNotExistInDB() {
 		KitEntity kitEntity = getKitEntity(getAlleleEntity(KIT_ID, ALLELE_NAME), KIT_ID, KIT_NAME, false);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
-		when(alleleRepository.findByName(anyString())).thenReturn(null);
+		when(locusRepository.findByName(anyString())).thenReturn(null);
 
 		locusService.addLocus(KIT_ID, "newAllele");
 
@@ -89,10 +89,10 @@ public class LocusServiceTest {
 
 	@Test
 	public void shouldAddAlleleToKitSuccessfullyWhenAlleleAlreadyExistInDdButNotLinked() {
-		AlleleEntity alleleEntity = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
-		KitEntity kitEntity = getKitEntity(alleleEntity, KIT_ID, KIT_NAME, false);
+		LocusEntity locusEntity = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
+		KitEntity kitEntity = getKitEntity(locusEntity, KIT_ID, KIT_NAME, false);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
-		when(alleleRepository.findByName(anyString())).thenReturn(alleleEntity);
+		when(locusRepository.findByName(anyString())).thenReturn(locusEntity);
 
 		locusService.addLocus(KIT_ID, KIT_NAME);
 
@@ -109,25 +109,25 @@ public class LocusServiceTest {
 
 	@Test(expected = LocusAlreadyExistException.class)
 	public void shouldAlleleAlreadyExistExceptionWhenAddAllele() {
-		AlleleEntity alleleEntity = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
-		KitEntity kitEntity = getKitEntity(alleleEntity, KIT_ID, KIT_NAME, true);
+		LocusEntity locusEntity = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
+		KitEntity kitEntity = getKitEntity(locusEntity, KIT_ID, KIT_NAME, true);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
-		when(alleleRepository.findByName(anyString())).thenReturn(alleleEntity);
+		when(locusRepository.findByName(anyString())).thenReturn(locusEntity);
 
 		locusService.addLocus(KIT_ID, KIT_NAME);
 	}
 
 	@Test
 	public void shouldRemoveAllele() {
-		AlleleEntity alleleEntity = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
-		KitEntity kitEntity = getKitEntity(alleleEntity, KIT_ID, KIT_NAME, true);
+		LocusEntity locusEntity = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
+		KitEntity kitEntity = getKitEntity(locusEntity, KIT_ID, KIT_NAME, true);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
-		when(alleleRepository.findOne(ALLELE_ID)).thenReturn(alleleEntity);
+		when(locusRepository.findOne(ALLELE_ID)).thenReturn(locusEntity);
 
 		locusService.removeLocus(KIT_ID, ALLELE_ID);
 
 		assertThat(kitEntity.getAlleles().isEmpty(), is(true));
-		assertThat(alleleEntity.getKits().isEmpty(), is(true));
+		assertThat(locusEntity.getKits().isEmpty(), is(true));
 		verify(kitRepository).saveAndFlush((KitEntity) anyObject());
 	}
 
@@ -142,43 +142,43 @@ public class LocusServiceTest {
 
 	@Test(expected = LocusNotFoundException.class)
 	public void shouldThrowAlleleNotFoundExceptionWhenAlleleNotExistInDB() {
-		AlleleEntity alleleEntity = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
-		KitEntity kitEntity = getKitEntity(alleleEntity, KIT_ID, KIT_NAME, true);
+		LocusEntity locusEntity = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
+		KitEntity kitEntity = getKitEntity(locusEntity, KIT_ID, KIT_NAME, true);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
-		when(alleleRepository.findOne(99L)).thenReturn(null);
+		when(locusRepository.findOne(99L)).thenReturn(null);
 
 		locusService.removeLocus(KIT_ID, 99L);
 
-		verify(alleleRepository).findOne(99L);
+		verify(locusRepository).findOne(99L);
 	}
 
 	@Test(expected = LocusNotFoundException.class)
 	public void shouldThrowAlleleNotFoundExceptionWhenKitAlleleRelationshipNotExistInDB() {
-		AlleleEntity alleleEntity = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
-		KitEntity kitEntity = getKitEntity(alleleEntity, KIT_ID, KIT_NAME, false);
+		LocusEntity locusEntity = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
+		KitEntity kitEntity = getKitEntity(locusEntity, KIT_ID, KIT_NAME, false);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
-		when(alleleRepository.findOne(ALLELE_ID)).thenReturn(alleleEntity);
+		when(locusRepository.findOne(ALLELE_ID)).thenReturn(locusEntity);
 
 		locusService.removeLocus(KIT_ID, KIT_ID);
 
-		verify(alleleRepository).findOne(KIT_ID);
+		verify(locusRepository).findOne(KIT_ID);
 	}
 
-	private KitEntity getKitEntity(AlleleEntity alleleEntity, long id, String name, boolean addLink) {
+	private KitEntity getKitEntity(LocusEntity locusEntity, long id, String name, boolean addLink) {
 		KitEntity kitEntity = new KitEntity();
 		setField(kitEntity, "id", id);
 		setField(kitEntity, KIT_NAME, name);
 		if (addLink) {
-			setField(kitEntity, "alleles", newArrayList(alleleEntity));
-			alleleEntity.getKits().add(kitEntity);
+			setField(kitEntity, "alleles", newArrayList(locusEntity));
+			locusEntity.getKits().add(kitEntity);
 		}
 		return kitEntity;
 	}
 
-	private AlleleEntity getAlleleEntity(long id, String name) {
-		AlleleEntity alleleEntity = new AlleleEntity();
-		setField(alleleEntity, "id", id);
-		setField(alleleEntity, KIT_NAME, name);
-		return alleleEntity;
+	private LocusEntity getAlleleEntity(long id, String name) {
+		LocusEntity locusEntity = new LocusEntity();
+		setField(locusEntity, "id", id);
+		setField(locusEntity, KIT_NAME, name);
+		return locusEntity;
 	}
 }

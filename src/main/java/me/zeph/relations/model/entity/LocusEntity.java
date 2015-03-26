@@ -7,7 +7,7 @@ import static com.google.common.collect.Lists.newArrayList;
 
 @Entity
 @Table(name = "RELT_ALLELE")
-public class AlleleEntity {
+public class LocusEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "RELT_ALLELE_GEN")
@@ -21,10 +21,10 @@ public class AlleleEntity {
 	@ManyToMany(mappedBy = "alleles")
 	private List<KitEntity> kits = newArrayList();
 
-	public AlleleEntity() {
+	public LocusEntity() {
 	}
 
-	public AlleleEntity(String name) {
+	public LocusEntity(String name) {
 		this.name = name;
 	}
 
@@ -48,7 +48,7 @@ public class AlleleEntity {
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		AlleleEntity that = (AlleleEntity) o;
+		LocusEntity that = (LocusEntity) o;
 		return (name != null ? !name.equals(that.name) : that.name != null) ? false : true;
 	}
 

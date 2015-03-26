@@ -4,9 +4,9 @@ import me.zeph.relations.exception.KitNotFoundException;
 import me.zeph.relations.exception.LocusAlreadyExistException;
 import me.zeph.relations.exception.LocusNotFoundException;
 import me.zeph.relations.model.api.Locus;
-import me.zeph.relations.model.entity.AlleleEntity;
+import me.zeph.relations.model.entity.LocusEntity;
 import me.zeph.relations.model.entity.KitEntity;
-import me.zeph.relations.repository.AlleleRepository;
+import me.zeph.relations.repository.LocusRepository;
 import me.zeph.relations.repository.KitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class LocusService {
 	private KitRepository kitRepository;
 
 	@Autowired
-	private AlleleRepository alleleRepository;
+	private LocusRepository locusRepository;
 
 	public List<Locus> getLoci(long kitId) {
 		KitEntity kitEntity = kitRepository.findOne(kitId);
@@ -58,25 +58,25 @@ public class LocusService {
 	}
 
 	private void removeLocusFromKit(long kitId, long alleleId, KitEntity kitEntity) {
-		AlleleEntity allele = alleleRepository.findOne(alleleId);
+		LocusEntity allele = locusRepository.findOne(alleleId);
 		assertLocusExistInKit(kitId, alleleId, kitEntity, allele);
 		kitEntity.removeAllele(allele);
 	}
 
 	private void addLocusToKit(String alleleName, KitEntity kitEntity) {
-		AlleleEntity alleleEntity = getAlleleEntity(alleleName);
-		assertNotLocusExistInKit(alleleName, kitEntity, alleleEntity);
-		kitEntity.addAllele(alleleEntity);
+		LocusEntity locusEntity = getAlleleEntity(alleleName);
+		assertNotLocusExistInKit(alleleName, kitEntity, locusEntity);
+		kitEntity.addAllele(locusEntity);
 	}
 
-	private void assertLocusExistInKit(long kitId, long alleleId, KitEntity kitEntity, AlleleEntity allele) {
+	private void assertLocusExistInKit(long kitId, long alleleId, KitEntity kitEntity, LocusEntity allele) {
 		if (!kitEntity.getAlleles().contains(allele)) {
 			throw new LocusNotFoundException(format(ALLELE_NOT_FOUND_IN_KIT, alleleId, kitId));
 		}
 	}
 
-	private void assertNotLocusExistInKit(String alleleName, KitEntity kitEntity, AlleleEntity alleleEntity) {
-		if (kitEntity.getAlleles().contains(alleleEntity)) {
+	private void assertNotLocusExistInKit(String alleleName, KitEntity kitEntity, LocusEntity locusEntity) {
+		if (kitEntity.getAlleles().contains(locusEntity)) {
 			throw new LocusAlreadyExistException(format(ALLELE_ALREADY_EXIST, alleleName));
 		}
 	}
@@ -87,35 +87,35 @@ public class LocusService {
 		}
 	}
 
-	private AlleleEntity getAlleleEntity(String alleleName) {
-		AlleleEntity alleleEntity = alleleRepository.findByName(alleleName);
-		if (alleleEntity == null) {
-			alleleEntity = new AlleleEntity(alleleName);
+	private LocusEntity getAlleleEntity(String alleleName) {
+		LocusEntity locusEntity = locusRepository.findByName(alleleName);
+		if (locusEntity == null) {
+			locusEntity = new LocusEntity(alleleName);
 		}
-		return alleleEntity;
+		return locusEntity;
 	}
 
-	private Locus findLocusById(long kitId, long alleleId, List<AlleleEntity> alleleEntities) {
-		for (AlleleEntity alleleEntity : alleleEntities) {
-			if (alleleEntity.getId() == alleleId) {
-				return translateLocus(alleleEntity);
+	private Locus findLocusById(long kitId, long alleleId, List<LocusEntity> alleleEntities) {
+		for (LocusEntity locusEntity : alleleEntities) {
+			if (locusEntity.getId() == alleleId) {
+				return translateLocus(locusEntity);
 			}
 		}
 		throw new LocusNotFoundException(format(ALLELE_NOT_FOUND_IN_KIT, alleleId, kitId));
 	}
 
-	private List<Locus> translateLoci(List<AlleleEntity> alleleEntities) {
+	private List<Locus> translateLoci(List<LocusEntity> alleleEntities) {
 		ArrayList<Locus> loci = newArrayList();
-		for (AlleleEntity alleleEntity : alleleEntities) {
-			loci.add(translateLocus(alleleEntity));
+		for (LocusEntity locusEntity : alleleEntities) {
+			loci.add(translateLocus(locusEntity));
 		}
 		return loci;
 	}
 
-	private Locus translateLocus(AlleleEntity alleleEntity) {
+	private Locus translateLocus(LocusEntity locusEntity) {
 		Locus locus = new Locus();
-		locus.setAlleleId(alleleEntity.getId());
-		locus.setName(alleleEntity.getName());
+		locus.setAlleleId(locusEntity.getId());
+		locus.setName(locusEntity.getName());
 		return locus;
 	}
 }

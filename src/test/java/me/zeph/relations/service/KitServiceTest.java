@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import me.zeph.relations.exception.KitAlreadyExistException;
 import me.zeph.relations.exception.KitNotFoundException;
 import me.zeph.relations.model.api.Kit;
-import me.zeph.relations.model.entity.AlleleEntity;
+import me.zeph.relations.model.entity.LocusEntity;
 import me.zeph.relations.model.entity.KitEntity;
 import me.zeph.relations.repository.KitRepository;
 import org.junit.Before;
@@ -85,7 +85,7 @@ public class KitServiceTest {
 	@Test
 	public void shouldRemoveKitSuccessfully() {
 		KitEntity kitEntity = getKitEntity(ID, KIT_NAME);
-		AlleleEntity allele = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
+		LocusEntity allele = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
 		KitEntity anotherKitEntity = getKitEntity(ANOTHER_KIT_ID, ANOTHER_KIT_NAME);
 		kitEntity.addAllele(allele);
 		anotherKitEntity.addAllele(allele);
@@ -103,8 +103,8 @@ public class KitServiceTest {
 		kitService.removeKit(ID);
 	}
 
-	private AlleleEntity getAlleleEntity(long alleleId, String alleleName) {
-		AlleleEntity allele = new AlleleEntity();
+	private LocusEntity getAlleleEntity(long alleleId, String alleleName) {
+		LocusEntity allele = new LocusEntity();
 		setField(allele, "id", alleleId);
 		setField(allele, "name", alleleName);
 		return allele;

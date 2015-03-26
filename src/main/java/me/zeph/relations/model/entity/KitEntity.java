@@ -21,7 +21,7 @@ public class KitEntity {
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "RELR_KIT_ALLELE", joinColumns = {@JoinColumn(name = "kit_id", referencedColumnName = "id")},
 			inverseJoinColumns = {@JoinColumn(name = "allele_id", referencedColumnName = "id")})
-	private List<AlleleEntity> alleles = newArrayList();
+	private List<LocusEntity> alleles = newArrayList();
 
 	public KitEntity() {
 	}
@@ -38,11 +38,11 @@ public class KitEntity {
 		return name;
 	}
 
-	public List<AlleleEntity> getAlleles() {
+	public List<LocusEntity> getAlleles() {
 		return alleles;
 	}
 
-	public void addAllele(AlleleEntity allele) {
+	public void addAllele(LocusEntity allele) {
 		if (!alleles.contains(allele)) {
 			alleles.add(allele);
 		}
@@ -51,7 +51,7 @@ public class KitEntity {
 		}
 	}
 
-	public void removeAllele(AlleleEntity allele) {
+	public void removeAllele(LocusEntity allele) {
 		if (alleles.contains(allele)) {
 			alleles.remove(allele);
 		}

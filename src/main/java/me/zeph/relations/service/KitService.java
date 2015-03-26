@@ -3,7 +3,7 @@ package me.zeph.relations.service;
 import me.zeph.relations.exception.KitAlreadyExistException;
 import me.zeph.relations.exception.KitNotFoundException;
 import me.zeph.relations.model.api.Kit;
-import me.zeph.relations.model.entity.AlleleEntity;
+import me.zeph.relations.model.entity.LocusEntity;
 import me.zeph.relations.model.entity.KitEntity;
 import me.zeph.relations.repository.KitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +48,9 @@ public class KitService {
 	}
 
 	private void clearKitAlleleLinks(KitEntity kitEntity) {
-		List<AlleleEntity> alleleEntities = kitEntity.getAlleles();
-		for (AlleleEntity alleleEntity : alleleEntities) {
-			alleleEntity.getKits().remove(kitEntity);
+		List<LocusEntity> alleleEntities = kitEntity.getAlleles();
+		for (LocusEntity locusEntity : alleleEntities) {
+			locusEntity.getKits().remove(kitEntity);
 		}
 		alleleEntities.clear();
 	}
