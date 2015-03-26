@@ -23,6 +23,7 @@ import static org.springframework.test.util.ReflectionTestUtils.setField;
 public class LocusServiceTest {
 
 	private static final String LOCUS_NAME = "locusName";
+	private static final String NEW_LOCUS_NAME = "newLocus";
 	private static final String KIT_NAME = "kitName";
 	private static final long ALLELE_ID = 2L;
 	private static final long KIT_ID = 1L;
@@ -81,10 +82,10 @@ public class LocusServiceTest {
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(locusRepository.findByName(anyString())).thenReturn(null);
 
-		locusService.addLocus(KIT_ID, "newAllele");
+		locusService.addLocus(KIT_ID, NEW_LOCUS_NAME);
 
 		assertThat(kitEntity.getAlleles().size(), is(1));
-		assertThat(kitEntity.getAlleles().get(0).getName(), is("newAllele"));
+		assertThat(kitEntity.getAlleles().get(0).getName(), is(NEW_LOCUS_NAME));
 	}
 
 	@Test
