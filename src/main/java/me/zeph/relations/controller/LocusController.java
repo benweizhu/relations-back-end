@@ -3,7 +3,7 @@ package me.zeph.relations.controller;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import me.zeph.relations.model.api.Allele;
-import me.zeph.relations.service.AlleleService;
+import me.zeph.relations.service.LocusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpHeaders;
@@ -22,16 +22,16 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @Api(value = "Alleles", position = 1)
-public class AlleleController {
+public class LocusController {
 
 	@Autowired
-	private AlleleService alleleService;
+	private LocusService locusService;
 
 	@ApiOperation(value = "Get Alleles by Kit Id")
 	@ResponseStatus(value = OK)
 	@RequestMapping(value = "/kits/{kitId}/alleles", method = GET, produces = APPLICATION_JSON_VALUE)
 	public List<Allele> getAlleles(@PathVariable long kitId) {
-		List<Allele> alleles = alleleService.getAlleles(kitId);
+		List<Allele> alleles = locusService.getAlleles(kitId);
 		for (Allele allele : alleles) {
 			allele.add(selfLink(kitId, allele.getAlleleId()));
 		}
@@ -42,7 +42,7 @@ public class AlleleController {
 	@ResponseStatus(value = OK)
 	@RequestMapping(value = "/kits/{kitId}/alleles/{alleleId}", method = GET, produces = APPLICATION_JSON_VALUE)
 	public Allele getAllele(@PathVariable long kitId, @PathVariable long alleleId) {
-		Allele allele = alleleService.getAllele(kitId, alleleId);
+		Allele allele = locusService.getAllele(kitId, alleleId);
 		allele.add(selfLink(kitId, alleleId));
 		return allele;
 	}
@@ -52,7 +52,7 @@ public class AlleleController {
 	@RequestMapping(value = "/kits/{kitId}/alleles", method = POST)
 	public ResponseEntity<?> addAllele(UriComponentsBuilder uriComponentsBuilder,
 	                                   @PathVariable long kitId, @RequestBody Allele requestAllele) {
-		alleleService.addAllele(kitId, requestAllele.getName());
+		locusService.addAllele(kitId, requestAllele.getName());
 		return getResponseEntity(uriComponentsBuilder, "/kits/{kitId}/alleles", kitId, CREATED);
 	}
 
@@ -61,7 +61,7 @@ public class AlleleController {
 	@RequestMapping(value = "/kits/{kitId}/alleles/{alleleId}", method = DELETE)
 	public ResponseEntity<?> removeAllele(UriComponentsBuilder uriComponentsBuilder,
 	                                      @PathVariable long kitId, @PathVariable long alleleId) {
-		alleleService.removeAllele(kitId, alleleId);
+		locusService.removeAllele(kitId, alleleId);
 		return getResponseEntity(uriComponentsBuilder, "/kits/{kitId}/alleles", kitId, NO_CONTENT);
 	}
 
@@ -73,6 +73,6 @@ public class AlleleController {
 	}
 
 	private Link selfLink(long kitId, long alleleId) {
-		return linkTo(methodOn(AlleleController.class).getAllele(kitId, alleleId)).withSelfRel();
+		return linkTo(methodOn(LocusController.class).getAllele(kitId, alleleId)).withSelfRel();
 	}
 }

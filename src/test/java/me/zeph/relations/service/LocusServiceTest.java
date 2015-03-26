@@ -1,8 +1,8 @@
 package me.zeph.relations.service;
 
-import me.zeph.relations.exception.AlleleAlreadyExistException;
-import me.zeph.relations.exception.AlleleNotFoundException;
 import me.zeph.relations.exception.KitNotFoundException;
+import me.zeph.relations.exception.LocusAlreadyExistException;
+import me.zeph.relations.exception.LocusNotFoundException;
 import me.zeph.relations.model.api.Allele;
 import me.zeph.relations.model.entity.AlleleEntity;
 import me.zeph.relations.model.entity.KitEntity;
@@ -20,23 +20,23 @@ import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.util.ReflectionTestUtils.setField;
 
-public class AlleleServiceTest {
+public class LocusServiceTest {
 
 	private static final String ALLELE_NAME = "alleleName";
 	private static final String KIT_NAME = "name";
 	private static final long ALLELE_ID = 2L;
 	private static final long KIT_ID = 1L;
-	private AlleleService alleleService;
+	private LocusService locusService;
 	private KitRepository kitRepository;
 	private AlleleRepository alleleRepository;
 
 	@Before
 	public void setUp() throws Exception {
-		alleleService = new AlleleService();
+		locusService = new LocusService();
 		kitRepository = mock(KitRepository.class);
 		alleleRepository = mock(AlleleRepository.class);
-		setField(alleleService, "kitRepository", kitRepository);
-		setField(alleleService, "alleleRepository", alleleRepository);
+		setField(locusService, "kitRepository", kitRepository);
+		setField(locusService, "alleleRepository", alleleRepository);
 	}
 
 	@Test
@@ -44,7 +44,7 @@ public class AlleleServiceTest {
 		KitEntity kitEntity = getKitEntity(getAlleleEntity(KIT_ID, ALLELE_NAME), KIT_ID, KIT_NAME, true);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 
-		List<Allele> alleles = alleleService.getAlleles(KIT_ID);
+		List<Allele> alleles = locusService.getAlleles(KIT_ID);
 
 		assertThat(alleles.size(), is(1));
 		assertThat(alleles.get(0).getAlleleId(), is(KIT_ID));
@@ -54,7 +54,7 @@ public class AlleleServiceTest {
 	public void shouldThrowKitNotFoundException() {
 		when(kitRepository.findOne(KIT_ID)).thenReturn(null);
 
-		alleleService.getAlleles(KIT_ID);
+		locusService.getAlleles(KIT_ID);
 	}
 
 	@Test
@@ -62,17 +62,17 @@ public class AlleleServiceTest {
 		KitEntity kitEntity = getKitEntity(getAlleleEntity(KIT_ID, ALLELE_NAME), KIT_ID, KIT_NAME, true);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 
-		Allele allele = alleleService.getAllele(KIT_ID, KIT_ID);
+		Allele allele = locusService.getAllele(KIT_ID, KIT_ID);
 
 		assertThat(allele.getAlleleId(), is(KIT_ID));
 	}
 
-	@Test(expected = AlleleNotFoundException.class)
+	@Test(expected = LocusNotFoundException.class)
 	public void shouldThrowAlleleNotFoundException() {
 		KitEntity kitEntity = getKitEntity(getAlleleEntity(KIT_ID, ALLELE_NAME), KIT_ID, KIT_NAME, true);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 
-		alleleService.getAllele(KIT_ID, ALLELE_ID);
+		locusService.getAllele(KIT_ID, ALLELE_ID);
 	}
 
 	@Test
@@ -81,7 +81,7 @@ public class AlleleServiceTest {
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(alleleRepository.findByName(anyString())).thenReturn(null);
 
-		alleleService.addAllele(KIT_ID, "newAllele");
+		locusService.addAllele(KIT_ID, "newAllele");
 
 		assertThat(kitEntity.getAlleles().size(), is(1));
 		assertThat(kitEntity.getAlleles().get(0).getName(), is("newAllele"));
@@ -94,27 +94,27 @@ public class AlleleServiceTest {
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(alleleRepository.findByName(anyString())).thenReturn(alleleEntity);
 
-		alleleService.addAllele(KIT_ID, KIT_NAME);
+		locusService.addAllele(KIT_ID, KIT_NAME);
 
 		assertThat(kitEntity.getAlleles().size(), is(1));
 		assertThat(kitEntity.getAlleles().get(0).getName(), is(ALLELE_NAME));
 	}
 
 	@Test(expected = KitNotFoundException.class)
-	public void shouldThrowKitNotFoundExceptionWhenAddAllele(){
+	public void shouldThrowKitNotFoundExceptionWhenAddAllele() {
 		when(kitRepository.findOne(KIT_ID)).thenReturn(null);
 
-		alleleService.addAllele(KIT_ID, KIT_NAME);
+		locusService.addAllele(KIT_ID, KIT_NAME);
 	}
 
-	@Test(expected = AlleleAlreadyExistException.class)
-	public void shouldAlleleAlreadyExistExceptionWhenAddAllele(){
+	@Test(expected = LocusAlreadyExistException.class)
+	public void shouldAlleleAlreadyExistExceptionWhenAddAllele() {
 		AlleleEntity alleleEntity = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
 		KitEntity kitEntity = getKitEntity(alleleEntity, KIT_ID, KIT_NAME, true);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(alleleRepository.findByName(anyString())).thenReturn(alleleEntity);
 
-		alleleService.addAllele(KIT_ID, KIT_NAME);
+		locusService.addAllele(KIT_ID, KIT_NAME);
 	}
 
 	@Test
@@ -124,7 +124,7 @@ public class AlleleServiceTest {
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(alleleRepository.findOne(ALLELE_ID)).thenReturn(alleleEntity);
 
-		alleleService.removeAllele(KIT_ID, ALLELE_ID);
+		locusService.removeAllele(KIT_ID, ALLELE_ID);
 
 		assertThat(kitEntity.getAlleles().isEmpty(), is(true));
 		assertThat(alleleEntity.getKits().isEmpty(), is(true));
@@ -135,31 +135,31 @@ public class AlleleServiceTest {
 	public void shouldThrowKitNotFoundExceptionWhenRemoveAllele() {
 		when(kitRepository.findOne(99L)).thenReturn(null);
 
-		alleleService.removeAllele(99L, KIT_ID);
+		locusService.removeAllele(99L, KIT_ID);
 
 		verify(kitRepository).findOne(99L);
 	}
 
-	@Test(expected = AlleleNotFoundException.class)
+	@Test(expected = LocusNotFoundException.class)
 	public void shouldThrowAlleleNotFoundExceptionWhenAlleleNotExistInDB() {
 		AlleleEntity alleleEntity = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
 		KitEntity kitEntity = getKitEntity(alleleEntity, KIT_ID, KIT_NAME, true);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(alleleRepository.findOne(99L)).thenReturn(null);
 
-		alleleService.removeAllele(KIT_ID, 99L);
+		locusService.removeAllele(KIT_ID, 99L);
 
 		verify(alleleRepository).findOne(99L);
 	}
 
-	@Test(expected = AlleleNotFoundException.class)
+	@Test(expected = LocusNotFoundException.class)
 	public void shouldThrowAlleleNotFoundExceptionWhenKitAlleleRelationshipNotExistInDB() {
 		AlleleEntity alleleEntity = getAlleleEntity(ALLELE_ID, ALLELE_NAME);
 		KitEntity kitEntity = getKitEntity(alleleEntity, KIT_ID, KIT_NAME, false);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(alleleRepository.findOne(ALLELE_ID)).thenReturn(alleleEntity);
 
-		alleleService.removeAllele(KIT_ID, KIT_ID);
+		locusService.removeAllele(KIT_ID, KIT_ID);
 
 		verify(alleleRepository).findOne(KIT_ID);
 	}

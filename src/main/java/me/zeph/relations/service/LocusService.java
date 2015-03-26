@@ -1,8 +1,8 @@
 package me.zeph.relations.service;
 
-import me.zeph.relations.exception.AlleleAlreadyExistException;
-import me.zeph.relations.exception.AlleleNotFoundException;
 import me.zeph.relations.exception.KitNotFoundException;
+import me.zeph.relations.exception.LocusAlreadyExistException;
+import me.zeph.relations.exception.LocusNotFoundException;
 import me.zeph.relations.model.api.Allele;
 import me.zeph.relations.model.entity.AlleleEntity;
 import me.zeph.relations.model.entity.KitEntity;
@@ -21,7 +21,7 @@ import static me.zeph.relations.exception.ExceptionMessage.*;
 
 @Transactional
 @Service
-public class AlleleService {
+public class LocusService {
 
 	@Autowired
 	private KitRepository kitRepository;
@@ -71,13 +71,13 @@ public class AlleleService {
 
 	private void assertAlleleExistKit(long kitId, long alleleId, KitEntity kitEntity, AlleleEntity allele) {
 		if (!kitEntity.getAlleles().contains(allele)) {
-			throw new AlleleNotFoundException(format(ALLELE_NOT_FOUND_IN_KIT, alleleId, kitId));
+			throw new LocusNotFoundException(format(ALLELE_NOT_FOUND_IN_KIT, alleleId, kitId));
 		}
 	}
 
 	private void assertNotAlleleExistKit(String alleleName, KitEntity kitEntity, AlleleEntity alleleEntity) {
 		if (kitEntity.getAlleles().contains(alleleEntity)) {
-			throw new AlleleAlreadyExistException(format(ALLELE_ALREADY_EXIST, alleleName));
+			throw new LocusAlreadyExistException(format(ALLELE_ALREADY_EXIST, alleleName));
 		}
 	}
 
@@ -101,7 +101,7 @@ public class AlleleService {
 				return translateAllele(alleleEntity);
 			}
 		}
-		throw new AlleleNotFoundException(format(ALLELE_NOT_FOUND_IN_KIT, alleleId, kitId));
+		throw new LocusNotFoundException(format(ALLELE_NOT_FOUND_IN_KIT, alleleId, kitId));
 	}
 
 	private List<Allele> translateAlleles(List<AlleleEntity> alleleEntities) {

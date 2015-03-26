@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @Transactional
-public class AlleleControllerIntegrationTest {
+public class LocusControllerIntegrationTest {
 	private MockMvc mockMvc;
 
 	@Autowired
