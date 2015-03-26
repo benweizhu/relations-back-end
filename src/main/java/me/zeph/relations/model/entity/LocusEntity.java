@@ -18,6 +18,9 @@ public class LocusEntity {
 	@Column(name = "NAME")
 	private String name;
 
+	@OneToMany(mappedBy = "locus", cascade = CascadeType.ALL)
+	private List<AlleleEntity> alleles = newArrayList();
+
 	@ManyToMany(mappedBy = "loci")
 	private List<KitEntity> kits = newArrayList();
 
@@ -38,6 +41,14 @@ public class LocusEntity {
 
 	public List<KitEntity> getKits() {
 		return kits;
+	}
+
+	public List<AlleleEntity> getAlleles() {
+		return alleles;
+	}
+
+	public void setAlleles(List<AlleleEntity> alleles) {
+		this.alleles = alleles;
 	}
 
 	@Override
