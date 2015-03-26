@@ -2,7 +2,7 @@ package me.zeph.relations.controller;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
-import me.zeph.relations.model.api.Allele;
+import me.zeph.relations.model.api.Locus;
 import me.zeph.relations.service.LocusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
@@ -27,41 +27,41 @@ public class LocusController {
 	@Autowired
 	private LocusService locusService;
 
-	@ApiOperation(value = "Get Alleles by Kit Id")
+	@ApiOperation(value = "Get Loci by Kit Id")
 	@ResponseStatus(value = OK)
 	@RequestMapping(value = "/kits/{kitId}/alleles", method = GET, produces = APPLICATION_JSON_VALUE)
-	public List<Allele> getAlleles(@PathVariable long kitId) {
-		List<Allele> alleles = locusService.getAlleles(kitId);
-		for (Allele allele : alleles) {
-			allele.add(selfLink(kitId, allele.getAlleleId()));
+	public List<Locus> getAlleles(@PathVariable long kitId) {
+		List<Locus> loci = locusService.getLoci(kitId);
+		for (Locus locus : loci) {
+			locus.add(selfLink(kitId, locus.getAlleleId()));
 		}
-		return alleles;
+		return loci;
 	}
 
-	@ApiOperation(value = "Get Allele by Kit Id and Allele Id")
+	@ApiOperation(value = "Get Locus by Kit Id and Locus Id")
 	@ResponseStatus(value = OK)
 	@RequestMapping(value = "/kits/{kitId}/alleles/{alleleId}", method = GET, produces = APPLICATION_JSON_VALUE)
-	public Allele getAllele(@PathVariable long kitId, @PathVariable long alleleId) {
-		Allele allele = locusService.getAllele(kitId, alleleId);
-		allele.add(selfLink(kitId, alleleId));
-		return allele;
+	public Locus getAllele(@PathVariable long kitId, @PathVariable long alleleId) {
+		Locus locus = locusService.getLocus(kitId, alleleId);
+		locus.add(selfLink(kitId, alleleId));
+		return locus;
 	}
 
-	@ApiOperation(value = "Save Allele by Name")
+	@ApiOperation(value = "Save Locus by Name")
 	@ResponseStatus(value = CREATED)
 	@RequestMapping(value = "/kits/{kitId}/alleles", method = POST)
 	public ResponseEntity<?> addAllele(UriComponentsBuilder uriComponentsBuilder,
-	                                   @PathVariable long kitId, @RequestBody Allele requestAllele) {
-		locusService.addAllele(kitId, requestAllele.getName());
+	                                   @PathVariable long kitId, @RequestBody Locus requestLocus) {
+		locusService.addLocus(kitId, requestLocus.getName());
 		return getResponseEntity(uriComponentsBuilder, "/kits/{kitId}/alleles", kitId, CREATED);
 	}
 
-	@ApiOperation(value = "Delete Allele by Allele Id")
+	@ApiOperation(value = "Delete Locus by Locus Id")
 	@ResponseStatus(value = NO_CONTENT)
 	@RequestMapping(value = "/kits/{kitId}/alleles/{alleleId}", method = DELETE)
 	public ResponseEntity<?> removeAllele(UriComponentsBuilder uriComponentsBuilder,
 	                                      @PathVariable long kitId, @PathVariable long alleleId) {
-		locusService.removeAllele(kitId, alleleId);
+		locusService.removeLocus(kitId, alleleId);
 		return getResponseEntity(uriComponentsBuilder, "/kits/{kitId}/alleles", kitId, NO_CONTENT);
 	}
 

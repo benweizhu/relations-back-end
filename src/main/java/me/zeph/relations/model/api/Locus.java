@@ -4,7 +4,7 @@ import com.wordnik.swagger.annotations.ApiModel;
 import org.springframework.hateoas.ResourceSupport;
 
 @ApiModel
-public class Allele extends ResourceSupport {
+public class Locus extends ResourceSupport {
 
 	private long alleleId;
 

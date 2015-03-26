@@ -3,7 +3,7 @@ package me.zeph.relations.service;
 import me.zeph.relations.exception.KitNotFoundException;
 import me.zeph.relations.exception.LocusAlreadyExistException;
 import me.zeph.relations.exception.LocusNotFoundException;
-import me.zeph.relations.model.api.Allele;
+import me.zeph.relations.model.api.Locus;
 import me.zeph.relations.model.entity.AlleleEntity;
 import me.zeph.relations.model.entity.KitEntity;
 import me.zeph.relations.repository.AlleleRepository;
@@ -29,53 +29,53 @@ public class LocusService {
 	@Autowired
 	private AlleleRepository alleleRepository;
 
-	public List<Allele> getAlleles(long kitId) {
+	public List<Locus> getLoci(long kitId) {
 		KitEntity kitEntity = kitRepository.findOne(kitId);
 		assertKitExist(kitId, kitEntity);
-		return translateAlleles(kitEntity.getAlleles());
+		return translateLoci(kitEntity.getAlleles());
 	}
 
-	public Allele getAllele(long kitId, long alleleId) {
+	public Locus getLocus(long kitId, long alleleId) {
 		KitEntity kitEntity = kitRepository.findOne(kitId);
 		assertKitExist(kitId, kitEntity);
-		return findAlleleById(kitId, alleleId, kitEntity.getAlleles());
+		return findLocusById(kitId, alleleId, kitEntity.getAlleles());
 	}
 
-	public void addAllele(long kitId, String alleleName) {
+	public void addLocus(long kitId, String alleleName) {
 		KitEntity kitEntity = kitRepository.findOne(kitId);
 		assertKitExist(kitId, kitEntity);
-		addAlleleToKit(alleleName, kitEntity);
+		addLocusToKit(alleleName, kitEntity);
 
 		kitRepository.saveAndFlush(kitEntity);
 	}
 
-	public void removeAllele(long kitId, long alleleId) {
+	public void removeLocus(long kitId, long alleleId) {
 		KitEntity kitEntity = kitRepository.findOne(kitId);
 		assertKitExist(kitId, kitEntity);
-		removeAlleleFromKit(kitId, alleleId, kitEntity);
+		removeLocusFromKit(kitId, alleleId, kitEntity);
 
 		kitRepository.saveAndFlush(kitEntity);
 	}
 
-	private void removeAlleleFromKit(long kitId, long alleleId, KitEntity kitEntity) {
+	private void removeLocusFromKit(long kitId, long alleleId, KitEntity kitEntity) {
 		AlleleEntity allele = alleleRepository.findOne(alleleId);
-		assertAlleleExistKit(kitId, alleleId, kitEntity, allele);
+		assertLocusExistInKit(kitId, alleleId, kitEntity, allele);
 		kitEntity.removeAllele(allele);
 	}
 
-	private void addAlleleToKit(String alleleName, KitEntity kitEntity) {
+	private void addLocusToKit(String alleleName, KitEntity kitEntity) {
 		AlleleEntity alleleEntity = getAlleleEntity(alleleName);
-		assertNotAlleleExistKit(alleleName, kitEntity, alleleEntity);
+		assertNotLocusExistInKit(alleleName, kitEntity, alleleEntity);
 		kitEntity.addAllele(alleleEntity);
 	}
 
-	private void assertAlleleExistKit(long kitId, long alleleId, KitEntity kitEntity, AlleleEntity allele) {
+	private void assertLocusExistInKit(long kitId, long alleleId, KitEntity kitEntity, AlleleEntity allele) {
 		if (!kitEntity.getAlleles().contains(allele)) {
 			throw new LocusNotFoundException(format(ALLELE_NOT_FOUND_IN_KIT, alleleId, kitId));
 		}
 	}
 
-	private void assertNotAlleleExistKit(String alleleName, KitEntity kitEntity, AlleleEntity alleleEntity) {
+	private void assertNotLocusExistInKit(String alleleName, KitEntity kitEntity, AlleleEntity alleleEntity) {
 		if (kitEntity.getAlleles().contains(alleleEntity)) {
 			throw new LocusAlreadyExistException(format(ALLELE_ALREADY_EXIST, alleleName));
 		}
@@ -95,27 +95,27 @@ public class LocusService {
 		return alleleEntity;
 	}
 
-	private Allele findAlleleById(long kitId, long alleleId, List<AlleleEntity> alleleEntities) {
+	private Locus findLocusById(long kitId, long alleleId, List<AlleleEntity> alleleEntities) {
 		for (AlleleEntity alleleEntity : alleleEntities) {
 			if (alleleEntity.getId() == alleleId) {
-				return translateAllele(alleleEntity);
+				return translateLocus(alleleEntity);
 			}
 		}
 		throw new LocusNotFoundException(format(ALLELE_NOT_FOUND_IN_KIT, alleleId, kitId));
 	}
 
-	private List<Allele> translateAlleles(List<AlleleEntity> alleleEntities) {
-		ArrayList<Allele> alleles = newArrayList();
+	private List<Locus> translateLoci(List<AlleleEntity> alleleEntities) {
+		ArrayList<Locus> loci = newArrayList();
 		for (AlleleEntity alleleEntity : alleleEntities) {
-			alleles.add(translateAllele(alleleEntity));
+			loci.add(translateLocus(alleleEntity));
 		}
-		return alleles;
+		return loci;
 	}
 
-	private Allele translateAllele(AlleleEntity alleleEntity) {
-		Allele allele = new Allele();
-		allele.setAlleleId(alleleEntity.getId());
-		allele.setName(alleleEntity.getName());
-		return allele;
+	private Locus translateLocus(AlleleEntity alleleEntity) {
+		Locus locus = new Locus();
+		locus.setAlleleId(alleleEntity.getId());
+		locus.setName(alleleEntity.getName());
+		return locus;
 	}
 }

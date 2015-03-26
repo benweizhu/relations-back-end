@@ -1,7 +1,7 @@
 package me.zeph.relations.integration;
 
 import me.zeph.relations.Application;
-import me.zeph.relations.model.api.Allele;
+import me.zeph.relations.model.api.Locus;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -79,7 +79,7 @@ public class LocusControllerIntegrationTest {
 
 	@Test
 	public void shouldReturnAlleleCreated() throws Exception {
-		Allele value = new Allele();
+		Locus value = new Locus();
 		value.setName("alleleName");
 		mockMvc.perform(post("/kits/1/alleles/")
 				.contentType(APPLICATION_JSON)
@@ -89,7 +89,7 @@ public class LocusControllerIntegrationTest {
 
 	@Test
 	public void shouldReturnAlleleConflict() throws Exception {
-		Allele value = new Allele();
+		Locus value = new Locus();
 		value.setName("D1GATA113");
 		mockMvc.perform(post("/kits/1/alleles/")
 				.contentType(APPLICATION_JSON)
@@ -99,7 +99,7 @@ public class LocusControllerIntegrationTest {
 
 	@Test
 	public void shouldReturnKitNotFoundWhenAddAllele() throws Exception {
-		Allele value = new Allele();
+		Locus value = new Locus();
 		value.setName("D1GATA113");
 		mockMvc.perform(post("/kits/99/alleles/")
 				.contentType(APPLICATION_JSON)

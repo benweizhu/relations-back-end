@@ -3,7 +3,7 @@ package me.zeph.relations.service;
 import me.zeph.relations.exception.KitNotFoundException;
 import me.zeph.relations.exception.LocusAlreadyExistException;
 import me.zeph.relations.exception.LocusNotFoundException;
-import me.zeph.relations.model.api.Allele;
+import me.zeph.relations.model.api.Locus;
 import me.zeph.relations.model.entity.AlleleEntity;
 import me.zeph.relations.model.entity.KitEntity;
 import me.zeph.relations.repository.AlleleRepository;
@@ -44,17 +44,17 @@ public class LocusServiceTest {
 		KitEntity kitEntity = getKitEntity(getAlleleEntity(KIT_ID, ALLELE_NAME), KIT_ID, KIT_NAME, true);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 
-		List<Allele> alleles = locusService.getAlleles(KIT_ID);
+		List<Locus> loci = locusService.getLoci(KIT_ID);
 
-		assertThat(alleles.size(), is(1));
-		assertThat(alleles.get(0).getAlleleId(), is(KIT_ID));
+		assertThat(loci.size(), is(1));
+		assertThat(loci.get(0).getAlleleId(), is(KIT_ID));
 	}
 
 	@Test(expected = KitNotFoundException.class)
 	public void shouldThrowKitNotFoundException() {
 		when(kitRepository.findOne(KIT_ID)).thenReturn(null);
 
-		locusService.getAlleles(KIT_ID);
+		locusService.getLoci(KIT_ID);
 	}
 
 	@Test
@@ -62,9 +62,9 @@ public class LocusServiceTest {
 		KitEntity kitEntity = getKitEntity(getAlleleEntity(KIT_ID, ALLELE_NAME), KIT_ID, KIT_NAME, true);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 
-		Allele allele = locusService.getAllele(KIT_ID, KIT_ID);
+		Locus locus = locusService.getLocus(KIT_ID, KIT_ID);
 
-		assertThat(allele.getAlleleId(), is(KIT_ID));
+		assertThat(locus.getAlleleId(), is(KIT_ID));
 	}
 
 	@Test(expected = LocusNotFoundException.class)
@@ -72,7 +72,7 @@ public class LocusServiceTest {
 		KitEntity kitEntity = getKitEntity(getAlleleEntity(KIT_ID, ALLELE_NAME), KIT_ID, KIT_NAME, true);
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 
-		locusService.getAllele(KIT_ID, ALLELE_ID);
+		locusService.getLocus(KIT_ID, ALLELE_ID);
 	}
 
 	@Test
@@ -81,7 +81,7 @@ public class LocusServiceTest {
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(alleleRepository.findByName(anyString())).thenReturn(null);
 
-		locusService.addAllele(KIT_ID, "newAllele");
+		locusService.addLocus(KIT_ID, "newAllele");
 
 		assertThat(kitEntity.getAlleles().size(), is(1));
 		assertThat(kitEntity.getAlleles().get(0).getName(), is("newAllele"));
@@ -94,7 +94,7 @@ public class LocusServiceTest {
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(alleleRepository.findByName(anyString())).thenReturn(alleleEntity);
 
-		locusService.addAllele(KIT_ID, KIT_NAME);
+		locusService.addLocus(KIT_ID, KIT_NAME);
 
 		assertThat(kitEntity.getAlleles().size(), is(1));
 		assertThat(kitEntity.getAlleles().get(0).getName(), is(ALLELE_NAME));
@@ -104,7 +104,7 @@ public class LocusServiceTest {
 	public void shouldThrowKitNotFoundExceptionWhenAddAllele() {
 		when(kitRepository.findOne(KIT_ID)).thenReturn(null);
 
-		locusService.addAllele(KIT_ID, KIT_NAME);
+		locusService.addLocus(KIT_ID, KIT_NAME);
 	}
 
 	@Test(expected = LocusAlreadyExistException.class)
@@ -114,7 +114,7 @@ public class LocusServiceTest {
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(alleleRepository.findByName(anyString())).thenReturn(alleleEntity);
 
-		locusService.addAllele(KIT_ID, KIT_NAME);
+		locusService.addLocus(KIT_ID, KIT_NAME);
 	}
 
 	@Test
@@ -124,7 +124,7 @@ public class LocusServiceTest {
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(alleleRepository.findOne(ALLELE_ID)).thenReturn(alleleEntity);
 
-		locusService.removeAllele(KIT_ID, ALLELE_ID);
+		locusService.removeLocus(KIT_ID, ALLELE_ID);
 
 		assertThat(kitEntity.getAlleles().isEmpty(), is(true));
 		assertThat(alleleEntity.getKits().isEmpty(), is(true));
@@ -135,7 +135,7 @@ public class LocusServiceTest {
 	public void shouldThrowKitNotFoundExceptionWhenRemoveAllele() {
 		when(kitRepository.findOne(99L)).thenReturn(null);
 
-		locusService.removeAllele(99L, KIT_ID);
+		locusService.removeLocus(99L, KIT_ID);
 
 		verify(kitRepository).findOne(99L);
 	}
@@ -147,7 +147,7 @@ public class LocusServiceTest {
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(alleleRepository.findOne(99L)).thenReturn(null);
 
-		locusService.removeAllele(KIT_ID, 99L);
+		locusService.removeLocus(KIT_ID, 99L);
 
 		verify(alleleRepository).findOne(99L);
 	}
@@ -159,7 +159,7 @@ public class LocusServiceTest {
 		when(kitRepository.findOne(KIT_ID)).thenReturn(kitEntity);
 		when(alleleRepository.findOne(ALLELE_ID)).thenReturn(alleleEntity);
 
-		locusService.removeAllele(KIT_ID, KIT_ID);
+		locusService.removeLocus(KIT_ID, KIT_ID);
 
 		verify(alleleRepository).findOne(KIT_ID);
 	}
