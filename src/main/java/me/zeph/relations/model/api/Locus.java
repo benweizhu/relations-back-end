@@ -6,16 +6,16 @@ import org.springframework.hateoas.ResourceSupport;
 @ApiModel
 public class Locus extends ResourceSupport {
 
-	private long alleleId;
+	private long locusId;
 
 	private String name;
 
-	public long getAlleleId() {
-		return alleleId;
+	public long getLocusId() {
+		return locusId;
 	}
 
-	public void setAlleleId(long alleleId) {
-		this.alleleId = alleleId;
+	public void setLocusId(long locusId) {
+		this.locusId = locusId;
 	}
 
 	public String getName() {

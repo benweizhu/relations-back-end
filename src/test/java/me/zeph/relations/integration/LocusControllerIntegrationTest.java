@@ -44,7 +44,7 @@ public class LocusControllerIntegrationTest {
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(APPLICATION_JSON))
 				.andExpect(jsonPath("$", hasSize(3)))
-				.andExpect(jsonPath("$[0].alleleId", is(1)))
+				.andExpect(jsonPath("$[0].locusId", is(1)))
 				.andExpect(jsonPath("$[0].name", is("D1GATA113")));
 	}
 
@@ -55,7 +55,7 @@ public class LocusControllerIntegrationTest {
 				.accept(APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(APPLICATION_JSON))
-				.andExpect(jsonPath("$.alleleId", is(1)))
+				.andExpect(jsonPath("$.locusId", is(1)))
 				.andExpect(jsonPath("$.name", is("D1GATA113")));
 	}
 

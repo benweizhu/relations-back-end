@@ -48,7 +48,7 @@ public class LocusServiceTest {
 		List<Locus> loci = locusService.getLoci(KIT_ID);
 
 		assertThat(loci.size(), is(1));
-		assertThat(loci.get(0).getAlleleId(), is(KIT_ID));
+		assertThat(loci.get(0).getLocusId(), is(KIT_ID));
 	}
 
 	@Test(expected = KitNotFoundException.class)
@@ -65,7 +65,7 @@ public class LocusServiceTest {
 
 		Locus locus = locusService.getLocus(KIT_ID, KIT_ID);
 
-		assertThat(locus.getAlleleId(), is(KIT_ID));
+		assertThat(locus.getLocusId(), is(KIT_ID));
 	}
 
 	@Test(expected = LocusNotFoundException.class)

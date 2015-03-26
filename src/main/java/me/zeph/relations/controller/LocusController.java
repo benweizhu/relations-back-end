@@ -33,7 +33,7 @@ public class LocusController {
 	public List<Locus> getLoci(@PathVariable long kitId) {
 		List<Locus> loci = locusService.getLoci(kitId);
 		for (Locus locus : loci) {
-			locus.add(selfLink(kitId, locus.getAlleleId()));
+			locus.add(selfLink(kitId, locus.getLocusId()));
 		}
 		return loci;
 	}

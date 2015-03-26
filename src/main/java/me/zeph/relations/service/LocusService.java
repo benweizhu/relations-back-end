@@ -114,7 +114,7 @@ public class LocusService {
 
 	private Locus translateLocus(LocusEntity locusEntity) {
 		Locus locus = new Locus();
-		locus.setAlleleId(locusEntity.getId());
+		locus.setLocusId(locusEntity.getId());
 		locus.setName(locusEntity.getName());
 		return locus;
 	}
