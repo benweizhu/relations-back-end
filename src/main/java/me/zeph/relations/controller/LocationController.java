@@ -20,7 +20,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
-@Api(value = "Locations", position = 2)
+@Api(value = "Location", position = 2)
 @RequestMapping(value = "/locations")
 public class LocationController {
 
