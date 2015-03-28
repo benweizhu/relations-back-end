@@ -11,25 +11,24 @@ import org.mockito.Mock;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.MockitoAnnotations.initMocks;
+import static org.springframework.test.util.ReflectionTestUtils.setField;
 
 public class PiServiceTest {
 
 	private static final double DELTA_3 = 0.001;
 	private static final double DELTA_7 = 0.0000001;
-
 	@Mock
 	private AlleleValueDao alleleValueDao;
-
 	@Mock
 	private Calculator calculator;
-
 	private PiService piService;
-
 
 	@Before
 	public void setUp() throws Exception {
 		initMocks(this);
-		piService = new PiService(alleleValueDao, calculator);
+		piService = new PiService();
+		setField(piService, "alleleValueDao", alleleValueDao);
+		setField(piService, "calculator", calculator);
 	}
 
 	@Test
