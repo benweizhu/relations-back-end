@@ -8,12 +8,12 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 @Configuration
 public class WebContextConfiguration {
 
-	private static final String EXPRESSION = "EXPRESSION";
+	private static final String EQUATION = "equation";
 
 	@Bean
 	public ResourceBundleMessageSource messageSource() {
 		ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
-		resourceBundleMessageSource.setBasenames(EXPRESSION);
+		resourceBundleMessageSource.setBasenames(EQUATION);
 		return resourceBundleMessageSource;
 	}
 
