@@ -1,5 +1,8 @@
 package me.zeph.relations.model.api;
 
+import com.wordnik.swagger.annotations.ApiModel;
+
+@ApiModel
 public class OneParentReqParam extends ReqParam{
 
 	private double af1;

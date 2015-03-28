@@ -28,8 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class PiControllerIntegrationTest {
 
 	private static final String ONE_PARENT_URL = "/pi/oneparent";
-	private static final String KIT = "AGCU_EX22";
-	private static final String LOCUS = "D3S1358";
+	private static final long LOCUS = 4L;
 	private MockMvc mockMvc;
 
 	@Autowired
@@ -46,7 +45,6 @@ public class PiControllerIntegrationTest {
 	@Test
 	public void shouldReturnPi() throws Exception {
 		OneParentReqParam oneParentReqParam = new OneParentReqParam();
-		oneParentReqParam.setKit(KIT);
 		oneParentReqParam.setLocus(LOCUS);
 		oneParentReqParam.setC1(14);
 		oneParentReqParam.setC2(15);

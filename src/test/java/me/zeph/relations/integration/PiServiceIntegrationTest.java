@@ -19,25 +19,21 @@ import static org.junit.Assert.assertEquals;
 public class PiServiceIntegrationTest {
 
 	private static final double DELTA_8 = 0.00000001;
-	private static final String KIT = "AGCU_EX22";
-	private static final String LOCUS = "D3S1358";
-
+	private static final long LOCUS = 4L;
 	@Autowired
 	private PiService piService;
 
 	@Test
 	public void shouldCalculateOneInQWhenInputIs_qq_qq() {
-
-		OneParentReqParam reqParam = prepareOneParentReqParam(KIT, LOCUS, 15, 15, 15, 15);
+		OneParentReqParam reqParam = prepareOneParentReqParam(LOCUS, 15, 15, 15, 15);
 
 		double pi = piService.calculateOneParentPi(reqParam);
 
 		assertEquals(2.82406099971759d, pi, DELTA_8);
 	}
 
-	private OneParentReqParam prepareOneParentReqParam(String kit, String locus, int af1, int af2, int c1, int c2) {
+	private OneParentReqParam prepareOneParentReqParam(long locus, int af1, int af2, int c1, int c2) {
 		OneParentReqParam reqParam = new OneParentReqParam();
-		reqParam.setKit(kit);
 		reqParam.setLocus(locus);
 		reqParam.setC1(c1);
 		reqParam.setC2(c2);
@@ -48,18 +44,16 @@ public class PiServiceIntegrationTest {
 
 	@Test
 	public void shouldCalculateOneInQWhenInputIs_qq_rq_qq() {
-
-		ParentsReqParam parentsReqParam = prepareParentsReqParam(KIT, LOCUS, 15, 15, 16, 15, 15, 15);
+		ParentsReqParam parentsReqParam = prepareParentsReqParam(LOCUS, 15, 15, 16, 15, 15, 15);
 
 		double pi = piService.calculateParentsPi(parentsReqParam);
 
 		assertEquals(2.82406099971759d, pi, DELTA_8);
 	}
 
-	private ParentsReqParam prepareParentsReqParam(String kit, String locus, int c1, int c2,
+	private ParentsReqParam prepareParentsReqParam(long locus, int c1, int c2,
 	                                               int m1, int m2, int af1, int af2) {
 		ParentsReqParam parentsReqParam = new ParentsReqParam();
-		parentsReqParam.setKit(kit);
 		parentsReqParam.setLocus(locus);
 		parentsReqParam.setC1(c1);
 		parentsReqParam.setC2(c2);

@@ -1,33 +1,27 @@
 package me.zeph.relations.service;
 
-import me.zeph.relations.dao.AlleleValueDao;
 import me.zeph.relations.model.api.CPIValue;
 import me.zeph.relations.model.api.CpiParam;
 import me.zeph.relations.model.api.RCPValue;
 import me.zeph.relations.model.api.RcpParam;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.MockitoAnnotations.initMocks;
+import static org.mockito.Mockito.mock;
 import static org.springframework.test.util.ReflectionTestUtils.setField;
 
 public class PiServiceTest {
 
 	private static final double DELTA_3 = 0.001;
 	private static final double DELTA_7 = 0.0000001;
-	@Mock
-	private AlleleValueDao alleleValueDao;
-	@Mock
 	private Calculator calculator;
 	private PiService piService;
 
 	@Before
 	public void setUp() throws Exception {
-		initMocks(this);
+		calculator = mock(Calculator.class);
 		piService = new PiService();
-		setField(piService, "alleleValueDao", alleleValueDao);
 		setField(piService, "calculator", calculator);
 	}
 

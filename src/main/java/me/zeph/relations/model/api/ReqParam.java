@@ -1,22 +1,14 @@
 package me.zeph.relations.model.api;
 
 public class ReqParam {
-	private String kit;
-	private String locus;
 
-	public String getKit() {
-		return kit;
-	}
+	private long locus;
 
-	public void setKit(String kit) {
-		this.kit = kit;
-	}
-
-	public String getLocus() {
+	public long getLocus() {
 		return locus;
 	}
 
-	public void setLocus(String locus) {
+	public void setLocus(long locus) {
 		this.locus = locus;
 	}
 }

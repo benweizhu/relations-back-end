@@ -40,7 +40,7 @@ public class AlleleControllerIntegrationTest {
 
 	@Test
 	public void shouldReturnAllelesSuccessfully() throws Exception {
-		mockMvc.perform(get("/loci/2/alleles")
+		mockMvc.perform(get("/loci/4/alleles")
 				.accept(APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(APPLICATION_JSON))
@@ -64,7 +64,7 @@ public class AlleleControllerIntegrationTest {
 
 	@Test
 	public void shouldReturnAlleleByLocusIdAndAlleleValueSuccessfully() throws Exception {
-		mockMvc.perform(get("/loci/2/alleles/14")
+		mockMvc.perform(get("/loci/4/alleles/14")
 				.accept(APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(APPLICATION_JSON))
@@ -74,11 +74,11 @@ public class AlleleControllerIntegrationTest {
 
 	@Test
 	public void shouldReturnAlleleNotFoundException() throws Exception {
-		mockMvc.perform(get("/loci/2/alleles/99")
+		mockMvc.perform(get("/loci/4/alleles/99")
 				.accept(APPLICATION_JSON))
 				.andExpect(status().isNotFound())
 				.andExpect(content().contentType(APPLICATION_JSON))
-				.andExpect(jsonPath("$.message", is("Allele 99.000000 not found in Locus 2")));
+				.andExpect(jsonPath("$.message", is("Allele 99.000000 not found in Locus 4")));
 	}
 
 	@Test
@@ -86,7 +86,7 @@ public class AlleleControllerIntegrationTest {
 		Allele allele = new Allele();
 		allele.setAlleleValue(20);
 		allele.setProbability(0.0017);
-		mockMvc.perform(post("/loci/2/alleles")
+		mockMvc.perform(post("/loci/4/alleles")
 				.contentType(APPLICATION_JSON)
 				.content(new ObjectMapper().writeValueAsString(allele)))
 				.andExpect(status().isCreated());
@@ -109,16 +109,16 @@ public class AlleleControllerIntegrationTest {
 		Allele allele = new Allele();
 		allele.setAlleleValue(14);
 		allele.setProbability(0.0393);
-		mockMvc.perform(post("/loci/2/alleles")
+		mockMvc.perform(post("/loci/4/alleles")
 				.contentType(APPLICATION_JSON)
 				.content(new ObjectMapper().writeValueAsString(allele)))
 				.andExpect(status().isConflict())
-				.andExpect(jsonPath("$.message", is("Allele 14.000000 already exist in Locus 2")));
+				.andExpect(jsonPath("$.message", is("Allele 14.000000 already exist in Locus 4")));
 	}
 
 	@Test
 	public void shouldRemoveAlleleSuccessfully() throws Exception {
-		mockMvc.perform(delete("/loci/2/alleles/14")).andExpect(status().isNoContent());
+		mockMvc.perform(delete("/loci/4/alleles/14")).andExpect(status().isNoContent());
 	}
 
 }
