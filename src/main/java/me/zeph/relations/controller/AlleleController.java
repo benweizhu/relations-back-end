@@ -3,6 +3,7 @@ package me.zeph.relations.controller;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import me.zeph.relations.model.api.Allele;
+import me.zeph.relations.model.entity.LocusEntity;
 import me.zeph.relations.service.AlleleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -48,12 +49,14 @@ public class AlleleController {
 	}
 
 	@ApiOperation(value = "Save Allele by Name and Probability")
-	@RequestMapping(value = "/locus/{locusId}/alleles", method = POST)
+	@RequestMapping(value = "/loci/{locusId}/alleles", method = POST)
 	@ResponseStatus(value = CREATED)
-	public ResponseEntity<?> addAllele(UriComponentsBuilder uriComponentsBuilder, @PathVariable long locusId, @RequestBody Allele requestAllele) {
-		alleleService.addAllele(requestAllele);
+	public ResponseEntity<?> addAllele(UriComponentsBuilder uriComponentsBuilder, @PathVariable long locusId,
+	                                   @RequestBody Allele requestAllele) {
+		LocusEntity locusEntity = alleleService.addAllele(locusId, requestAllele);
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(uriComponentsBuilder.path("/locus/{locusId}/alleles").buildAndExpand(locusId).toUri());
+		headers.setLocation(uriComponentsBuilder.path("/loci/{locusId}/alleles")
+				.buildAndExpand(locusEntity.getId()).toUri());
 		return new ResponseEntity<Void>(headers, CREATED);
 	}
 

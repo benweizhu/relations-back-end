@@ -51,6 +51,15 @@ public class LocusEntity {
 		this.alleles = alleles;
 	}
 
+	public void addAllele(AlleleEntity alleleEntity) {
+		if (!alleles.contains(alleleEntity)) {
+			alleles.add(alleleEntity);
+		}
+		if (alleleEntity.getLocus() == null) {
+			alleleEntity.setLocus(this);
+		}
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {

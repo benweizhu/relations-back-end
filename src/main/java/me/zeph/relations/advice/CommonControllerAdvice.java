@@ -24,6 +24,7 @@ public class CommonControllerAdvice {
 	@ResponseStatus(INTERNAL_SERVER_ERROR)
 	@ResponseBody
 	public ApiError handleInternalServerError(Exception e) {
+		e.printStackTrace();
 		return new ApiError("INTERNAL SERVER ERROR");
 	}
 }

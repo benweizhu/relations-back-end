@@ -1,6 +1,8 @@
 package me.zeph.relations.integration;
 
 import me.zeph.relations.Application;
+import me.zeph.relations.model.api.Allele;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +20,7 @@ import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -75,6 +78,41 @@ public class AlleleControllerIntegrationTest {
 				.andExpect(status().isNotFound())
 				.andExpect(content().contentType(APPLICATION_JSON))
 				.andExpect(jsonPath("$.message", is("Allele 99.000000 not found in Locus 2")));
+	}
+
+	@Test
+	public void shouldSaveAlleleSuccessfully() throws Exception {
+		Allele allele = new Allele();
+		allele.setAlleleValue(20);
+		allele.setProbability(0.0017);
+		mockMvc.perform(post("/loci/2/alleles")
+				.contentType(APPLICATION_JSON)
+				.content(new ObjectMapper().writeValueAsString(allele)))
+				.andExpect(status().isCreated());
+	}
+
+	@Test
+	public void shouldReturnLocusNotFoundExceptionWhenSaveAllele() throws Exception {
+		Allele allele = new Allele();
+		allele.setAlleleValue(20);
+		allele.setProbability(0.0017);
+		mockMvc.perform(post("/loci/99/alleles")
+				.contentType(APPLICATION_JSON)
+				.content(new ObjectMapper().writeValueAsString(allele)))
+				.andExpect(status().isNotFound())
+				.andExpect(jsonPath("$.message", is("Locus 99 not found")));
+	}
+
+	@Test
+	public void shouldReturnAlleleAlreadyExistExceptionWhenSaveAllele() throws Exception {
+		Allele allele = new Allele();
+		allele.setAlleleValue(14);
+		allele.setProbability(0.0393);
+		mockMvc.perform(post("/loci/2/alleles")
+				.contentType(APPLICATION_JSON)
+				.content(new ObjectMapper().writeValueAsString(allele)))
+				.andExpect(status().isConflict())
+				.andExpect(jsonPath("$.message", is("Allele 14.000000 already exist in Locus 2")));
 	}
 
 }

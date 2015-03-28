@@ -1,5 +1,6 @@
 package me.zeph.relations.advice;
 
+import me.zeph.relations.exception.AlleleAlreadyExistException;
 import me.zeph.relations.exception.AlleleNotFoundException;
 import me.zeph.relations.exception.LocusNotFoundException;
 import me.zeph.relations.model.api.ApiError;
@@ -28,6 +29,12 @@ public class AlleleControllerAdviceTest {
 	@Test
 	public void shouldHandleAlleleNotFoundException() {
 		ApiError apiError = alleleControllerAdvice.handleAlleleNotFoundException(new AlleleNotFoundException(ERROR));
+		assertThat(apiError.getMessage(), is(ERROR));
+	}
+
+	@Test
+	public void shouldHandleAlleleAlreadyExistException() {
+		ApiError apiError = alleleControllerAdvice.handleAlleleAlreadyExistException(new AlleleAlreadyExistException(ERROR));
 		assertThat(apiError.getMessage(), is(ERROR));
 	}
 }

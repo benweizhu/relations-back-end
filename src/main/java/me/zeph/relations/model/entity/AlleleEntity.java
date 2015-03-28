@@ -14,7 +14,7 @@ public class AlleleEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "LOCUS_ID")
-	private LocusEntity locus;
+	private LocusEntity locus = new LocusEntity();
 
 	@Column(name = "ALLELE")
 	private double allele;
@@ -36,5 +36,36 @@ public class AlleleEntity {
 
 	public double getProbability() {
 		return probability;
+	}
+
+	public LocusEntity getLocus() {
+		return locus;
+	}
+
+	public void setLocus(LocusEntity locus) {
+		this.locus = locus;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof AlleleEntity)) return false;
+
+		AlleleEntity that = (AlleleEntity) o;
+
+		if (Double.compare(that.allele, allele) != 0) return false;
+		if (!locus.equals(that.locus)) return false;
+
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int result;
+		long temp;
+		result = locus.hashCode();
+		temp = Double.doubleToLongBits(allele);
+		result = 31 * result + (int) (temp ^ (temp >>> 32));
+		return result;
 	}
 }
