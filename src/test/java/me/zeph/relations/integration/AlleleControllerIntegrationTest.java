@@ -37,7 +37,7 @@ public class AlleleControllerIntegrationTest {
 	}
 
 	@Test
-	public void shouldReturnLocations() throws Exception {
+	public void shouldReturnAllelesSuccessfully() throws Exception {
 		mockMvc.perform(get("/loci/2/alleles")
 				.accept(APPLICATION_JSON))
 				.andExpect(status().isOk())
@@ -47,6 +47,34 @@ public class AlleleControllerIntegrationTest {
 				.andExpect(jsonPath("$[0].probability", is(0.0393)))
 				.andExpect(jsonPath("$[1].alleleValue", is(15.0)))
 				.andExpect(jsonPath("$[1].probability", is(0.3541)));
+	}
+
+	@Test
+	public void shouldReturnLocusNotFoundException() throws Exception {
+		mockMvc.perform(get("/loci/99/alleles")
+				.accept(APPLICATION_JSON))
+				.andExpect(status().isNotFound())
+				.andExpect(content().contentType(APPLICATION_JSON))
+				.andExpect(jsonPath("$.message", is("Locus 99 not found")));
+	}
+
+	@Test
+	public void shouldReturnAlleleByLocusIdAndAlleleValueSuccessfully() throws Exception {
+		mockMvc.perform(get("/loci/2/alleles/14")
+				.accept(APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(APPLICATION_JSON))
+				.andExpect(jsonPath("$.alleleValue", is(14.0)))
+				.andExpect(jsonPath("$.probability", is(0.0393)));
+	}
+
+	@Test
+	public void shouldReturnAlleleNotFoundException() throws Exception {
+		mockMvc.perform(get("/loci/2/alleles/99")
+				.accept(APPLICATION_JSON))
+				.andExpect(status().isNotFound())
+				.andExpect(content().contentType(APPLICATION_JSON))
+				.andExpect(jsonPath("$.message", is("Allele 99.000000 not found in Locus 2")));
 	}
 
 }
