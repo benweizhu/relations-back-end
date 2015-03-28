@@ -15,11 +15,9 @@ import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @Api(value = "Allele", position = 4)
@@ -48,7 +46,7 @@ public class AlleleController {
 		return allele;
 	}
 
-	@ApiOperation(value = "Save Allele by Name and Probability")
+	@ApiOperation(value = "Save Allele by AlleleValue and Probability")
 	@RequestMapping(value = "/loci/{locusId}/alleles", method = POST)
 	@ResponseStatus(value = CREATED)
 	public ResponseEntity<?> addAllele(UriComponentsBuilder uriComponentsBuilder, @PathVariable long locusId,
@@ -58,6 +56,17 @@ public class AlleleController {
 		headers.setLocation(uriComponentsBuilder.path("/loci/{locusId}/alleles")
 				.buildAndExpand(locusEntity.getId()).toUri());
 		return new ResponseEntity<Void>(headers, CREATED);
+	}
+
+	@ApiOperation(value = "Delete Allele by LocusId and AlleleValue")
+	@RequestMapping(value = "/loci/{locusId}/alleles/{alleleValue}", method = DELETE)
+	@ResponseStatus(value = NO_CONTENT)
+	public ResponseEntity<?> addAllele(UriComponentsBuilder uriComponentsBuilder, @PathVariable long locusId,
+	                                   @PathVariable double alleleValue) {
+		alleleService.removeAllele(locusId, alleleValue);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setLocation(uriComponentsBuilder.path("/loci/{locusId}/alleles").buildAndExpand(locusId).toUri());
+		return new ResponseEntity<Void>(headers, NO_CONTENT);
 	}
 
 	private void selfLink(long locusId, Allele allele, double alleleValue) {

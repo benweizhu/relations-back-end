@@ -49,6 +49,15 @@ public class AlleleService {
 		}
 	}
 
+	public void removeAllele(long locusId, double alleleValue) {
+		LocusEntity locusEntity = locusRepository.findOne(locusId);
+		assertLocusExist(locusId, locusEntity);
+		AlleleEntity alleleEntity = alleleRepository.findByLocusIdAndAllele(locusId, alleleValue);
+		assertAlleleExist(locusId, alleleValue, alleleEntity);
+		alleleRepository.delete(alleleEntity);
+		alleleRepository.flush();
+	}
+
 	private AlleleEntity translateToAlleleEntity(Allele allele, LocusEntity locusEntity) {
 		AlleleEntity alleleEntity = new AlleleEntity();
 		alleleEntity.setAllele(allele.getAlleleValue());
@@ -70,6 +79,12 @@ public class AlleleService {
 		allele.setAlleleValue(alleleEntity.getAllele());
 		allele.setProbability(alleleEntity.getProbability());
 		return allele;
+	}
+
+	private void assertLocusExist(long locusId, LocusEntity locusEntity) {
+		if (locusEntity == null) {
+			throw new LocusNotFoundException(format(LOCUS_NOT_FOUND, locusId));
+		}
 	}
 
 	private void assertLocusExist(long locusId) {

@@ -19,8 +19,7 @@ import javax.transaction.Transactional;
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -113,6 +112,11 @@ public class AlleleControllerIntegrationTest {
 				.content(new ObjectMapper().writeValueAsString(allele)))
 				.andExpect(status().isConflict())
 				.andExpect(jsonPath("$.message", is("Allele 14.000000 already exist in Locus 2")));
+	}
+
+	@Test
+	public void shouldRemoveAlleleSuccessfully() throws Exception {
+		mockMvc.perform(delete("/loci/2/alleles/14")).andExpect(status().isNoContent());
 	}
 
 }

@@ -60,6 +60,15 @@ public class LocusEntity {
 		}
 	}
 
+	public void removeAllele(AlleleEntity alleleEntity) {
+		if (alleles.contains(alleleEntity)) {
+			alleles.remove(alleleEntity);
+		}
+		if (alleleEntity.getLocus() != null) {
+			alleleEntity.setLocus(null);
+		}
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
