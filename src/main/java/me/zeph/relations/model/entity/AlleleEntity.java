@@ -22,6 +22,18 @@ public class AlleleEntity {
 	@Column(name = "PROBABILITY")
 	private double probability;
 
+	public double getAllele() {
+		return allele;
+	}
+
+	public void setAllele(double allele) {
+		this.allele = allele;
+	}
+
+	public void setProbability(double probability) {
+		this.probability = probability;
+	}
+
 	public double getProbability() {
 		return probability;
 	}

@@ -13,3 +13,6 @@ INSERT INTO relr_kit_locus VALUES (5, 2, 2);
 
 INSERT INTO relt_location VALUES (1, 'Hubei');
 INSERT INTO relt_location VALUES (2, 'Sichuan');
+
+INSERT INTO relt_allele_probability VALUES (1, 2, 14, 0.0393);
+INSERT INTO relt_allele_probability VALUES (2, 2, 15, 0.3541);

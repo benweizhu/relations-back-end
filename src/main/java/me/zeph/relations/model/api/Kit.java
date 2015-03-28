@@ -5,6 +5,7 @@ import org.springframework.hateoas.ResourceSupport;
 
 @ApiModel
 public class Kit extends ResourceSupport {
+
 	private long kitId;
 	private String name;
 
