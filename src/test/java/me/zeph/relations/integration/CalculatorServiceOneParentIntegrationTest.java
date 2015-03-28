@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import me.zeph.relations.Application;
 import me.zeph.relations.model.api.OneParentLocusRecord;
 import me.zeph.relations.model.api.Unit;
-import me.zeph.relations.service.Calculator;
+import me.zeph.relations.service.CalculatorService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,10 +22,10 @@ import static org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
-public class CalculatorOneParentIntegrationTest {
+public class CalculatorServiceOneParentIntegrationTest {
 
 	@Autowired
-	private Calculator calculator;
+	private CalculatorService calculatorService;
 
 	private Unit c1;
 	private Unit c2;
@@ -39,7 +39,7 @@ public class CalculatorOneParentIntegrationTest {
 	private static final Unit A15 = new Unit(15, 0.3541d);
 	private static final Unit A16 = new Unit(16, 0.3410d);
 
-	public CalculatorOneParentIntegrationTest(Unit c1, Unit c2, Unit af1, Unit af2, double expectedPi) {
+	public CalculatorServiceOneParentIntegrationTest(Unit c1, Unit c2, Unit af1, Unit af2, double expectedPi) {
 		this.c1 = c1;
 		this.c2 = c2;
 		this.af1 = af1;
@@ -84,7 +84,7 @@ public class CalculatorOneParentIntegrationTest {
 	@Test
 	public void shouldFindFormulaByPatternAndCalculatePi() {
 		OneParentLocusRecord record = new OneParentLocusRecord(c1, c2, af1, af2);
-		double pi = calculator.calculatePi(record.getPattern(), record.getP(), record.getQ());
+		double pi = calculatorService.calculatePi(record.getPattern(), record.getP(), record.getQ());
 		assertEquals(expectedPi, pi, DELTA);
 	}
 }

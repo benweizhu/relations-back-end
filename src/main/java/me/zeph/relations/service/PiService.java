@@ -11,7 +11,7 @@ public class PiService {
 	private AlleleService alleleService;
 
 	@Autowired
-	private Calculator calculator;
+	private CalculatorService calculatorService;
 
 	public double calculateParentsPi(ParentsReqParam param) {
 		Unit c1 = getUnit(param.getLocus(), param.getC1());
@@ -21,7 +21,7 @@ public class PiService {
 		Unit af1 = getUnit(param.getLocus(), param.getAf1());
 		Unit af2 = getUnit(param.getLocus(), param.getAf2());
 		ParentsLocusRecord record = new ParentsLocusRecord(c1, c2, m1, m2, af1, af2);
-		return calculator.calculatePi(record.getPattern(), record.getP(), record.getQ());
+		return calculatorService.calculatePi(record.getPattern(), record.getP(), record.getQ());
 	}
 
 	public double calculateOneParentPi(OneParentReqParam param) {
@@ -30,7 +30,7 @@ public class PiService {
 		Unit af1 = getUnit(param.getLocus(), param.getAf1());
 		Unit af2 = getUnit(param.getLocus(), param.getAf2());
 		OneParentLocusRecord record = new OneParentLocusRecord(c1, c2, af1, af2);
-		return calculator.calculatePi(record.getPattern(), record.getP(), record.getQ());
+		return calculatorService.calculatePi(record.getPattern(), record.getP(), record.getQ());
 	}
 
 	private Unit getUnit(long locus, double alleleValue) {

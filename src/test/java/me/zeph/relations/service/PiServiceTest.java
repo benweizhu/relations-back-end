@@ -15,14 +15,14 @@ public class PiServiceTest {
 
 	private static final double DELTA_3 = 0.001;
 	private static final double DELTA_7 = 0.0000001;
-	private Calculator calculator;
+	private CalculatorService calculatorService;
 	private PiService piService;
 
 	@Before
 	public void setUp() throws Exception {
-		calculator = mock(Calculator.class);
+		calculatorService = mock(CalculatorService.class);
 		piService = new PiService();
-		setField(piService, "calculator", calculator);
+		setField(piService, "calculatorService", calculatorService);
 	}
 
 	@Test

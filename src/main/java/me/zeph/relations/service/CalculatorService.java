@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Calculator {
+public class CalculatorService {
 
 	private static final String P = "p";
 	private static final String Q = "q";
@@ -17,7 +17,7 @@ public class Calculator {
 	private JexlEngine calculateEngine;
 
 	@Autowired
-	public Calculator(FormulaDao formulaDao, JexlEngine calculateEngine) {
+	public CalculatorService(FormulaDao formulaDao, JexlEngine calculateEngine) {
 		this.formulaDao = formulaDao;
 		this.calculateEngine = calculateEngine;
 	}
