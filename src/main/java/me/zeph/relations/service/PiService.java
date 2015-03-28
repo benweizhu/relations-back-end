@@ -1,5 +1,8 @@
 package me.zeph.relations.service;
 
+import me.zeph.relations.model.OneParentLocusRecord;
+import me.zeph.relations.model.ParentsLocusRecord;
+import me.zeph.relations.model.Unit;
 import me.zeph.relations.model.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package me.zeph.relations.model.api;
+package me.zeph.relations.model;
 
 public class ParentsLocusRecord extends OneParentLocusRecord {
 

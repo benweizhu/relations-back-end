@@ -2,8 +2,8 @@ package me.zeph.relations.integration;
 
 import com.google.common.collect.Lists;
 import me.zeph.relations.Application;
-import me.zeph.relations.model.api.ParentsLocusRecord;
-import me.zeph.relations.model.api.Unit;
+import me.zeph.relations.model.ParentsLocusRecord;
+import me.zeph.relations.model.Unit;
 import me.zeph.relations.service.CalculatorService;
 import org.junit.Before;
 import org.junit.Test;
