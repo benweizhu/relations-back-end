@@ -48,15 +48,20 @@ public class AlleleEntity {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof AlleleEntity)) return false;
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof AlleleEntity)) {
+			return false;
+		}
 
 		AlleleEntity that = (AlleleEntity) o;
 
-		if (Double.compare(that.allele, allele) != 0) return false;
-		if (!locus.equals(that.locus)) return false;
+		if (Double.compare(that.allele, allele) != 0) {
+			return false;
+		}
 
-		return true;
+		return !locus.equals(that.locus) ? false : true;
 	}
 
 	@Override

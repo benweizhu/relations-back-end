@@ -44,11 +44,13 @@ public class AlleleControllerIntegrationTest {
 				.accept(APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(APPLICATION_JSON))
-				.andExpect(jsonPath("$", hasSize(2)))
+				.andExpect(jsonPath("$", hasSize(3)))
 				.andExpect(jsonPath("$[0].alleleValue", is(14.0)))
 				.andExpect(jsonPath("$[0].probability", is(0.0393)))
 				.andExpect(jsonPath("$[1].alleleValue", is(15.0)))
-				.andExpect(jsonPath("$[1].probability", is(0.3541)));
+				.andExpect(jsonPath("$[1].probability", is(0.3541)))
+				.andExpect(jsonPath("$[2].alleleValue", is(16.0)))
+				.andExpect(jsonPath("$[2].probability", is(0.3410)));
 	}
 
 	@Test
