@@ -33,7 +33,7 @@ public class LocationControllerIntegrationTest {
 	}
 
 	@Test
-	public void shouldReturnLocations() throws Exception {
+	public void shouldReturnLocationsSuccessfully() throws Exception {
 		mockMvc.perform(get("/locations")
 				.accept(APPLICATION_JSON))
 				.andExpect(status().isOk())
@@ -43,6 +43,24 @@ public class LocationControllerIntegrationTest {
 				.andExpect(jsonPath("$[0].name", is("Hubei")))
 				.andExpect(jsonPath("$[1].locationId", is(2)))
 				.andExpect(jsonPath("$[1].name", is("Sichuan")));
+	}
+
+	@Test
+	public void shouldReturnLocationByIdSuccessfully() throws Exception {
+		mockMvc.perform(get("/locations/1")
+				.accept(APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(APPLICATION_JSON))
+				.andExpect(jsonPath("$.locationId", is(1)))
+				.andExpect(jsonPath("$.name", is("Hubei")));
+	}
+
+	@Test
+	public void shouldReturnLocationNotFoundExceptionWhenGetLocationById() throws Exception {
+		mockMvc.perform(get("/locations/99")
+				.accept(APPLICATION_JSON))
+				.andExpect(status().isNotFound())
+				.andExpect(jsonPath("$.message", is("Location 99 not found")));
 	}
 
 }
