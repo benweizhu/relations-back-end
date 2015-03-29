@@ -13,14 +13,11 @@ public class CalculatorService {
 
 	private static final String P = "p";
 	private static final String Q = "q";
-	private FormulaDao formulaDao;
-	private JexlEngine calculateEngine;
 
 	@Autowired
-	public CalculatorService(FormulaDao formulaDao, JexlEngine calculateEngine) {
-		this.formulaDao = formulaDao;
-		this.calculateEngine = calculateEngine;
-	}
+	private FormulaDao formulaDao;
+	@Autowired
+	private JexlEngine calculateEngine;
 
 	public double calculatePi(String pattern, double p, double q) {
 		String formula = formulaDao.getFormulaByPattern(pattern);
