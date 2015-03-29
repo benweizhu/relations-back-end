@@ -77,7 +77,7 @@ public class KitControllerIntegrationTest {
 	}
 
 	@Test
-	public void shouldReturnKitCreate() throws Exception {
+	public void shouldCreateKitSuccessfully() throws Exception {
 		Kit kit = new Kit();
 		kit.setName("kitName");
 		mockMvc.perform(post("/kits")
@@ -87,7 +87,7 @@ public class KitControllerIntegrationTest {
 	}
 
 	@Test
-	public void shouldReturnKitConflict() throws Exception {
+	public void shouldReturnKitConflictExceptionWhenCreateKit() throws Exception {
 		Kit kit = new Kit();
 		kit.setName("AGCU211");
 		mockMvc.perform(post("/kits")
@@ -97,7 +97,15 @@ public class KitControllerIntegrationTest {
 	}
 
 	@Test
-	public void shouldReturnKitDelete() throws Exception {
-		mockMvc.perform(delete("/kits/1")).andExpect(status().isNoContent());
+	public void shouldDeleteKitSuccessfully() throws Exception {
+		mockMvc.perform(delete("/kits/1"))
+				.andExpect(status().isNoContent());
+	}
+
+	@Test
+	public void shouldReturnKitNotExistExceptionWhenDeleteKit() throws Exception {
+		mockMvc.perform(delete("/kits/99"))
+				.andExpect(status().isNotFound())
+				.andExpect(jsonPath("$.message", is("Kit 99 not found")));
 	}
 }
