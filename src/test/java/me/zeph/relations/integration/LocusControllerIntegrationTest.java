@@ -49,6 +49,15 @@ public class LocusControllerIntegrationTest {
 	}
 
 	@Test
+	public void shouldReturnKitNotFoundWhenGetLocusById() throws Exception {
+		mockMvc.perform(get("/kits/99/loci/1")
+				.accept(APPLICATION_JSON))
+				.andExpect(status().isNotFound())
+				.andExpect(content().contentType(APPLICATION_JSON))
+				.andExpect(jsonPath("$.message", is("Kit 99 not found")));
+	}
+
+	@Test
 	public void shouldReturnAlleleByKitIdAndAlleleId() throws Exception {
 		mockMvc.perform(get("/kits/1/loci/1")
 				.accept(APPLICATION_JSON))
@@ -56,6 +65,15 @@ public class LocusControllerIntegrationTest {
 				.andExpect(content().contentType(APPLICATION_JSON))
 				.andExpect(jsonPath("$.locusId", is(1)))
 				.andExpect(jsonPath("$.name", is("D1GATA113")));
+	}
+
+	@Test
+	public void shouldReturnKitNotFoundWhenGetAlleleByKitIdAndAlleleId() throws Exception {
+		mockMvc.perform(get("/kits/99/loci/1")
+				.accept(APPLICATION_JSON))
+				.andExpect(status().isNotFound())
+				.andExpect(content().contentType(APPLICATION_JSON))
+				.andExpect(jsonPath("$.message", is("Kit 99 not found")));
 	}
 
 	@Test
@@ -68,16 +86,7 @@ public class LocusControllerIntegrationTest {
 	}
 
 	@Test
-	public void shouldReturnKitNotFoundWhenGetLocusById() throws Exception {
-		mockMvc.perform(get("/kits/99/loci/1")
-				.accept(APPLICATION_JSON))
-				.andExpect(status().isNotFound())
-				.andExpect(content().contentType(APPLICATION_JSON))
-				.andExpect(jsonPath("$.message", is("Kit 99 not found")));
-	}
-
-	@Test
-	public void shouldReturnLocusCreated() throws Exception {
+	public void shouldAddLocusSuccessfully() throws Exception {
 		Locus value = new Locus();
 		value.setName("alleleName");
 		mockMvc.perform(post("/kits/1/loci/")
@@ -87,7 +96,7 @@ public class LocusControllerIntegrationTest {
 	}
 
 	@Test
-	public void shouldReturnLocusConflict() throws Exception {
+	public void shouldReturnLocusConflictWhenAddLocus() throws Exception {
 		Locus value = new Locus();
 		value.setName("D1GATA113");
 		mockMvc.perform(post("/kits/1/loci/")
