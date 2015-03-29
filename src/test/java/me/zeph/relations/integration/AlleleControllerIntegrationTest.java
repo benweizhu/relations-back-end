@@ -118,7 +118,22 @@ public class AlleleControllerIntegrationTest {
 
 	@Test
 	public void shouldRemoveAlleleSuccessfully() throws Exception {
-		mockMvc.perform(delete("/loci/4/alleles/14")).andExpect(status().isNoContent());
+		mockMvc.perform(delete("/loci/4/alleles/14"))
+				.andExpect(status().isNoContent());
+	}
+
+	@Test
+	public void shouldReturnLocusNotFoundExceptionWhenRemoveAllele() throws Exception {
+		mockMvc.perform(delete("/loci/99/alleles/14"))
+				.andExpect(status().isNotFound())
+				.andExpect(jsonPath("$.message", is("Locus 99 not found")));
+	}
+
+	@Test
+	public void shouldReturnAlleleNotFoundExceptionWhenRemoveAllele() throws Exception {
+		mockMvc.perform(delete("/loci/4/alleles/99"))
+				.andExpect(status().isNotFound())
+				.andExpect(jsonPath("$.message", is("Allele 99.000000 not found in Locus 4")));
 	}
 
 }
