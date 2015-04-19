@@ -1,7 +1,6 @@
 package me.zeph.relations.service;
 
 import me.zeph.relations.model.api.CPIValue;
-import me.zeph.relations.model.api.CpiParam;
 import me.zeph.relations.model.api.RCPValue;
 import me.zeph.relations.model.api.RcpParam;
 import org.junit.Before;
@@ -27,9 +26,7 @@ public class PiServiceTest {
 
 	@Test
 	public void shouldCalculateCPI() {
-		CpiParam cpiParam = new CpiParam();
-		cpiParam.setPis(new double[]{0.5d, 0.5d, 0.5d});
-		CPIValue cpi = piService.calculateCPI(cpiParam);
+		CPIValue cpi = piService.calculateCPI(new double[]{0.5d, 0.5d, 0.5d});
 		assertEquals(0.125, cpi.getValue(), DELTA_3);
 	}
 

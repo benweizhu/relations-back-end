@@ -40,9 +40,8 @@ public class PiService {
 		return new Unit(alleleValue, alleleService.getAllele(locus, alleleValue).getProbability());
 	}
 
-	public CPIValue calculateCPI(CpiParam cpiParam) {
+	public CPIValue calculateCPI(double[] pis) {
 		double cpi = 1;
-		double[] pis = cpiParam.getPis();
 		for (double pi : pis) {
 			cpi = cpi * pi;
 		}

@@ -39,8 +39,8 @@ public class PiController {
 	@ApiOperation(value = "Get Cpi")
 	@RequestMapping(value = "/cpi", produces = APPLICATION_JSON_VALUE)
 	@ResponseStatus(OK)
-	public CPIValue getCPI(@RequestBody CpiParam cpiParam) {
-		return piService.calculateCPI(cpiParam);
+	public CPIValue getCPI(@RequestBody double[] pis) {
+		return piService.calculateCPI(pis);
 	}
 
 	@ApiOperation(value = "Get Rcp")

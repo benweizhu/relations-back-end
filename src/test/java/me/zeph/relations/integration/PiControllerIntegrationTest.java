@@ -1,7 +1,6 @@
 package me.zeph.relations.integration;
 
 import me.zeph.relations.Application;
-import me.zeph.relations.model.api.CpiParam;
 import me.zeph.relations.model.api.OneParentReqParam;
 import me.zeph.relations.model.api.RcpParam;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -59,11 +58,9 @@ public class PiControllerIntegrationTest {
 
 	@Test
 	public void shouldReturnCpi() throws Exception {
-		CpiParam cpiParam = new CpiParam();
-		cpiParam.setPis(new double[]{0.5d, 0.5d, 0.5d});
 		mockMvc.perform(post("/pi/cpi")
 				.contentType(APPLICATION_JSON)
-				.content(objectMapper.writeValueAsBytes(cpiParam)))
+				.content(objectMapper.writeValueAsBytes(new double[]{0.5d, 0.5d, 0.5d})))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.value", is(0.125)));
 	}
