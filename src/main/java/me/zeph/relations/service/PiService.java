@@ -48,8 +48,7 @@ public class PiService {
 		return new CPIValue(cpi);
 	}
 
-	public RCPValue calculateRCP(RcpParam rcpParam) {
-		double cpi = rcpParam.getCpi();
+	public RCPValue calculateRCP(double cpi) {
 		return new RCPValue(cpi / (1 + cpi));
 	}
 

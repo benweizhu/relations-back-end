@@ -2,7 +2,6 @@ package me.zeph.relations.service;
 
 import me.zeph.relations.model.api.CPIValue;
 import me.zeph.relations.model.api.RCPValue;
-import me.zeph.relations.model.api.RcpParam;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,9 +31,7 @@ public class PiServiceTest {
 
 	@Test
 	public void shouldCalculateRCP() {
-		RcpParam rcpParam = new RcpParam();
-		rcpParam.setCpi(0.125);
-		RCPValue rcpValue = piService.calculateRCP(rcpParam);
+		RCPValue rcpValue = piService.calculateRCP(0.125);
 		assertEquals(0.1111111, rcpValue.getValue(), DELTA_7);
 	}
 

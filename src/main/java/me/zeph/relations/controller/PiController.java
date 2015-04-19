@@ -46,8 +46,8 @@ public class PiController {
 	@ApiOperation(value = "Get Rcp")
 	@RequestMapping(value = "/rcp", produces = APPLICATION_JSON_VALUE)
 	@ResponseStatus(OK)
-	public RCPValue getRCP(@RequestBody RcpParam rcpParam) {
-		return piService.calculateRCP(rcpParam);
+	public RCPValue getRCP(@RequestBody double cpi) {
+		return piService.calculateRCP(cpi);
 	}
 
 }
